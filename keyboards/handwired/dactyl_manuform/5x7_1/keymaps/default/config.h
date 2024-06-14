@@ -18,23 +18,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #define MASTER_LEFT
-//#define MASTER_RIGHT
-
-//#define EE_HANDS
-
-#define SPLIT_HAND_PIN GP1
 
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 200U
-#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP17
 
-
-#define HAL_USE_SERIAL TRUE
-#define SERIAL_USART_TX_PIN GP1     // The GPIO pin that is used split communication.
-
-#define HAL_USE_SIO TRUE
-
-#define USE_SERIAL
-#define SERIAL_USART_HALF_DUPLEX
+#define SERIAL_USART_FULL_DUPLEX   // Enable full duplex operation mode
+// #define SERIAL_USART_HALF_DUPLEX   // Enable half duplex operation mode
+#define SERIAL_USART_RX_PIN GP0
 #define SERIAL_USART_TX_PIN GP1
 
+#define SPLIT_HAND_PIN GP26 // Shunt from 3v to GP26 on left side
+
+#define SPLIT_USB_DETECT
+
+
+// #define ENCODERS_PAD_A { GP27 }
+// #define ENCODERS_PAD_B { GP28 }
