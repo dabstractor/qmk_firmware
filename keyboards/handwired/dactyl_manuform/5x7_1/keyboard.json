@@ -3,7 +3,8 @@
     "keyboard_name": "Dactyl-Manuform (5x7-1)",
     "maintainer": "dabstractor",
     "url": "",
-    "bootloader": "rp2040",
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "diode_direction": "COL2ROW",
 
     "bootmagic": {
@@ -20,23 +21,18 @@
     },
 
     "matrix_pins": {
-        "rows": [ "GP2", "GP3", "GP4", "GP5", "GP6", "GP7" ],
-        "cols": [ "GP9", "GP10", "GP11", "GP12", "GP13", "GP14", "GP15" ]
+        "cols": ["F5", "F6", "F7", "B1", "B3", "B2", "B6"],
+        "rows": ["D4", "C6", "D7", "E6", "B4", "B5"]
     },
 
     "split": {
         "enabled": true,
+        "soft_serial_pin": "D0",
         "handedness": {
-            "pin": "GP8"
+            "pin": "D1"
         },
         "bootmagic": {
             "matrix": [8, 6]
-        },
-        "matrix_pins": {
-            "right": {
-                "rows": [ "GP2", "GP3", "GP4", "GP5", "GP6", "GP7" ],
-                "cols": [ "GP15", "GP14", "GP13", "GP12", "GP11", "GP10", "GP9" ]
-            }
         },
         "transport": {
             "protocol": "serial",
@@ -59,12 +55,10 @@
         }
     },
 
-    "processor": "RP2040",
-
     "usb": {
-        "device_version": "1.0.0",
-        "pid": "0x0000",
-        "vid": "0xFEED"
+        "vid": "0x444D",
+        "pid": "0x3537",
+        "device_version": "0.0.1"
     },
 
     "leader_key": {
