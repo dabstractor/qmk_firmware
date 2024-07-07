@@ -11,10 +11,13 @@
         "matrix": [2, 0]
     },
 
-    "encoders": {
-        "pin_a": "GP29",
-        "pin_b": "GP28",
-        "resolution": 4
+    "encoder": {
+        "enabled": true,
+        "rotary": [{
+            "pin_a": "GP29",
+            "pin_b": "GP28",
+            "resolution": 4
+        }]
     },
 
     "features": {
@@ -22,7 +25,8 @@
         "bootmagic": true,
         "nkro": true,
         "console": true,
-        "command": true
+        "command": true,
+        "encoder": true
     },
 
     "matrix_pins": {
@@ -34,11 +38,6 @@
         "enabled": true,
         "bootmagic": {
             "matrix": [8, 6]
-        },
-        "matrix_pins": {
-            "right": {
-                "cols": [ "GP15", "GP14", "GP13", "GP12", "GP11", "GP10", "GP9" ]
-            }
         },
         "transport": {
             "protocol": "serial",
@@ -68,10 +67,6 @@
         "device_version": "1.0.0",
         "pid": "0x0000",
         "vid": "0xFEED"
-    },
-
-    "usb_detect": {
-        "enabled": true
     },
 
     "leader_key": {
