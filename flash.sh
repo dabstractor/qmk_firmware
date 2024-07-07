@@ -8,6 +8,7 @@ if [ -n "$SIDE" ]; then
 fi
 
 echo $PARAMS
+./mount.sh &
 
 qmk $PARAMS
 
