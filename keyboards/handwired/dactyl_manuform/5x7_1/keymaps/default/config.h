@@ -17,21 +17,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define MASTER_LEFT
-// #define DEBOUNCE 5
-// #define EE_HANDS
-// #define USE_SERIAL
+#define MASTER_RIGHT
+#define EE_HANDS
 
 #define SERIAL_USART_FULL_DUPLEX // Enable full duplex operation mode.
 #define SERIAL_USART_TX_PIN GP0  // USART TX pin
 #define SERIAL_USART_RX_PIN GP1  // USART RX pin
-// #define SERIAL_USART_TX_PIN GP0
-
-// #define SPLIT_HAND_PIN GP8 // Shunt from 3v to GP26 on left side
 
 
 #define ENCODER_BUTTON_PIN GP27
-// #define	SPLIT_HAND_PIN_LOW_IS_LEFT
-
-// #define SOFT_SERIAL_PIN GP0
 
