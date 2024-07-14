@@ -24,6 +24,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SERIAL_USART_TX_PIN GP0  // USART TX pin
 #define SERIAL_USART_RX_PIN GP1  // USART RX pin
 
-
-#define ENCODER_BUTTON_PIN GP27
+#define DIP_SWITCH_PINS { GP27 }
 
