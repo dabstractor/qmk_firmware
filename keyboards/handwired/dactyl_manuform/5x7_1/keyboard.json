@@ -17,7 +17,8 @@
     "bootmagic": true,
     "nkro": true,
     "console": true,
-    "command": true
+    "command": true,
+    "encoder": true
   },
 
   "matrix_pins": {
@@ -47,6 +48,7 @@
       "watchdog": true,
       "watchdog_timeout": 5000,
       "sync": {
+        "activity": true,
         "matrix_state": true,
         "detected_os": true,
         "layer_state": true,
@@ -71,6 +73,10 @@
 
   "leader_key": {
     "enable": true
+  },
+
+  "mouse_key": {
+    "enabled": true
   },
 
   "layouts": {
