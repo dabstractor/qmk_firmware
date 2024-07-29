@@ -20,13 +20,27 @@
         }]
     },
 
+    "dip_switch": {
+        "enabled": true,
+        "pins": [ "GP27" ]
+    },
+
     "features": {
-        "extrakey": true,
         "bootmagic": true,
-        "nkro": true,
+        "caps_word": true,
         "console": true,
         "command": true,
-        "encoder": true
+        "encoder_map": true,
+        "dip_switch": true,
+        "encoder": true,
+        "extrakey": true,
+        "nkro": true
+    },
+
+    "caps_word": {
+        "enabled": true,
+        "both_shifts_turns_on": true,
+        "double_tap_shift_turns_on": true
     },
 
     "matrix_pins": {
@@ -36,6 +50,16 @@
 
     "split": {
         "enabled": true,
+        "matrix_pins": {
+            "right": {
+                "cols": [ "GP15", "GP14", "GP13", "GP12", "GP11", "GP10", "GP9" ]
+            }
+        },
+        "dip_switch": {
+            "right": {
+                "pins": [ "GP27" ]
+            }
+        },
         "bootmagic": {
             "matrix": [8, 6]
         },
@@ -165,10 +189,10 @@
 
                 { "matrix": [ 10, 1 ], "x": 14, "y": 4 },
                 { "matrix": [ 10, 2 ], "x": 15, "y": 4 },
-                { "matrix": [ 11, 3 ], "x": 9, "y": 6 },
-                { "matrix": [ 11, 4 ], "x": 10, "y": 6 },
                 { "matrix": [ 11, 1 ], "x": 9, "y": 7 },
                 { "matrix": [ 11, 2 ], "x": 10, "y": 7 },
+                { "matrix": [ 11, 3 ], "x": 9, "y": 6 },
+                { "matrix": [ 11, 4 ], "x": 10, "y": 6 },
             ]
 
         }
