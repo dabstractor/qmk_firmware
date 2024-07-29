@@ -17,12 +17,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define MASTER_RIGHT
 #define EE_HANDS
 
 #define SERIAL_USART_FULL_DUPLEX // Enable full duplex operation mode.
 #define SERIAL_USART_TX_PIN GP0  // USART TX pin
 #define SERIAL_USART_RX_PIN GP1  // USART RX pin
 
-#define DIP_SWITCH_PINS { GP27 }
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
 
+// #define DIP_SWITCH_PINS { GP27 }
+// #define DIP_SWITCH_PINS_RIGHT { GP27 }
