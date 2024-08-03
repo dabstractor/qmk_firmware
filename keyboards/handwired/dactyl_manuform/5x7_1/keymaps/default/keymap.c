@@ -32,9 +32,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                       TT(_NUMPAD), TT(_FN),
         // right hand
         KC_PRINT_SCREEN,  KC_6,  KC_7,   KC_8,     KC_9,     KC_0,     KC_LBRC,
-        KC_PGUP,          KC_Y,  KC_U,   KC_I,     KC_O,     KC_P,     KC_RBRC,
-        KC_PGDN,          KC_H,  KC_J,   KC_K,     KC_L,     KC_SCLN,  KC_QUOT,
-        TAB_R,            KC_N,  KC_M,   KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,
+        KC_CALC,          KC_Y,  KC_U,   KC_I,     KC_O,     KC_P,     KC_RBRC,
+        KC_PGUP,          KC_H,  KC_J,   KC_K,     KC_L,     KC_SCLN,  KC_QUOT,
+        KC_PGDN,          KC_N,  KC_M,   KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,
                                          KC_MINS,  KC_EQL,   KC_BSLS,  TO(_CMD),
         KC_SPC,   KC_ENT,
         KC_BSPC,  KC_RCTL,
@@ -52,14 +52,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                  _______, _______,
                                                                  _______, _______,
         // right hand
-        KC_F11,    _______,   _______,   _______,   _______,   _______,   QK_BOOT,
-        KC_F12,    KC_F6,     KC_F7,      KC_F8,    KC_F9,     KC_F10,    _______,
-        KC_F13,    TAB_L,     _______,    KC_UP,    TAB_R,     _______,   _______,
-        KC_F14,    _______,   KC_LEFT,    KC_DOWN,  KC_RGHT,   _______,   _______,
-                                         _______,   _______,   _______,   _______,
-        KC_DEL,    _______,
-        _______,   _______,
-        _______,   _______
+        KC_F11,   _______,   _______,   _______,   _______,   _______,   QK_BOOT,
+        KC_F12,   KC_F6,     KC_F7,      KC_F8,    KC_F9,     KC_F10,    _______,
+        KC_F13,   TAB_L,     _______,    KC_UP,    TAB_R,     _______,   _______,
+        KC_F14,   _______,   KC_LEFT,    KC_DOWN,  KC_RGHT,   _______,   _______,
+                                        _______,   _______,   _______,   _______,
+        KC_DEL,   _______,
+        _______,  _______,
+        _______,  _______
     ),
 
     [_NUMPAD] = LAYOUT_5x7_1(
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                   _______,  _______,
 
         // right hand
-        _______,   _______,   KC_NUM,    _______,   KC_PMNS,   KC_PPLS,   _______,
+        _______,   _______,   _______,   _______,   KC_PMNS,   KC_PPLS,   _______,
         _______,   KC_6,      KC_P7,     KC_P8,     KC_P9,     KC_0,      _______,
         _______,   _______,   KC_P4,     KC_P5,     KC_P6,     KC_PAST,   _______,
         _______,   _______,   KC_P1,     KC_P2,     KC_P3,     KC_PSLS,   _______,
