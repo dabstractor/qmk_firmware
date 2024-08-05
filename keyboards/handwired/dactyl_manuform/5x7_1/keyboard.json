@@ -29,7 +29,8 @@
         "encoder_map": true,
         "encoder": true,
         "extrakey": true,
-        "nkro": true
+        "nkro": true,
+        "tri_layer": true
     },
 
     "caps_word": {
