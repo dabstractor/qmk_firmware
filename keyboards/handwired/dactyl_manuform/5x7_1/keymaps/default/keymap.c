@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_CALC,          KC_Y,  KC_U,   KC_I,     KC_O,     KC_P,     KC_RBRC,
         KC_PGUP,          KC_H,  KC_J,   KC_K,     KC_L,     KC_SCLN,  KC_QUOT,
         KC_PGDN,          KC_N,  KC_M,   KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,
-                                         KC_MINS,  KC_EQL,   KC_BSLS,  TO(_CMD),
+                                         KC_MINS,  KC_EQL,   KC_BSLS,  TG(_CMD),
         KC_SPC,   KC_ENT,
         KC_BSPC,  KC_RCTL,
         KC_RGUI,  KC_RALT
@@ -57,8 +57,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_F13,   TAB_L,     _______,    KC_UP,    TAB_R,     _______,   _______,
         KC_F14,   _______,   KC_LEFT,    KC_DOWN,  KC_RGHT,   _______,   _______,
                                         _______,   _______,   _______,   _______,
-        KC_DEL,   _______,
         _______,  _______,
+        KC_DEL,   _______,
         _______,  _______
     ),
 
@@ -141,6 +141,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+layer_state_t layer_state_set_user(layer_state_t state) {
+    // when layers _FN and _NUMPAD are active, _CMD is active
+    state = update_tri_layer_state(state, _FN, _NUMPAD, _CMD);
+    return state;
+}
 // combo_t key_combos[] = {
 //     COMBO({KC_SPC, KC_SPC, COMBO_END})
 // }
