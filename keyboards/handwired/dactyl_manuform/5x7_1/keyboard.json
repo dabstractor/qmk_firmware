@@ -8,7 +8,7 @@
 
     "bootmagic": {
         "enabled": true,
-        "matrix": [2, 0]
+        "matrix": [0, 0]
     },
 
     "encoder": {
@@ -51,7 +51,7 @@
             }
         },
         "bootmagic": {
-            "matrix": [8, 6]
+            "matrix": [6, 6]
         },
         "transport": {
             "protocol": "serial",
