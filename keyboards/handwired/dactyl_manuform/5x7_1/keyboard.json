@@ -77,6 +77,10 @@
 
     "processor": "RP2040",
 
+    "tapping": {
+        "toggle": 1
+    },
+
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0000",
