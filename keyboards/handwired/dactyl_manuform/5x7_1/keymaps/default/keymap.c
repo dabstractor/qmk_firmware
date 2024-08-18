@@ -17,7 +17,7 @@
 #define TAB_RO LCTL(LSFT(KC_T))
 
 enum custom_keycodes {
-    DBL_SPC = SAFE_RANGE,
+    DBL_SPACE = SAFE_RANGE,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,    KC_A,        KC_S,    KC_D,   KC_F,   KC_G,   KC_HOME,
         KC_LSFT,   KC_Z,        KC_X,    KC_C,   KC_V,   KC_B,   KC_END,
         KC_CAPS,   TT(_MOUSE),  KC_LBRC, KC_RBRC,
-                                                      OSL(_CMD),   KC_LCTL,
+                                                      TT(_MOUSE),  KC_LCTL,
                                                       KC_LALT,     KC_LGUI,
                                                       TT(_NUMPAD), TT(_FN),
         // right hand
@@ -102,9 +102,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         QK_DYNAMIC_MACRO_PLAY_2,          _______,   _______,   _______,   _______,   _______,   _______,
         _______,                          _______,   _______,   _______,   _______,   _______,   _______,
                                           _______,   _______,   _______,   _______,
-        DBL_SPC,   _______,
-        _______,   _______,
-        _______,   _______
+        _______,  _______,
+        _______,  _______,
+        _______,  _______
     ),
 
     [_MOUSE] = LAYOUT_5x7_1(
@@ -114,19 +114,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TO(_QWERTY),  _______,  _______,     KC_MS_UP,    _______,      _______,  _______,
         _______,      _______,  KC_MS_LEFT,  KC_MS_DOWN,  KC_MS_RIGHT,  _______,  _______,
         _______,      _______,  _______,     _______,
-                                                                  _______, _______,
-                                                                  _______, _______,
-                                                                  _______, _______,
+                                                                  _______,  _______,
+                                                                  _______,  _______,
+                                                                  _______,  _______,
 
         // right hand
         _______,  _______,     _______,     _______,     _______,      _______,  _______,
         _______,  _______,     KC_MS_BTN1,  KC_MS_BTN2,  KC_MS_BTN3,   _______,  _______,
-        _______,  KC_MS_BTN4,  _______,     KC_MS_UP,    KC_MS_BTN5,      _______,  _______,
-        _______,  _______,     KC_MS_LEFT,  KC_MS_DOWN,  KC_MS_RIGHT,   _______,  _______,
-                                         _______,     _______,      _______,  _______,
-        _______,   _______,
-        _______,   _______,
-        TT(_FN),   TT(_NUMPAD)
+        _______,  KC_MS_BTN4,  _______,     KC_MS_UP,    KC_MS_BTN5,   _______,  _______,
+        _______,  _______,     KC_MS_LEFT,  KC_MS_DOWN,  KC_MS_RIGHT,  _______,  _______,
+                                            _______,     _______,      _______,  _______,
+        DBL_SPACE,  _______,
+        _______,    _______,
+        TT(_FN),    TT(_NUMPAD)
     ),
 };
 
@@ -155,7 +155,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
 
     switch (keycode) {
-        case DBL_SPC:
+        case DBL_SPACE:
             if (record->event.pressed) {
             } else {
                 SEND_STRING("  ");
@@ -170,6 +170,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, _FN, _NUMPAD, _CMD);
     return state;
 }
+
 // combo_t key_combos[] = {
 //     COMBO({KC_SPC, KC_SPC, COMBO_END})
 // }
