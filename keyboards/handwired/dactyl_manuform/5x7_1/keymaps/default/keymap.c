@@ -200,6 +200,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TD(TD_TG_VIM),  _______,
         _______
     ),
+
 };
 
 #if defined(ENCODER_MAP_ENABLE)
