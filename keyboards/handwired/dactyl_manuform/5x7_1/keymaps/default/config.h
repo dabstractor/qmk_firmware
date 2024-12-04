@@ -28,3 +28,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_MOVE_DELTA 4
 #define MOUSEKEY_MAX_SPEED 20
 #define MOUSEKEY_TIME_TO_MAX 50
+
+#define BETTER_VIM_MODE
+#define VIM_G_MOTIONS
+#define VIM_PASTE_BEFORE
+#define VIM_REPLACE
+#define VIM_DOT_REPEAT
+#define VIM_W_BEGINNING_OF_WORD
+#define VIM_NUMBERED_JUMPS
