@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "qmk-vim/src/vim.h"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -19,6 +20,7 @@
 enum custom_keycodes {
     DBL_SPACE = SAFE_RANGE,
     CLICK_THIS_SPOT,
+    TOGGLE_VIM
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -37,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MS_BTN1,       KC_Y,  KC_U,   KC_I,     KC_O,    KC_P,      KC_BSLS,
         KC_HOME,          KC_H,  KC_J,   KC_K,     KC_L,    KC_SCLN,   KC_QUOT,
         KC_END,           KC_N,  KC_M,   KC_COMM,  KC_DOT,  KC_SLSH,   KC_RSFT,
-                                         KC_MINS,  KC_EQL,  TT(_CMD),  TG(_CMD),
+                                         KC_MINS,  KC_EQL,  TT(_CMD),  TOGGLE_VIM,
         KC_SPC,   KC_ENT,
         KC_BSPC,  KC_RCTL,
         KC_RGUI,  KC_RALT
@@ -129,6 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,    _______,
         TT(_FN),    TT(_NUMPAD)
     ),
+
 };
 
 #if defined(ENCODER_MAP_ENABLE)
@@ -155,12 +158,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %u, time: %5u, int: %u, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
 #endif
 
+    if (!process_vim_mode(keycode, record)) {
+        return false;
+    }
+
     switch (keycode) {
         case DBL_SPACE:
             if (!record->event.pressed) {
                 SEND_STRING("  ");
             }
             break;
+        case TOGGLE_VIM:
+            if (record->event.pressed) {
+                toggle_vim_mode();
+            }
+            return false;
         case CLICK_THIS_SPOT:
             if (!record->event.pressed) {
                 tap_code(KC_MS_UP);
