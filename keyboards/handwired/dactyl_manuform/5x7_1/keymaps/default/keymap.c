@@ -1,5 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "qmk-vim/src/vim.h"
+#include "leader.h"
+#include "./secrets.h"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -20,7 +22,7 @@
 enum custom_keycodes {
     DBL_SPACE = SAFE_RANGE,
     CLICK_THIS_SPOT,
-    TOGGLE_VIM
+    TOGGLE_VIM,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -117,9 +119,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TO(_QWERTY),  _______,  _______,     KC_MS_UP,    _______,      _______,  _______,
         _______,      _______,  KC_MS_LEFT,  KC_MS_DOWN,  KC_MS_RIGHT,  _______,  _______,
         _______,      _______,  _______,     _______,
-                                                                  _______,  _______,
-                                                                  _______,  _______,
-                                                                  _______,  _______,
+                                                                        _______,  _______,
+                                                                        _______,  _______,
+                                                                        _______,  _______,
 
         // right hand
         _______,  _______,     _______,     _______,     _______,      _______,  _______,
@@ -127,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  KC_MS_BTN4,  _______,     KC_MS_UP,    KC_MS_BTN5,   _______,  _______,
         _______,  _______,     KC_MS_LEFT,  KC_MS_DOWN,  KC_MS_RIGHT,  _______,  _______,
                                             _______,     _______,      _______,  _______,
-        DBL_SPACE,  _______,
+        DBL_SPACE,  QK_LEAD,
         _______,    _______,
         TT(_FN),    TT(_NUMPAD)
     ),
@@ -188,6 +190,25 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     // when layers _FN and _NUMPAD are active, _CMD is active
     state = update_tri_layer_state(state, _FN, _NUMPAD, _CMD);
     return state;
+}
+
+void leader_start_user(void) {}
+
+void leader_end_user(void) {
+    if (leader_sequence_two_keys(KC_U, KC_A)) {
+        SEND_STRING(USERNAME1);
+    } else if (leader_sequence_two_keys(KC_U, KC_S)) {
+        SEND_STRING(USERNAME2);
+    } else if (leader_sequence_two_keys(KC_U, KC_D)) {
+        SEND_STRING(USERNAME3);
+    } else if (leader_sequence_two_keys(KC_P, KC_A)) {
+        SEND_STRING(PASSWORD1);
+    } else if (leader_sequence_two_keys(KC_P, KC_S)) {
+        SEND_STRING(PASSWORD2);
+    } else if (leader_sequence_two_keys(KC_J, KC_I)) {
+        SEND_STRING("https://jitsi.mulletware.io/");
+    }
+
 }
 
 // combo_t key_combos[] = {
