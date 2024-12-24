@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "qmk-vim/src/vim.h"
+#include "./secrets.h"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -20,7 +21,9 @@
 enum custom_keycodes {
     DBL_SPACE = SAFE_RANGE,
     CLICK_THIS_SPOT,
-    TOGGLE_VIM
+    TOGGLE_VIM,
+    KC_PASSWORD1,
+    KC_PASSWORD2
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -122,11 +125,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                   _______,  _______,
 
         // right hand
-        _______,  _______,     _______,     _______,     _______,      _______,  _______,
-        _______,  _______,     KC_MS_BTN1,  KC_MS_BTN2,  KC_MS_BTN3,   _______,  _______,
-        _______,  KC_MS_BTN4,  _______,     KC_MS_UP,    KC_MS_BTN5,   _______,  _______,
-        _______,  _______,     KC_MS_LEFT,  KC_MS_DOWN,  KC_MS_RIGHT,  _______,  _______,
-                                            _______,     _______,      _______,  _______,
+        KC_PASSWORD1,  _______,     _______,     _______,     _______,      _______,  _______,
+        KC_PASSWORD2,  _______,     KC_MS_BTN1,  KC_MS_BTN2,  KC_MS_BTN3,   _______,  _______,
+        _______,       KC_MS_BTN4,  _______,     KC_MS_UP,    KC_MS_BTN5,   _______,  _______,
+        _______,       _______,     KC_MS_LEFT,  KC_MS_DOWN,  KC_MS_RIGHT,  _______,  _______,
+                                                 _______,     _______,      _______,  _______,
         DBL_SPACE,  _______,
         _______,    _______,
         TT(_FN),    TT(_NUMPAD)
@@ -178,6 +181,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap_code(KC_MS_UP);
                 tap_code(KC_MS_DOWN);
                 tap_code(KC_MS_BTN1);
+            }
+            break;
+        case KC_PASSWORD1:
+            if (!record->event.pressed) {
+                SEND_STRING(PASSWORD1);
+            }
+            break;
+        case KC_PASSWORD2:
+            if (!record->event.pressed) {
+                SEND_STRING(PASSWORD2);
             }
             break;
     }
