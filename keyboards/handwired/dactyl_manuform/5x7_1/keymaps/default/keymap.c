@@ -138,6 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+                  // left                                                // right
     [_QWERTY] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),                      ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)  },
     [_FN]     = { ENCODER_CCW_CW(KC_BRIGHTNESS_DOWN, KC_BRIGHTNESS_UP),  ENCODER_CCW_CW(TAB_L, TAB_R) },
     [_NUMPAD] = { ENCODER_CCW_CW(KC_UP, KC_DOWN),                        ENCODER_CCW_CW(KC_LEFT, KC_RIGHT) },
