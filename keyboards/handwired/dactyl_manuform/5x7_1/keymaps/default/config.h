@@ -23,6 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SERIAL_USART_TX_PIN GP0  // USART TX pin
 #define SERIAL_USART_RX_PIN GP1  // USART RX pin
 
+#define ENCODER_DEFAULT_POS 0x3
+
 #define MK_COMBINED
 #define MOUSEKEY_DELAY 1
 #define MOUSEKEY_MOVE_DELTA 4
