@@ -24,7 +24,7 @@
         "bootmagic": true,
         "caps_word": true,
         "command": true,
-        "console": true,
+        "console": false,
         "dynamic_macro": true,
         "encoder_map": true,
         "encoder": true,
