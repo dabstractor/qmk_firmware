@@ -9,4 +9,6 @@ done
 
 sleep 2
 
-udisksctl mount -b /dev/$DEVICE
+while ! udisksctl mount -b /dev/$DEVICE; do
+    sleep 1
+done
