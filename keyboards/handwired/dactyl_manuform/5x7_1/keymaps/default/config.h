@@ -25,6 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ENCODER_DEFAULT_POS 0x3
 
+#define LEADER_NO_TIMEOUT
+
 #define MK_COMBINED
 #define MOUSEKEY_DELAY 1
 #define MOUSEKEY_MOVE_DELTA 4
