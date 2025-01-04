@@ -2,6 +2,7 @@
 #include "qmk-vim/src/vim.h"
 #include "leader.h"
 #include "./secrets.h"
+#include "./keycombos.h"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -196,25 +197,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 void leader_start_user(void) {}
 
 void leader_end_user(void) {
-    if (leader_sequence_two_keys(KC_U, KC_A)) {
-        SEND_STRING(USERNAME1);
-    } else if (leader_sequence_two_keys(KC_U, KC_S)) {
-        SEND_STRING(USERNAME2);
-    } else if (leader_sequence_two_keys(KC_U, KC_D)) {
-        SEND_STRING(USERNAME3);
-    } else if (leader_sequence_two_keys(KC_P, KC_A)) {
-        SEND_STRING(PASSWORD1);
-    } else if (leader_sequence_two_keys(KC_P, KC_S)) {
-        SEND_STRING(PASSWORD2);
-    } else if (leader_sequence_two_keys(KC_J, KC_I)) {
-        SEND_STRING("https://jitsi.mulletware.io/");
+    for (size_t i = 0; i < TWO_KEY_COMBOS_COUNT; ++i) {
+        if (leader_sequence_two_keys(two_key_combos[i].keys[0], two_key_combos[i].keys[1])) {
+            SEND_STRING(two_key_combos[i].string);
+            break;
+        }
     }
-
 }
-
-// combo_t key_combos[] = {
-//     COMBO({KC_SPC, KC_SPC, COMBO_END})
-// }
 
 // #if defined(DIP_SWITCH_MAP_ENABLE)
 // const uint16_t PROGMEM dip_switch_map[NUM_DIP_SWITCHES][NUM_DIP_STATES] = {
