@@ -20,6 +20,12 @@
         }]
     },
 
+    "leader_key": {
+        "enabled": true,
+        "timing": true,
+        "timeout": 100
+    },
+
     "features": {
         "bootmagic": true,
         "caps_word": true,
