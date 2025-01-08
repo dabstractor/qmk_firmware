@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,    KC_Q,        KC_W,    KC_E,   KC_R,   KC_T,   TG(_NUMPAD),
         KC_ESC,    KC_A,        KC_S,    KC_D,   KC_F,   KC_G,   KC_PGUP,
         KC_LSFT,   KC_Z,        KC_X,    KC_C,   KC_V,   KC_B,   KC_PGDN,
-        KC_CAPS,   TT(_MOUSE),  KC_LBRC, KC_RBRC,
+        KC_CAPS,   QK_LEAD,     KC_LBRC, KC_RBRC,
                                                       TT(_MOUSE),  KC_LCTL,
                                                       KC_LALT,     KC_LGUI,
                                                       TT(_NUMPAD), TT(_FN),
@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MS_BTN1,       KC_Y,  KC_U,   KC_I,     KC_O,    KC_P,      KC_BSLS,
         KC_HOME,          KC_H,  KC_J,   KC_K,     KC_L,    KC_SCLN,   KC_QUOT,
         KC_END,           KC_N,  KC_M,   KC_COMM,  KC_DOT,  KC_SLSH,   KC_RSFT,
-                                         KC_MINS,  KC_EQL,  TT(_CMD),  TOGGLE_VIM,
+                                         KC_MINS,  KC_EQL,  TG(_CMD),  TOGGLE_VIM,
         KC_SPC,   KC_ENT,
         KC_BSPC,  KC_RCTL,
         KC_RGUI,  KC_RALT
@@ -185,6 +185,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
     }
+
+
     return true;
 }
 
@@ -194,68 +196,39 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
-void leader_start_user(void) {}
-
 void leader_end_user(void) {
-    for (size_t i = 0; i < TWO_KEY_COMBOS_COUNT; ++i) {
-        if (leader_sequence_two_keys(two_key_combos[i].keys[0], two_key_combos[i].keys[1])) {
-            SEND_STRING(two_key_combos[i].string);
-            break;
+    for (size_t i = 0; i < KEY_COMBOS_COUNT; ++i) {
+        size_t length = 0;
+
+        for (size_t j = 0; j <= MAX_COMBO_KEYS; ++j) {
+            if (key_combos[i].keys[j] == KC_NO) {
+                length = j;
+                break;
+            }
+        }
+
+        switch (length) {
+            case 1:
+                if (leader_sequence_one_key(key_combos[i].keys[0]))
+                    SEND_STRING(key_combos[i].output);
+                break;
+            case 2:
+                if (leader_sequence_two_keys(key_combos[i].keys[0], key_combos[i].keys[1]))
+                    SEND_STRING(key_combos[i].output);
+                break;
+            case 3:
+                if (leader_sequence_three_keys(key_combos[i].keys[0], key_combos[i].keys[1], key_combos[i].keys[2]))
+                    SEND_STRING(key_combos[i].output);
+                break;
+            case 4:
+                if (leader_sequence_four_keys(key_combos[i].keys[0], key_combos[i].keys[1], key_combos[i].keys[2], key_combos[i].keys[3]))
+                    SEND_STRING(key_combos[i].output);
+            case 5:
+                if (leader_sequence_five_keys(key_combos[i].keys[0], key_combos[i].keys[1], key_combos[i].keys[2], key_combos[i].keys[3], key_combos[i].keys[4]))
+                    SEND_STRING(key_combos[i].output);
+                break;
+            default:
         }
     }
 }
-
-// #if defined(DIP_SWITCH_MAP_ENABLE)
-// const uint16_t PROGMEM dip_switch_map[NUM_DIP_SWITCHES][NUM_DIP_STATES] = {
-//
-//     // DIP_SWITCH_OFF_ON(
-//     //     tap_code(KC_A),
-//     //     tap_code(KC_B)
-//     // ),
-//     // DIP_SWITCH_OFF_ON(
-//     //     tap_code(KC_A),
-//     //     tap_code(KC_B)
-//     // )
-//     // DIP_SWITCH_OFF_ON(DF(0), DF(1))
-//     DIP_SWITCH_OFF_ON(MO(_NUMPAD), MO(_QWERTY))
-//     // DIP_SWITCH_OFF_ON(EC_NORM, EC_SWAP)
-// };
-// #endif
-
-// bool dip_switch_update_user(uint8_t index, bool active) {
-//     // if (is_keyboard_master()) {
-//     //     switch(index) {
-//     //         case 0: // _QWERTY layer
-//     //             if(active) {
-//     //                 tap_code(KC_A);
-//     //                 // tap_code(KC_MS_WH_RIGHT);
-//     //             } else {
-//     //                 // nothing
-//     //             }
-//     //     }
-//     // } else {
-//     //     // not being detected
-//     // }
-//     //     switch(index) {
-//     //         case 0: // _QWERTY layer
-//     //             if(active) {
-//     //                 tap_code(KC_B);
-//     //                 // tap_code(TAB_L);
-//     //             } else {
-//     //
-//     //             }
-//     //         break;
-//     //     }
-//     //     // Debugging output
-//     // }
-//     uprintf("DIP switch %d %s\n", index, active ? "active" : "inactive");
-//
-//     return true;
-// }
-
-// void keyboard_pre_init_user(void) {
-//     // Enable pull-up resistor on all DIP switch pins
-//     setPinInputHigh(GP27);
-// }
-
 
