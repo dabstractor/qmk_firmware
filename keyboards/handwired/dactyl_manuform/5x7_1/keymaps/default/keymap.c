@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         _______,   _______,   _______,   _______,
         _______,  _______,
         KC_DEL,   _______,
-        _______,  _______
+        QK_LEAD,  _______
     ),
 
     [_NUMPAD] = LAYOUT_5x7_1(
@@ -148,13 +148,31 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 };
 #endif
 
-void keyboard_post_init_user(void) {
-  // Customise these values to desired behaviour
-  debug_enable=true;
-  debug_matrix=true;
-  debug_keyboard=true;
-  //debug_mouse=true;
+#if defined(LEADER_ENABLE)
+// accepts up to 5 keys
+KeyCombo leader_keys[] = {
+    { KEYS(KC_U, KC_A), USERNAME1 },
+    { KEYS(KC_U, KC_S), USERNAME2 },
+    { KEYS(KC_U, KC_D), USERNAME3 },
+    { KEYS(KC_P, KC_A), PASSWORD1 SS_TAP(X_ENTER) },
+    { KEYS(KC_P, KC_S), PASSWORD2 SS_TAP(X_ENTER) },
+    { KEYS(KC_P, KC_D), PASSWORD2 SS_TAP(X_ENTER) },
+    { KEYS(KC_R, KC_I), "/right\n" },
+    { KEYS(KC_L, KC_E), "/left\n" },
+    { KEYS(KC_J, KC_I), SS_TAP(X_HOME) "https://jitsi.mulletware.io/\n" }  ,
+    { KEYS(KC_1, KC_1), "!-1:1" }
+};
+
+void leader_end_user(void) {
+    for (size_t i = 0; i < sizeof(leader_keys) / sizeof(leader_keys[0]); ++i) {
+        if (leader_keys[i].count > 0 && leader_keys[i].count <= MAX_COMBO_KEYS) {
+            if (leader(leader_keys[i].keys, leader_keys[i].count)) {
+                SEND_STRING(leader_keys[i].output);
+            }
+        }
+    }
 }
+#endif // LEADER
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
@@ -186,49 +204,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
     }
 
+    return true;
 
     return true;
+}
+
+void keyboard_post_init_user(void) {
+  // Customise these values to desired behaviour
+  debug_enable=true;
+  debug_matrix=true;
+  debug_keyboard=true;
+  //debug_mouse=true;
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     // when layers _FN and _NUMPAD are active, _CMD is active
     state = update_tri_layer_state(state, _FN, _NUMPAD, _CMD);
     return state;
-}
-
-void leader_end_user(void) {
-    for (size_t i = 0; i < KEY_COMBOS_COUNT; ++i) {
-        size_t length = 0;
-
-        for (size_t j = 0; j <= MAX_COMBO_KEYS; ++j) {
-            if (key_combos[i].keys[j] == KC_NO) {
-                length = j;
-                break;
-            }
-        }
-
-        switch (length) {
-            case 1:
-                if (leader_sequence_one_key(key_combos[i].keys[0]))
-                    SEND_STRING(key_combos[i].output);
-                break;
-            case 2:
-                if (leader_sequence_two_keys(key_combos[i].keys[0], key_combos[i].keys[1]))
-                    SEND_STRING(key_combos[i].output);
-                break;
-            case 3:
-                if (leader_sequence_three_keys(key_combos[i].keys[0], key_combos[i].keys[1], key_combos[i].keys[2]))
-                    SEND_STRING(key_combos[i].output);
-                break;
-            case 4:
-                if (leader_sequence_four_keys(key_combos[i].keys[0], key_combos[i].keys[1], key_combos[i].keys[2], key_combos[i].keys[3]))
-                    SEND_STRING(key_combos[i].output);
-            case 5:
-                if (leader_sequence_five_keys(key_combos[i].keys[0], key_combos[i].keys[1], key_combos[i].keys[2], key_combos[i].keys[3], key_combos[i].keys[4]))
-                    SEND_STRING(key_combos[i].output);
-                break;
-            default:
-        }
-    }
 }
 

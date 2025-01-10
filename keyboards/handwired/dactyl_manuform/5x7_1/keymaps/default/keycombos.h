@@ -1,27 +1,24 @@
 #include QMK_KEYBOARD_H
-#include "print.h"
 
-#define KEYS(...) { __VA_ARGS__, KC_NO }
+#define NUMARGS(...)  (sizeof((int[]){__VA_ARGS__})/sizeof(int))
+#define KEYS(...) { __VA_ARGS__ }, NUMARGS(__VA_ARGS__)
 
 #define MAX_COMBO_KEYS 5
 
 typedef struct {
     char keys[MAX_COMBO_KEYS + 1];
+    int count;
     const char* output;
 } KeyCombo;
 
-// accepts up to 5 keys
-KeyCombo key_combos[] = {
-    { KEYS(KC_U, KC_A), USERNAME1 },
-    { KEYS(KC_U, KC_S), USERNAME2 },
-    { KEYS(KC_U, KC_D), USERNAME3 },
-    { KEYS(KC_P, KC_A), PASSWORD1 SS_TAP(X_ENTER) },
-    { KEYS(KC_P, KC_S), PASSWORD2 SS_TAP(X_ENTER) },
-    { KEYS(KC_P, KC_D), PASSWORD2 SS_TAP(X_ENTER) },
-    { KEYS(KC_R, KC_I), "/right\n" },
-    { KEYS(KC_L, KC_E), "/left\n" },
-    { KEYS(KC_J, KC_I), SS_TAP(X_HOME) "https://jitsi.mulletware.io/\n" }
-};
-
-#define KEY_COMBOS_COUNT (sizeof(key_combos) / sizeof(key_combos[0]))
-
+bool leader(char *keys, int length) {
+  switch(length) {
+    case 1: return leader_sequence_one_key(keys[0]);
+    case 2: return leader_sequence_two_keys(keys[0], keys[1]);
+    case 3: return leader_sequence_three_keys(keys[0], keys[1], keys[2]);
+    case 4: return leader_sequence_four_keys(keys[0], keys[1], keys[2], keys[3]);
+    case 5: return leader_sequence_five_keys(keys[0], keys[1], keys[2], keys[3], keys[4]);
+    default:
+      return false;
+  }
+}
