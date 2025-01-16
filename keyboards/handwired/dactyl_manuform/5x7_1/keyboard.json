@@ -36,6 +36,7 @@
         "extrakey": true,
         "leader": true,
         "nkro": true,
+        "os_detection": true,
         "tri_layer": true
     },
 
