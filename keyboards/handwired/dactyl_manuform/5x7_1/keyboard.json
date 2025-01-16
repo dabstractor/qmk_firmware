@@ -30,6 +30,7 @@
         "bootmagic": true,
         "caps_word": true,
         "console": false,
+        "command": true,
         "dynamic_macro": true,
         "encoder_map": true,
         "encoder": true,
