@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SIDE=${1:-left}
+SIDE=${1:-right}
 PARAMS="flash"
 
 if [ -n "$SIDE" ]; then
@@ -8,7 +8,9 @@ if [ -n "$SIDE" ]; then
 fi
 
 echo $PARAMS
-./mount.sh &
+./mount.sh > /dev/null &
 
 qmk $PARAMS
+
+killall mount.sh
 
