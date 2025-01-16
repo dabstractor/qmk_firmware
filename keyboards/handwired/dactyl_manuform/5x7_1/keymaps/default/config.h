@@ -41,3 +41,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VIM_DOT_REPEAT
 #define VIM_W_BEGINNING_OF_WORD
 #define VIM_NUMBERED_JUMPS
+#define VIM_FOR_ALL
