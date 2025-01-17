@@ -3,6 +3,7 @@
 #include "leader.h"
 #include "./secrets.h"
 #include "./keycombos.h"
+#include "./custom_mod_map.c"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -174,6 +175,45 @@ void leader_end_user(void) {
 }
 #endif // LEADER
 
+void leader_release(uint16_t keycode, keyrecord_t *record) {
+    leader_sequence_active() ? leader_end() : leader_start();
+}
+
+ModTapCallback CUSTOM_MOD_TAP_KEYS[] = {
+    { KC_RGUI, leader_release }
+};
+
+
+bool process_custom_mod_tap_user(uint16_t keycode, keyrecord_t *record) {
+    bool found_key = false;
+
+    for (size_t i = 0; i < sizeof(CUSTOM_MOD_TAP_KEYS) / sizeof(CUSTOM_MOD_TAP_KEYS[0]); ++i) {
+        if (CUSTOM_MOD_TAP_KEYS[i].keycode == keycode) {
+            found_key = true;
+
+            if (record->event.pressed) {
+                on_press(keycode);
+                if (CUSTOM_MOD_TAP_KEYS[i].on_press != NULL) {
+                    CUSTOM_MOD_TAP_KEYS[i].on_press(keycode, record);
+                }
+                return false;
+            } else {
+                if (on_release(keycode) &&
+                    CUSTOM_MOD_TAP_KEYS[i].on_release != NULL) {
+                    CUSTOM_MOD_TAP_KEYS[i].on_release(keycode, record);
+                }
+                return false;
+            }
+
+            return true;
+        }
+    }
+
+    if (!found_key && record->event.pressed) on_other_press();
+
+    return true;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef CONSOLE_ENABLE // Logging
@@ -204,7 +244,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
     }
 
-    return true;
+    return process_custom_mod_tap_user(keycode, record);
 }
 
 // mac mode for vim
