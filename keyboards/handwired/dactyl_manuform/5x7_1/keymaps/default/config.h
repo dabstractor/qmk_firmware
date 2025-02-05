@@ -28,6 +28,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LEADER_NO_TIMEOUT
 #define LEADER_PER_KEY_TIMING
 
+#define RETRO_TAPPING
+#define RETRO_TAPPING_PER_KEY
+#define HOLD_ON_OTHER_KEY_PRESS
+#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+#define DUMMY_MOD_NEUTRALIZER_KEYCODE KC_F18
+
 #define MK_COMBINED
 #define MOUSEKEY_DELAY 1
 #define MOUSEKEY_MOVE_DELTA 4
