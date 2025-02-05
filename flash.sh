@@ -8,9 +8,13 @@ if [ -n "$SIDE" ]; then
 fi
 
 echo $PARAMS
-./mount.sh > /dev/null &
+./mount.sh > /dev/null 2>&1 &
+
+mount_pid=$!
+
+trap "kill $mount_pid; exit" SIGINT
 
 qmk $PARAMS
 
-killall mount.sh
+killall mount.sh > /dev/null 2>&1
 
