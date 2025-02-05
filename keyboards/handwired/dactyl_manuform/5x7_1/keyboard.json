@@ -44,7 +44,6 @@
     "caps_word": {
         "enabled": true,
         "both_shifts_turns_on": true,
-        "double_tap_shift_turns_on": true
     },
 
     "matrix_pins": {

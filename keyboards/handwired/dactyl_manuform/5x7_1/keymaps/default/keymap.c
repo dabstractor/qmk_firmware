@@ -4,6 +4,7 @@
 #include "./secrets.h"
 #include "./keycombos.h"
 #include "./custom_mod_map.c"
+#include "./per_key_settings.c"
 #include "./custom_keycodes.c"
 #include "./layers.c"
 
@@ -15,24 +16,23 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT_5x7_1(
         // left hand
-        KC_GRV,    KC_1,        KC_2,    KC_3,   KC_4,   KC_5,   TG(_CMD),
-        KC_TAB,    KC_Q,        KC_W,    KC_E,   KC_R,   KC_T,   TG(_NUMPAD),
-        KC_ESC,    KC_A,        KC_S,    KC_D,   KC_F,   KC_G,   KC_PGUP,
-        KC_LSFT,   KC_Z,        KC_X,    KC_C,   KC_V,   KC_B,   KC_PGDN,
-        KC_CAPS,   QK_LEAD,     KC_LBRC, KC_RBRC,
-                                                      TT(_MOUSE),  KC_LCTL,
+        KC_GRV,           KC_1,        KC_2,    KC_3,   KC_4,   KC_5,   TG(_CMD),
+        KC_TAB,           KC_Q,        KC_W,    KC_E,   KC_R,   KC_T,   TG(_NUMPAD),
+        KC_ESC,           KC_A,        KC_S,    KC_D,   KC_F,   KC_G,   KC_PGUP,
+        LSFT_T(KC_CAPS),  KC_Z,        KC_X,    KC_C,   KC_V,   KC_B,   KC_PGDN,
+        TOGGLE_VIM,       QK_LEAD,     KC_LBRC, KC_RBRC,
+                                                      KC_LSFT,     KC_LCTL,
                                                       KC_LALT,     KC_LGUI,
                                                       TT(_NUMPAD), TT(_FN),
                                                       KC_MS_BTN4,
         // right hand
-        KC_PRINT_SCREEN,  KC_6,  KC_7,   KC_8,     KC_9,    KC_0,      KC_DEL,
-        KC_MS_BTN1,       KC_Y,  KC_U,   KC_I,     KC_O,    KC_P,      KC_BSLS,
-        KC_HOME,          KC_H,  KC_J,   KC_K,     KC_L,    KC_SCLN,   KC_QUOT,
-        KC_END,           KC_N,  KC_M,   KC_COMM,  KC_DOT,  KC_SLSH,   KC_RSFT,
-                                         KC_MINS,  KC_EQL,  TG(_CMD),  TO(_QWERTY),
-        KC_SPC,   KC_ENT,
-        KC_BSPC,  KC_RCTL,
-        KC_RGUI,  KC_RALT
+        KC_PRINT_SCREEN,  KC_6,  KC_7,   KC_8,     KC_9,    KC_0,     KC_DEL,
+        KC_MS_BTN1,       KC_Y,  KC_U,   KC_I,     KC_O,    KC_P,     KC_BSLS,
+        KC_HOME,          KC_H,  KC_J,   KC_K,     KC_L,    KC_SCLN,  KC_QUOT,
+        KC_END,           KC_N,  KC_M,   KC_COMM,  KC_DOT,  KC_SLSH,  KC_RSFT,
+                                         KC_MINS,  KC_EQL,  KC_LBRC,  KC_RBRC,
+        RCTL_T(KC_SPC),   RSFT_T(KC_ENT),
+        RGUI_T(KC_BSPC),  RALT_T(KC_BSPC),
         QK_LEAD,          KC_LALT,
         KC_MS_BTN5
     ),
@@ -49,11 +49,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                  _______, _______,
                                                                  KC_Z,
         // right hand
-        KC_F11,   KC_F6,     KC_F7,      KC_F8,    KC_F9,     KC_F10,    QK_BOOT,
-        KC_F12,   KC_F6,     KC_F7,      KC_F8,    KC_F9,     KC_F10,    _______,
-        KC_F13,   TAB_L,     _______,    KC_UP,    TAB_R,     _______,   _______,
-        KC_F14,   _______,   KC_LEFT,    KC_DOWN,  KC_RGHT,   _______,   _______,
-                                        _______,   _______,   _______,   TOGGLE_VIM,
+        KC_F11,   KC_F6,       KC_F7,      KC_F8,    KC_F9,       KC_F10,    QK_BOOT,
+        KC_F12,   KC_F6,       KC_F7,      KC_F8,    KC_F9,       KC_F10,    _______,
+        KC_F13,   KC_MS_BTN4,  _______,    KC_UP,    KC_MS_BTN5,  _______,   _______,
+        KC_F14,   _______,     KC_LEFT,    KC_DOWN,  KC_RGHT,     _______,   _______,
+                                           _______,   _______,    _______,   TOGGLE_VIM,
         _______,  _______,
         KC_DEL,   _______,
         _______,  _______,
@@ -95,11 +95,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                   _______, _______,
                                                                   KC_Z,
         // right hand
-        QK_DYNAMIC_MACRO_RECORD_START_2,  _______,   _______,   _______,   _______,   _______,   _______,
-        QK_DYNAMIC_MACRO_RECORD_STOP,     _______,   _______,   _______,   _______,   _______,   _______,
-        QK_DYNAMIC_MACRO_PLAY_2,          _______,   _______,   _______,   _______,   _______,   _______,
-        _______,                          _______,   _______,   _______,   _______,   _______,   _______,
-                                          _______,   _______,   _______,   _______,
+        QK_DYNAMIC_MACRO_RECORD_START_2,  _______,     _______,   _______,   _______,     _______,   _______,
+        QK_DYNAMIC_MACRO_RECORD_STOP,     _______,     _______,   _______,   _______,     _______,   _______,
+        QK_DYNAMIC_MACRO_PLAY_2,          KC_MS_BTN4,  _______,   _______,   KC_MS_BTN5,  _______,   _______,
+        _______,                          _______,     _______,   _______,   _______,     _______,   _______,
+                                          _______,     _______,   _______,   _______,
         _______,  _______,
         _______,  _______,
         _______,  _______,
@@ -127,18 +127,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TT(_FN),    TT(_NUMPAD),
         KC_Y
     ),
-
 };
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-                  // left                                                // right
-    [_QWERTY] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),                      ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)  },
-    [_FN]     = { ENCODER_CCW_CW(KC_BRIGHTNESS_DOWN, KC_BRIGHTNESS_UP),  ENCODER_CCW_CW(TAB_L, TAB_R) },
-    [_NUMPAD] = { ENCODER_CCW_CW(KC_UP, KC_DOWN),                        ENCODER_CCW_CW(KC_LEFT, KC_RIGHT) },
-    [_CMD]    = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD),                     ENCODER_CCW_CW(KC_BSPC, KC_SPC) },
-    [_MOUSE]  = { ENCODER_CCW_CW(KC_MS_UP, KC_MS_DOWN),                  ENCODER_CCW_CW(KC_MS_LEFT, KC_MS_RIGHT) },
+                  // left                                        // right
+    [_QWERTY] = { ENCODER_CCW_CW(KC_MS_WH_LEFT, KC_MS_WH_RIGHT), ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)  },
+    /* [_QWERTY] = { ENCODER_CCW_CW(WORKSPACE_LEFT, WORKSPACE_RIGHT), ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)  }, */
+    [_FN]     = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),                ENCODER_CCW_CW(TAB_L, TAB_R) },
+    [_NUMPAD] = { ENCODER_CCW_CW(KC_UP, KC_DOWN),                  ENCODER_CCW_CW(KC_LEFT, KC_RIGHT) },
+    [_CMD]    = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD),               ENCODER_CCW_CW(KC_BSPC, KC_SPC) },
+    [_MOUSE]  = { ENCODER_CCW_CW(KC_MS_UP, KC_MS_DOWN),            ENCODER_CCW_CW(KC_MS_LEFT, KC_MS_RIGHT) },
 };
+/* ENCODER_CCW_CW(KC_BRIGHTNESS_DOWN, KC_BRIGHTNESS_UP) */
 #endif
 
 #if defined(LEADER_ENABLE)
@@ -153,7 +154,9 @@ KeyCombo leader_keys[] = {
     { KEYS(KC_R, KC_I), "/right\n" },
     { KEYS(KC_L, KC_E), "/left\n" },
     { KEYS(KC_J, KC_I), SS_TAP(X_HOME) "https://jitsi.mulletware.io/\n" }  ,
-    { KEYS(KC_1, KC_1), "!-1:1" }
+    { KEYS(KC_1), "!-1:" },
+    { KEYS(KC_G, KC_P), SS_TAP(X_TAB) SS_TAP(X_TAB) SS_TAP(X_TAB) SS_TAP(X_ENTER) }
+
 };
 
 void leader_end_user(void) {
@@ -167,12 +170,56 @@ void leader_end_user(void) {
 }
 #endif // LEADER
 
-void leader_release(uint16_t keycode, keyrecord_t *record) {
+void qmk_leader(uint16_t keycode, keyrecord_t *record) {
     leader_sequence_active() ? leader_end() : leader_start();
 }
 
-ModTapCallback CUSTOM_MOD_TAP_KEYS[] = {
-    { KC_RGUI, leader_release }
+void term_toggle(uint16_t keycode, keyrecord_t *record) {
+    // send GUI+Space
+    register_code(KC_RALT);
+    register_code(KC_SPC);
+    unregister_code(KC_RALT);
+    unregister_code(KC_SPC);
+}
+
+bool is_dbl_spc_window_active = false;
+
+void dbl_spc_toggle(uint16_t keycode, keyrecord_t *record) {
+    // toggles neovim open current buffer window
+    if (is_dbl_spc_window_active) {
+        // send esc key
+        register_code(KC_ESC);
+        unregister_code(KC_ESC);
+        register_code(KC_ESC);
+        unregister_code(KC_ESC);
+        is_dbl_spc_window_active = false;
+    } else {
+        send_string("  ");
+        is_dbl_spc_window_active = true;
+    }
+}
+
+void tmux_leader(uint16_t keycode, keyrecord_t *record) {
+    // send Ctrl+Space
+    register_code(KC_RCTL);
+    register_code(KC_SPC);
+    unregister_code(KC_RCTL);
+    unregister_code(KC_SPC);
+}
+
+void activate_caps_word_toggle(uint16_t keycode, keyrecord_t *record) {
+    caps_word_toggle();
+}
+
+void toggle_mouse_layer(uint16_t keycode, keyrecord_t *record) {
+    layer_invert(_MOUSE);
+}
+
+KeyCallback CUSTOM_MOD_TAP_KEYS[] = {
+    { KC_LGUI, term_toggle },
+    { KC_LCTL, tmux_leader },
+    { KC_LSFT, activate_caps_word_toggle },
+    { KC_RSFT, toggle_mouse_layer },
 };
 
 
@@ -206,36 +253,68 @@ bool process_custom_mod_tap_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+void double_space(uint16_t keycode, keyrecord_t *record) {
+    send_string("  ");
+}
+
+void toggle_vim(uint16_t keycode, keyrecord_t *record) {
+    toggle_vim_mode();
+}
+
+void click_this_spot(uint16_t keycode, keyrecord_t *record) {
+    tap_code(KC_MS_UP);
+    tap_code(KC_MS_DOWN);
+    tap_code(KC_MS_BTN1);
+}
+
+void workspace_left(uint16_t keycode, keyrecord_t *record) {
+    register_code(KC_RGUI);
+    register_code(KC_H);
+    unregister_code(KC_H);
+    unregister_code(KC_RGUI);
+}
+
+void workspace_right(uint16_t keycode, keyrecord_t *record) {
+    register_code(KC_RGUI);
+    register_code(KC_L);
+    unregister_code(KC_L);
+    unregister_code(KC_RGUI);
+}
+
+KeyCallback CUSTOM_KEYS[] = {
+    { DBL_SPACE, double_space },
+    { TOGGLE_VIM, toggle_vim },
+    { CLICK_THIS_SPOT, click_this_spot },
+    { WORKSPACE_LEFT, workspace_left },
+    { WORKSPACE_RIGHT, workspace_right },
+};
+
+bool process_custom_key_user(uint16_t keycode, keyrecord_t *record) {
+    for (size_t i = 0; i < sizeof(CUSTOM_KEYS) / sizeof(CUSTOM_KEYS[0]); ++i) {
+        if (CUSTOM_KEYS[i].keycode == keycode) {
+            if (record->event.pressed) {
+                if (CUSTOM_KEYS[i].on_press != NULL) {
+                    CUSTOM_KEYS[i].on_press(keycode, record);
+                }
+            } else {
+                if (CUSTOM_KEYS[i].on_release != NULL) {
+                    CUSTOM_KEYS[i].on_release(keycode, record);
+                }
+            }
+        }
+    }
+    return false;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef CONSOLE_ENABLE // Logging
     uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %u, time: %5u, int: %u, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
 #endif
 
-    if (!process_vim_mode(keycode, record)) {
-        return false;
-    }
+    if (!process_vim_mode(keycode, record)) return false;
 
-    switch (keycode) {
-        case DBL_SPACE:
-            if (!record->event.pressed) {
-                SEND_STRING("  ");
-            }
-            break;
-        case TOGGLE_VIM:
-            if (record->event.pressed) {
-                toggle_vim_mode();
-            }
-            return false;
-        case CLICK_THIS_SPOT:
-            if (!record->event.pressed) {
-                tap_code(KC_MS_UP);
-                tap_code(KC_MS_DOWN);
-                tap_code(KC_MS_BTN1);
-            }
-            break;
-    }
-
+    process_custom_key_user(keycode, record);
     return process_custom_mod_tap_user(keycode, record);
 }
 
@@ -265,4 +344,3 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, _FN, _NUMPAD, _CMD);
     return state;
 }
-
