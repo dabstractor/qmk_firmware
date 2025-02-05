@@ -38,6 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                       TT(_MOUSE),  KC_LCTL,
                                                       KC_LALT,     KC_LGUI,
                                                       TT(_NUMPAD), TT(_FN),
+                                                      KC_MS_BTN4,
         // right hand
         KC_PRINT_SCREEN,  KC_6,  KC_7,   KC_8,     KC_9,    KC_0,      KC_DEL,
         KC_MS_BTN1,       KC_Y,  KC_U,   KC_I,     KC_O,    KC_P,      KC_BSLS,
@@ -47,6 +48,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_SPC,   KC_ENT,
         KC_BSPC,  KC_RCTL,
         KC_RGUI,  KC_RALT
+        QK_LEAD,          KC_LALT,
+        KC_MS_BTN5
     ),
 
     [_FN] = LAYOUT_5x7_1(
@@ -59,6 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                  _______, _______,
                                                                  _______, _______,
                                                                  _______, _______,
+                                                                 KC_Z,
         // right hand
         KC_F11,   KC_F6,     KC_F7,      KC_F8,    KC_F9,     KC_F10,    QK_BOOT,
         KC_F12,   KC_F6,     KC_F7,      KC_F8,    KC_F9,     KC_F10,    _______,
@@ -67,7 +71,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         _______,   _______,   _______,   TOGGLE_VIM,
         _______,  _______,
         KC_DEL,   _______,
-        QK_LEAD,  _______
+        _______,  _______,
+        KC_Y
     ),
 
     [_NUMPAD] = LAYOUT_5x7_1(
@@ -80,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                               _______,  _______,
                                                               _______,  _______,
                                                               _______,  _______,
-
+                                                              KC_Z,
         // right hand
         KC_NUM,   _______,  _______,  _______,  KC_PMNS,  KC_PPLS,  _______,
         KC_CALC,  KC_6,     KC_P7,    KC_P8,    KC_P9,    KC_0,     _______,
@@ -89,7 +94,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       KC_P0,    KC_PDOT,  KC_PENT,  _______,
         _______,  KC_PENT,
         _______,  _______,
-        _______,  _______
+        _______,  _______,
+        KC_Y
     ),
 
     [_CMD] = LAYOUT_5x7_1(
@@ -102,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                   _______, _______,
                                                                   _______, _______,
                                                                   _______, _______,
-
+                                                                  KC_Z,
         // right hand
         QK_DYNAMIC_MACRO_RECORD_START_2,  _______,   _______,   _______,   _______,   _______,   _______,
         QK_DYNAMIC_MACRO_RECORD_STOP,     _______,   _______,   _______,   _______,   _______,   _______,
@@ -111,7 +117,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                           _______,   _______,   _______,   _______,
         _______,  _______,
         _______,  _______,
-        _______,  _______
+        _______,  _______,
+        KC_Y
     ),
 
     [_MOUSE] = LAYOUT_5x7_1(
@@ -124,16 +131,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                         _______,  _______,
                                                                         _______,  _______,
                                                                         _______,  _______,
-
-        // right hand
+                                                                        KC_Z,
         _______,  _______,     _______,     _______,     _______,      _______,  _______,
         _______,  _______,     KC_MS_BTN1,  KC_MS_BTN2,  KC_MS_BTN3,   _______,  _______,
         _______,  KC_MS_BTN4,  _______,     KC_MS_UP,    KC_MS_BTN5,   _______,  _______,
         _______,  _______,     KC_MS_LEFT,  KC_MS_DOWN,  KC_MS_RIGHT,  _______,  _______,
                                             _______,     _______,      _______,  _______,
-        DBL_SPACE,  TOGGLE_VIM,
+        _______,  _______,
         _______,    _______,
-        TT(_FN),    TT(_NUMPAD)
+        TT(_FN),    TT(_NUMPAD),
+        KC_Y
     ),
 
 };
