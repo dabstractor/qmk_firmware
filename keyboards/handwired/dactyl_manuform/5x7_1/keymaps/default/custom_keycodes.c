@@ -1,0 +1,7 @@
+enum custom_keycodes {
+    DBL_SPACE = SAFE_RANGE,
+    CLICK_THIS_SPOT,
+    TOGGLE_VIM,
+    WORKSPACE_LEFT,
+    WORKSPACE_RIGHT
+};
