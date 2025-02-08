@@ -1,12 +1,12 @@
 #include QMK_KEYBOARD_H
 #include "qmk-vim/src/vim.h"
-#include "leader.h"
 #include "./secrets.h"
 #include "./keycombos.h"
 #include "./custom_mod_map.c"
 #include "./per_key_settings.c"
 #include "./custom_keycodes.c"
 #include "./layers.c"
+#include "./tap_dance.c"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                          KC_MINS,  KC_EQL,  KC_LBRC,  KC_RBRC,
         RCTL_T(KC_SPC),   RSFT_T(KC_ENT),
         RGUI_T(KC_BSPC),  RALT_T(KC_BSPC),
-        QK_LEAD,          KC_LALT,
+        TD(TD_LEAD_FN),   TT(_NUMPAD),
         KC_MS_BTN5
     ),
 
@@ -169,10 +169,6 @@ void leader_end_user(void) {
     }
 }
 #endif // LEADER
-
-void qmk_leader(uint16_t keycode, keyrecord_t *record) {
-    leader_sequence_active() ? leader_end() : leader_start();
-}
 
 void term_toggle(uint16_t keycode, keyrecord_t *record) {
     // send GUI+Space
