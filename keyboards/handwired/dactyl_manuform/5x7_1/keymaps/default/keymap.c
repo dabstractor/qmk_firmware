@@ -142,15 +142,18 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 /* ENCODER_CCW_CW(KC_BRIGHTNESS_DOWN, KC_BRIGHTNESS_UP) */
 #endif
 
+#define PW(...) ( __VA_ARGS__ SS_TAP(X_ENTER) )
+
 #if defined(LEADER_ENABLE)
 // accepts up to 5 keys
 KeyCombo leader_keys[] = {
     { KEYS(KC_U, KC_A), USERNAME1 },
     { KEYS(KC_U, KC_S), USERNAME2 },
     { KEYS(KC_U, KC_D), USERNAME3 },
-    { KEYS(KC_P, KC_A), PASSWORD1 SS_TAP(X_ENTER) },
-    { KEYS(KC_P, KC_S), PASSWORD2 SS_TAP(X_ENTER) },
-    { KEYS(KC_P, KC_D), PASSWORD2 SS_TAP(X_ENTER) },
+    { KEYS(KC_P, KC_A), PW(PASSWORD1) },
+    { KEYS(KC_P, KC_S), PW(PASSWORD2) },
+    { KEYS(KC_P, KC_D), PW(PASSWORD2) },
+    { KEYS(KC_P, KC_B, KC_W), PW(BITWARDENPW) },
     { KEYS(KC_R, KC_I), "/right\n" },
     { KEYS(KC_L, KC_E), "/left\n" },
     { KEYS(KC_J, KC_I), SS_TAP(X_HOME) "https://jitsi.mulletware.io/\n" }  ,
