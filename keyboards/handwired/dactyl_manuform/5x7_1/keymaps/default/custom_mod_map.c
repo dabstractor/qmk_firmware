@@ -19,38 +19,66 @@ typedef struct {
 
 ModState mod_states[MAX_MOD_KEYS];
 
+
 void on_other_press(void) {
     for (int i = 0; i < MAX_MOD_KEYS; i++) {
         if (mod_states[i].is_active) {
             mod_states[i].was_other_key_pressed = true;
-            mod_states[i].time_activated = timer_read();
+            mod_states[i].is_held = true;
             register_code(mod_states[i].keycode);
         }
     }
 }
 
 void on_press(uint16_t keycode) {
+    int found_key = -1;
+
+    // look for existing key
     for (int i = 0; i < MAX_MOD_KEYS; i++) {
-        if (!mod_states[i].is_active) {
-            mod_states[i].is_active = true;
-            mod_states[i].was_other_key_pressed = false;
-            mod_states[i].is_held = false;
-            mod_states[i].keycode = keycode;
-            mod_states[i].time_activated = timer_read();
+        if (mod_states[i].keycode == keycode) {
+            found_key = i;
             break;
         }
     }
+
+    if (found_key == -1) {
+        // look for next available slot
+        for (int i = 0; i < MAX_MOD_KEYS; i++) {
+            if (!mod_states[i].is_active && !mod_states[i].is_held) {
+                found_key = i;
+                break;
+            }
+        }
+    }
+
+    // activate any other mod keys that were waiting for another keypress
+    for (int i = 0; i < MAX_MOD_KEYS; i++) {
+        if (mod_states[i].is_active) {
+            mod_states[i].was_other_key_pressed = true;
+            mod_states[i].is_held = true;
+            register_code(mod_states[i].keycode);
+        }
+    }
+
+    mod_states[found_key].is_active = true;
+    mod_states[found_key].was_other_key_pressed = false;
+    mod_states[found_key].is_held = false;
+    mod_states[found_key].keycode = keycode;
+    mod_states[found_key].time_activated = timer_read();
 }
 
 bool on_release(uint16_t keycode) {
     for (int i = 0; i < MAX_MOD_KEYS; i++) {
         if (mod_states[i].keycode == keycode) {
-            bool key_pressed = mod_states[i].was_other_key_pressed;
+            bool run_callback = !mod_states[i].was_other_key_pressed && !mod_states[i].is_held;
             mod_states[i].is_active = false;
+            mod_states[i].is_held = false;
+            mod_states[i].was_other_key_pressed = false;
             unregister_code(mod_states[i].keycode);
-            return !key_pressed && !mod_states[i].is_held;
+            return run_callback;
         }
     }
+
     return false;
 }
 
@@ -58,12 +86,10 @@ bool on_release(uint16_t keycode) {
 void matrix_scan_user(void) {
     if (TAPPING_TERM > 0) {
         for (int i = 0; i < MAX_MOD_KEYS; i++) {
-            if (mod_states[i].is_active) {
-                if (timer_read() - mod_states[i].time_activated > TAPPING_TERM) {
-                    mod_states[i].is_active = false;
-                    mod_states[i].is_held = true;
-                    register_code(mod_states[i].keycode);
-                }
+            // Only act if the key is still active AND it has not already been triggered
+            if (mod_states[i].is_active && timer_read() - mod_states[i].time_activated > TAPPING_TERM) {
+                mod_states[i].is_held = true;
+                register_code(mod_states[i].keycode);
             }
         }
     }
