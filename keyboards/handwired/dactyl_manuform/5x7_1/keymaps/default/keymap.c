@@ -16,11 +16,11 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT_5x7_1(
         // left hand
-        KC_GRV,           KC_1,        KC_2,    KC_3,   KC_4,   KC_5,   TG(_CMD),
-        KC_TAB,           KC_Q,        KC_W,    KC_E,   KC_R,   KC_T,   TG(_NUMPAD),
-        KC_ESC,           KC_A,        KC_S,    KC_D,   KC_F,   KC_G,   KC_PGUP,
-        LSFT_T(KC_CAPS),  KC_Z,        KC_X,    KC_C,   KC_V,   KC_B,   KC_PGDN,
-        TOGGLE_VIM,       QK_LEAD,     KC_LBRC, KC_RBRC,
+        KC_GRV,           KC_1,        KC_2,     KC_3,   KC_4,   KC_5,   TG(_CMD),
+        KC_TAB,           KC_Q,        KC_W,     KC_E,   KC_R,   KC_T,   TG(_NUMPAD),
+        KC_ESC,           KC_A,        KC_S,     KC_D,   KC_F,   KC_G,   KC_PGUP,
+        LSFT_T(KC_CAPS),  KC_Z,        KC_X,     KC_C,   KC_V,   KC_B,   KC_PGDN,
+        TOGGLE_VIM,       QK_LEAD,     KC_LBRC,  KC_RBRC,
                                                       KC_LSFT,     KC_LCTL,
                                                       KC_LALT,     KC_LGUI,
                                                       TT(_NUMPAD), TT(_FN),
@@ -37,17 +37,64 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MS_BTN5
     ),
 
+    [_COLEMAK] = LAYOUT_5x7_1(
+        // left hand
+        KC_GRV,           KC_1,     KC_2,     KC_3,    KC_4,   KC_5,   TG(_CMD),
+        KC_TAB,           KC_Q,     KC_W,     KC_F,    KC_P,   KC_G,   TG(_NUMPAD),
+        KC_ESC,           KC_A,     KC_R,     KC_S,    KC_T,   KC_D,   KC_PGUP,
+        LSFT_T(KC_CAPS),  KC_Z,     KC_X,     KC_C,    KC_V,   KC_B,   KC_PGDN,
+        TOGGLE_VIM,       QK_LEAD,  KC_LBRC,  KC_RBRC,
+                                                      KC_LSFT,     KC_LCTL,
+                                                      KC_LALT,     KC_LGUI,
+                                                      TT(_NUMPAD), TT(_FN),
+                                                      KC_MS_BTN4,
+        // right hand
+        KC_PRINT_SCREEN,  KC_6,  KC_7,   KC_8,     KC_9,    KC_0,     KC_DEL,
+        KC_MS_BTN1,       KC_J,  KC_L,   KC_U,     KC_Y,    KC_SCLN,  KC_BSLS,
+        KC_HOME,          KC_H,  KC_N,   KC_E,     KC_I,    KC_O,     KC_QUOT,
+        KC_END,           KC_K,  KC_M,   KC_COMM,  KC_DOT,  KC_SLSH,  KC_RSFT,
+                                         KC_MINS,  KC_EQL,  KC_LBRC,  KC_RBRC,
+        RCTL_T(KC_SPC),   RSFT_T(KC_ENT),
+        RGUI_T(KC_BSPC),  RALT_T(KC_BSPC),
+        TD(TD_LEAD_FN),   TT(_NUMPAD),
+        KC_MS_BTN5
+    ),
+
+    [_MAC] = LAYOUT_5x7_1(
+        // left hand
+        KC_GRV,           KC_1,     KC_2,     KC_3,    KC_4,   KC_5,   TG(_CMD),
+        KC_TAB,           KC_Q,     KC_W,     KC_E,    KC_R,   KC_T,   TG(_NUMPAD),
+        KC_ESC,           KC_A,     KC_S,     KC_D,    KC_F,   KC_G,   KC_PGUP,
+        LSFT_T(KC_CAPS),  KC_Z,     KC_X,     KC_C,    KC_V,   KC_B,   KC_PGDN,
+        TOGGLE_VIM,       QK_LEAD,  KC_LBRC,  KC_RBRC,
+                                                      KC_LSFT,     KC_LCTL,
+                                                      KC_LALT,     KC_LGUI,
+                                                      TT(_NUMPAD), TT(_FN),
+                                                      KC_MS_BTN4,
+
+        // right hand
+        KC_PRINT_SCREEN,  KC_6,  KC_7,   KC_8,     KC_9,    KC_0,     KC_DEL,
+        KC_MS_BTN1,       KC_Y,  KC_U,   KC_I,     KC_O,    KC_P,     KC_BSLS,
+        KC_HOME,          KC_H,  KC_J,   KC_K,     KC_L,    KC_SCLN,  KC_QUOT,
+        KC_END,           KC_N,  KC_M,   KC_COMM,  KC_DOT,  KC_SLSH,  KC_RSFT,
+                                         KC_MINS,  KC_EQL,  KC_LBRC,  KC_RBRC,
+        RCTL_T(KC_SPC),   RSFT_T(KC_ENT),
+        RGUI_T(KC_BSPC),  RALT_T(KC_BSPC),
+        TD(TD_LEAD_FN),   TT(_NUMPAD),
+        KC_MS_BTN5
+    ),
+
     [_FN] = LAYOUT_5x7_1(
         // left hand
-        QK_BOOT,     KC_F1,     KC_F2,     KC_F3,     KC_F4,     KC_F5,    _______,
-        _______,     KC_F1,     KC_F2,     KC_F3,     KC_F4,     KC_F5,    _______,
-        TO(_QWERTY), _______,   _______,   KC_UP,     _______,   _______,  _______,
-        _______,     _______,   KC_LEFT,   KC_DOWN,   KC_RGHT,   _______,  _______,
-        KC_MSTP,     KC_MPLY,   KC_MPRV,   KC_MNXT,
+        QK_BOOT,           KC_F1,     KC_F2,     KC_F3,     KC_F4,     KC_F5,    _______,
+        _______,           KC_F1,     KC_F2,     KC_F3,     KC_F4,     KC_F5,    _______,
+        TO_DEFAULT_LAYER,  _______,   _______,   KC_UP,     _______,   _______,  _______,
+        _______,           _______,   KC_LEFT,   KC_DOWN,   KC_RGHT,   _______,  _______,
+        KC_MSTP,           KC_MPLY,   KC_MPRV,   KC_MNXT,
                                                                  _______, _______,
                                                                  _______, _______,
                                                                  _______, _______,
-                                                                 KC_Z,
+                                                                 _______,
         // right hand
         KC_F11,   KC_F6,       KC_F7,      KC_F8,    KC_F9,       KC_F10,    QK_BOOT,
         KC_F12,   KC_F6,       KC_F7,      KC_F8,    KC_F9,       KC_F10,    _______,
@@ -57,20 +104,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,
         KC_DEL,   _______,
         _______,  _______,
-        KC_Y
+        _______
     ),
 
     [_NUMPAD] = LAYOUT_5x7_1(
         // left hand
-        _______,      _______,  _______,  _______,  _______,  _______,  KC_CALC,
-        _______,      KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     _______,
-        TO(_QWERTY),  _______,  _______,  _______,  _______,  _______,  _______,
-        _______,      _______,  _______,  _______,  _______,  _______,  _______,
-        _______,      _______,  _______,  _______,
+        _______,           _______,  _______,  _______,  _______,  _______,  KC_CALC,
+        _______,           KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     _______,
+        TO_DEFAULT_LAYER,  _______,  _______,  _______,  _______,  _______,  _______,
+        _______,           _______,  _______,  _______,  _______,  _______,  _______,
+        _______,           _______,  _______,  _______,
                                                               _______,  _______,
                                                               _______,  _______,
                                                               _______,  _______,
-                                                              KC_Z,
+                                                              _______,
         // right hand
         KC_NUM,   _______,  _______,  _______,  KC_PMNS,  KC_PPLS,  _______,
         KC_CALC,  KC_6,     KC_P7,    KC_P8,    KC_P9,    KC_0,     _______,
@@ -80,43 +127,43 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  KC_PENT,
         _______,  _______,
         _______,  _______,
-        KC_Y
+        _______
     ),
 
     [_CMD] = LAYOUT_5x7_1(
         // left hand
-        _______,      _______,   _______,   _______,   _______,   _______,  QK_DYNAMIC_MACRO_RECORD_START_1,
-        _______,      _______,   _______,   _______,   _______,   _______,  QK_DYNAMIC_MACRO_RECORD_STOP,
-        TO(_QWERTY),  _______,   _______,   _______,   _______,   _______,  QK_DYNAMIC_MACRO_PLAY_1,
-        _______,      _______,   _______,   _______,   _______,   _______,  _______,
-        _______,      _______,   _______,   _______,
+        _______,           _______,   _______,   _______,   _______,   _______,  QK_DYNAMIC_MACRO_RECORD_START_1,
+        _______,           _______,   _______,   _______,   _______,   _______,  QK_DYNAMIC_MACRO_RECORD_STOP,
+        TO_DEFAULT_LAYER,  _______,   _______,   _______,   _______,   _______,  QK_DYNAMIC_MACRO_PLAY_1,
+        _______,           _______,   _______,   _______,   _______,   _______,  TOGGLE_MAC,
+        _______,           _______,   _______,   _______,
                                                                   _______, _______,
                                                                   _______, _______,
                                                                   _______, _______,
-                                                                  KC_Z,
+                                                                  _______,
         // right hand
         QK_DYNAMIC_MACRO_RECORD_START_2,  _______,     _______,   _______,   _______,     _______,   _______,
         QK_DYNAMIC_MACRO_RECORD_STOP,     _______,     _______,   _______,   _______,     _______,   _______,
         QK_DYNAMIC_MACRO_PLAY_2,          KC_MS_BTN4,  _______,   _______,   KC_MS_BTN5,  _______,   _______,
-        _______,                          _______,     _______,   _______,   _______,     _______,   _______,
+        TOGGLE_COLEMAK,                   _______,     _______,   _______,   _______,     _______,   _______,
                                           _______,     _______,   _______,   _______,
         _______,  _______,
         _______,  _______,
         _______,  _______,
-        KC_Y
+        _______
     ),
 
     [_MOUSE] = LAYOUT_5x7_1(
         // left hand
-        _______,      _______,  _______,     _______,     _______,      _______,  _______,
-        _______,      _______,  KC_MS_BTN3,  KC_MS_BTN2,  KC_MS_BTN1,   _______,  _______,
-        TO(_QWERTY),  _______,  _______,     KC_MS_UP,    _______,      _______,  _______,
-        _______,      _______,  KC_MS_LEFT,  KC_MS_DOWN,  KC_MS_RIGHT,  _______,  _______,
-        _______,      _______,  _______,     _______,
+        _______,           _______,  _______,     _______,     _______,      _______,  _______,
+        _______,           _______,  KC_MS_BTN3,  KC_MS_BTN2,  KC_MS_BTN1,   _______,  _______,
+        TO_DEFAULT_LAYER,  _______,  _______,     KC_MS_UP,    _______,      _______,  _______,
+        _______,           _______,  KC_MS_LEFT,  KC_MS_DOWN,  KC_MS_RIGHT,  _______,  _______,
+        _______,           _______,  _______,     _______,
                                                                         _______,  _______,
                                                                         _______,  _______,
                                                                         _______,  _______,
-                                                                        KC_Z,
+                                                                        _______,
         _______,  _______,     _______,     _______,     _______,      _______,  _______,
         _______,  _______,     KC_MS_BTN1,  KC_MS_BTN2,  KC_MS_BTN3,   _______,  _______,
         _______,  KC_MS_BTN4,  _______,     KC_MS_UP,    KC_MS_BTN5,   _______,  _______,
@@ -125,21 +172,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,
         _______,    _______,
         TT(_FN),    TT(_NUMPAD),
-        KC_Y
+        _______
     ),
 };
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
                   // left                                        // right
-    [_QWERTY] = { ENCODER_CCW_CW(KC_MS_WH_LEFT, KC_MS_WH_RIGHT), ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)  },
+    [_QWERTY] =  { ENCODER_CCW_CW(KC_MS_WH_LEFT, KC_MS_WH_RIGHT), ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)  },
+    [_COLEMAK] = { ENCODER_CCW_CW(KC_MS_WH_LEFT, KC_MS_WH_RIGHT), ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)  },
+    [_MAC] =     { ENCODER_CCW_CW(KC_MS_WH_LEFT, KC_MS_WH_RIGHT), ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)  },
     /* [_QWERTY] = { ENCODER_CCW_CW(WORKSPACE_LEFT, WORKSPACE_RIGHT), ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)  }, */
-    [_FN]     = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),                ENCODER_CCW_CW(TAB_L, TAB_R) },
-    [_NUMPAD] = { ENCODER_CCW_CW(KC_UP, KC_DOWN),                  ENCODER_CCW_CW(KC_LEFT, KC_RIGHT) },
-    [_CMD]    = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD),               ENCODER_CCW_CW(KC_BSPC, KC_SPC) },
-    [_MOUSE]  = { ENCODER_CCW_CW(KC_MS_UP, KC_MS_DOWN),            ENCODER_CCW_CW(KC_MS_LEFT, KC_MS_RIGHT) },
+    [_FN]     =  { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),              ENCODER_CCW_CW(TAB_L, TAB_R) },
+    [_NUMPAD] =  { ENCODER_CCW_CW(KC_UP, KC_DOWN),                ENCODER_CCW_CW(KC_LEFT, KC_RIGHT) },
+    [_CMD]    =  { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD),             ENCODER_CCW_CW(KC_BSPC, KC_SPC) },
+    [_MOUSE]  =  { ENCODER_CCW_CW(KC_MS_UP, KC_MS_DOWN),          ENCODER_CCW_CW(KC_MS_LEFT, KC_MS_RIGHT) },
 };
-/* ENCODER_CCW_CW(KC_BRIGHTNESS_DOWN, KC_BRIGHTNESS_UP) */
 #endif
 
 #define PW(...) ( __VA_ARGS__ SS_TAP(X_ENTER) )
@@ -280,12 +328,31 @@ void workspace_right(uint16_t keycode, keyrecord_t *record) {
     unregister_code(KC_RGUI);
 }
 
+void to_default_layer(uint16_t keycode, keyrecord_t *record) {
+    layer_move(biton32(default_layer_state));
+}
+
+void toggle_default_layer(int layer) {
+    set_single_default_layer(default_layer_state == (1UL << layer) ? _QWERTY : layer);
+}
+
+void toggle_macos_default(uint16_t keycode, keyrecord_t *record) {
+    toggle_default_layer(_MAC);
+}
+
+void toggle_colemak_default(uint16_t keycode, keyrecord_t *record) {
+    toggle_default_layer(_COLEMAK);
+}
+
 KeyCallback CUSTOM_KEYS[] = {
     { DBL_SPACE, double_space },
     { TOGGLE_VIM, toggle_vim },
     { CLICK_THIS_SPOT, click_this_spot },
     { WORKSPACE_LEFT, workspace_left },
     { WORKSPACE_RIGHT, workspace_right },
+    { TO_DEFAULT_LAYER, to_default_layer },
+    { TOGGLE_MAC, toggle_macos_default },
+    { TOGGLE_COLEMAK, toggle_colemak_default }
 };
 
 bool process_custom_key_user(uint16_t keycode, keyrecord_t *record) {
@@ -317,7 +384,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return process_custom_mod_tap_user(keycode, record);
 }
 
-// mac mode for vim
+// mac mode for vim and auto-select mac layer
 bool process_detected_host_os_kb(os_variant_t detected_os) {
     if (!process_detected_host_os_user(detected_os)) {
         return false;
@@ -325,6 +392,7 @@ bool process_detected_host_os_kb(os_variant_t detected_os) {
 
     if (detected_os == OS_MACOS) {
         enable_vim_for_mac();
+        set_single_default_layer(_MAC);
     }
 
     return true;
