@@ -1,14 +1,12 @@
-// Keys that should not use "hold on other key press" behavior
+// Keys that should not use "hold on other key press" behavior (automatically considered a hold if another key is pressed before mod release)
 const uint16_t non_hold_keys[] = {
     RSFT_T(KC_ENT),  // Right Shift / Enter
     RGUI_T(KC_BSPC)  // Right GUI / Backspace
 };
 
-// Keys that should use retro tapping behavior
+// Keys that should use retro tapping behavior (if key is held longer than TAPPING_TERM, register the key as a mod hold)
 const uint16_t retro_tapping_keys[] = {
-    RSFT_T(KC_ENT),  // Right Shift / Enter - useful for when you want to type uppercase letters
     RGUI_T(KC_BSPC)  // Right GUI / Backspace - allows for easier backspace access
-    // RCTL_T(KC_SPC) is excluded as it's typically better with immediate space output
 };
 
 // Array sizes for iteration
