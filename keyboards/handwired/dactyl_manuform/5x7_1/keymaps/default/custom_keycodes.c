@@ -3,5 +3,8 @@ enum custom_keycodes {
     CLICK_THIS_SPOT,
     TOGGLE_VIM,
     WORKSPACE_LEFT,
-    WORKSPACE_RIGHT
+    WORKSPACE_RIGHT,
+    TO_DEFAULT_LAYER,
+    TOGGLE_MAC,
+    TOGGLE_COLEMAK
 };
