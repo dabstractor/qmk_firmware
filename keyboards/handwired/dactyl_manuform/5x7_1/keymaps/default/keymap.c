@@ -179,14 +179,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
                   // left                                        // right
-    [_QWERTY] =  { ENCODER_CCW_CW(KC_MS_WH_LEFT, KC_MS_WH_RIGHT), ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)  },
-    [_COLEMAK] = { ENCODER_CCW_CW(KC_MS_WH_LEFT, KC_MS_WH_RIGHT), ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)  },
-    [_MAC] =     { ENCODER_CCW_CW(KC_MS_WH_LEFT, KC_MS_WH_RIGHT), ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)  },
-    /* [_QWERTY] = { ENCODER_CCW_CW(WORKSPACE_LEFT, WORKSPACE_RIGHT), ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)  }, */
-    [_FN]     =  { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),              ENCODER_CCW_CW(TAB_L, TAB_R) },
-    [_NUMPAD] =  { ENCODER_CCW_CW(KC_UP, KC_DOWN),                ENCODER_CCW_CW(KC_LEFT, KC_RIGHT) },
-    [_CMD]    =  { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD),             ENCODER_CCW_CW(KC_BSPC, KC_SPC) },
-    [_MOUSE]  =  { ENCODER_CCW_CW(KC_MS_UP, KC_MS_DOWN),          ENCODER_CCW_CW(KC_MS_LEFT, KC_MS_RIGHT) },
+    [_QWERTY] =  { ENCODER_CCW_CW(KC_MS_WH_LEFT, KC_MS_WH_RIGHT),     ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)  },
+    [_COLEMAK] = { ENCODER_CCW_CW(KC_MS_WH_LEFT, KC_MS_WH_RIGHT),     ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)  },
+    [_MAC] =     { ENCODER_CCW_CW(KC_MS_WH_LEFT, KC_MS_WH_RIGHT),     ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)  },
+    [_FN]     =  { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),                  ENCODER_CCW_CW(TAB_L, TAB_R) },
+    [_NUMPAD] =  { ENCODER_CCW_CW(KC_UP, KC_DOWN),                    ENCODER_CCW_CW(KC_LEFT, KC_RIGHT) },
+    [_CMD]    =  { ENCODER_CCW_CW(POWERSCROLL_UP, POWERSCROLL_DOWN),  ENCODER_CCW_CW(KC_BSPC, KC_SPC) },
+    [_MOUSE]  =  { ENCODER_CCW_CW(KC_MS_UP, KC_MS_DOWN),              ENCODER_CCW_CW(KC_MS_LEFT, KC_MS_RIGHT) },
 };
 #endif
 
@@ -344,12 +343,31 @@ void toggle_colemak_default(uint16_t keycode, keyrecord_t *record) {
     toggle_default_layer(_COLEMAK);
 }
 
+#define POWERSCROLL_FACTOR 10
+
+void repeat_code(uint16_t keycode) {
+    for(int i = 0; i < POWERSCROLL_FACTOR; i++) {
+        register_code(keycode);
+        unregister_code(keycode);
+    }
+}
+
+void powerscroll_up(uint16_t keycode, keyrecord_t *record) {
+    repeat_code(KC_MS_WH_UP);
+}
+
+void powerscroll_down(uint16_t keycode, keyrecord_t *record) {
+    repeat_code(KC_MS_WH_DOWN);
+}
+
 KeyCallback CUSTOM_KEYS[] = {
     { DBL_SPACE, double_space },
     { TOGGLE_VIM, toggle_vim },
     { CLICK_THIS_SPOT, click_this_spot },
     { WORKSPACE_LEFT, workspace_left },
     { WORKSPACE_RIGHT, workspace_right },
+    { POWERSCROLL_UP, powerscroll_up },
+    { POWERSCROLL_DOWN, powerscroll_down },
     { TO_DEFAULT_LAYER, to_default_layer },
     { TOGGLE_MAC, toggle_macos_default },
     { TOGGLE_COLEMAK, toggle_colemak_default }
