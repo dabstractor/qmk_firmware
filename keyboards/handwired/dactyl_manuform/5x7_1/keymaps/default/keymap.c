@@ -201,8 +201,9 @@ KeyCombo leader_keys[] = {
     { KEYS(KC_P, KC_S), PW(PASSWORD2) },
     { KEYS(KC_P, KC_D), PW(PASSWORD2) },
     { KEYS(KC_P, KC_B, KC_W), PW(BITWARDENPW) },
-    { KEYS(KC_R, KC_I), "/right\n" },
-    { KEYS(KC_L, KC_E), "/left\n" },
+    { KEYS(KC_J, KC_J), "/msg @edjimucator\n" },
+    { KEYS(KC_S, KC_R), "/join ~shiny-rocks\n" },
+    { KEYS(KC_D, KC_P), "/join ~dustin-private\n" },
     { KEYS(KC_J, KC_I), SS_TAP(X_HOME) "https://jitsi.mulletware.io/\n" }  ,
     { KEYS(KC_1), "!-1:" },
     { KEYS(KC_G, KC_P), SS_TAP(X_TAB) SS_TAP(X_TAB) SS_TAP(X_TAB) SS_TAP(X_ENTER) }
