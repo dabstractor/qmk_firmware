@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
-#include "qmk-vim/src/vim.h"
+#include "./qmk-vim/src/vim.h"
+#include "./qmk-notifier/notifier.h"
 #include "./secrets.h"
 #include "./keycombos.h"
 #include "./custom_mod_map.c"
@@ -7,6 +8,7 @@
 #include "./custom_keycodes.c"
 #include "./layers.c"
 #include "./tap_dance.c"
+#include "./serial_command.c"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
