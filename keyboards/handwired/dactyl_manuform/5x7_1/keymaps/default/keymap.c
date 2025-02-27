@@ -21,18 +21,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,           KC_A,        KC_S,     KC_D,   KC_F,   KC_G,   KC_PGUP,
         LSFT_T(KC_CAPS),  KC_Z,        KC_X,     KC_C,   KC_V,   KC_B,   KC_PGDN,
         TOGGLE_VIM,       QK_LEAD,     KC_LBRC,  KC_RBRC,
-                                                      KC_LSFT,     KC_LCTL,
-                                                      KC_LALT,     KC_LGUI,
-                                                      TT(_NUMPAD), TT(_FN),
-                                                      KC_MS_BTN4,
+                                                  CAPS_WORD_TOGGLE,  TMUX_LEADER,
+                                                  COLON,             TERM_TOGGLE,
+                                                  TT(_NUMPAD),       TT(_FN),
+                                                  KC_MS_BTN4,
         // right hand
         KC_PRINT_SCREEN,  KC_6,  KC_7,   KC_8,     KC_9,    KC_0,     KC_DEL,
         KC_MS_BTN1,       KC_Y,  KC_U,   KC_I,     KC_O,    KC_P,     KC_BSLS,
         KC_HOME,          KC_H,  KC_J,   KC_K,     KC_L,    KC_SCLN,  KC_QUOT,
-        KC_END,           KC_N,  KC_M,   KC_COMM,  KC_DOT,  KC_SLSH,  KC_RSFT,
+        KC_END,           KC_N,  KC_M,   KC_COMM,  KC_DOT,  KC_SLSH,  TOGGLE_MOUSE,
                                          KC_MINS,  KC_EQL,  KC_LBRC,  KC_RBRC,
         RCTL_T(KC_SPC),   RSFT_T(KC_ENT),
-        RGUI_T(KC_BSPC),  RALT_T(KC_BSPC),
+        RGUI_T(KC_BSPC),  KC_RALT,
         TD(TD_LEAD_FN),   TT(_NUMPAD),
         KC_MS_BTN5
     ),
@@ -221,54 +221,13 @@ void leader_end_user(void) {
 }
 #endif // LEADER
 
-void term_toggle(uint16_t keycode, keyrecord_t *record) {
-    // send GUI+Space
-    register_code(KC_RALT);
-    register_code(KC_SPC);
-    unregister_code(KC_RALT);
-    unregister_code(KC_SPC);
-}
-
-bool is_dbl_spc_window_active = false;
-
-void dbl_spc_toggle(uint16_t keycode, keyrecord_t *record) {
-    // toggles neovim open current buffer window
-    if (is_dbl_spc_window_active) {
-        // send esc key
-        register_code(KC_ESC);
-        unregister_code(KC_ESC);
-        register_code(KC_ESC);
-        unregister_code(KC_ESC);
-        is_dbl_spc_window_active = false;
-    } else {
-        send_string("  ");
-        is_dbl_spc_window_active = true;
-    }
-}
-
-void tmux_leader(uint16_t keycode, keyrecord_t *record) {
-    // send Ctrl+Space
-    register_code(KC_RCTL);
-    register_code(KC_SPC);
-    unregister_code(KC_RCTL);
-    unregister_code(KC_SPC);
-}
-
-void activate_caps_word_toggle(uint16_t keycode, keyrecord_t *record) {
-    caps_word_toggle();
-}
-
-void toggle_mouse_layer(uint16_t keycode, keyrecord_t *record) {
-    layer_invert(_MOUSE);
-}
-
-KeyCallback CUSTOM_MOD_TAP_KEYS[] = {
-    { KC_LGUI, term_toggle },
-    { KC_LCTL, tmux_leader },
-    { KC_LSFT, activate_caps_word_toggle },
-    { KC_RSFT, toggle_mouse_layer },
+CustomModMap CUSTOM_MOD_TAP_KEYS[] = {
+    { TERM_TOGGLE, KC_LGUI },
+    { TMUX_LEADER, KC_LCTL },
+    { CAPS_WORD_TOGGLE, KC_LSFT },
+    { TOGGLE_MOUSE, KC_RSFT },
+    { COLON, KC_LALT }
 };
-
 
 bool process_custom_mod_tap_user(uint16_t keycode, keyrecord_t *record) {
     bool found_key = false;
@@ -278,20 +237,11 @@ bool process_custom_mod_tap_user(uint16_t keycode, keyrecord_t *record) {
             found_key = true;
 
             if (record->event.pressed) {
-                on_press(keycode);
-                if (CUSTOM_MOD_TAP_KEYS[i].on_press != NULL) {
-                    CUSTOM_MOD_TAP_KEYS[i].on_press(keycode, record);
-                }
+                on_press(keycode, CUSTOM_MOD_TAP_KEYS[i].mod_code);
                 return false;
             } else {
-                if (on_release(keycode) &&
-                    CUSTOM_MOD_TAP_KEYS[i].on_release != NULL) {
-                    CUSTOM_MOD_TAP_KEYS[i].on_release(keycode, record);
-                }
-                return false;
+                return on_release(keycode, CUSTOM_MOD_TAP_KEYS[i].mod_code);
             }
-
-            return true;
         }
     }
 
@@ -361,6 +311,37 @@ void powerscroll_down(uint16_t keycode, keyrecord_t *record) {
     repeat_code(KC_MS_WH_DOWN);
 }
 
+void term_toggle(uint16_t keycode, keyrecord_t *record) {
+    // send GUI+Space
+    register_code(KC_RALT);
+    register_code(KC_SPC);
+    unregister_code(KC_RALT);
+    unregister_code(KC_SPC);
+}
+
+void tmux_leader(uint16_t keycode, keyrecord_t *record) {
+    // send Ctrl+Space
+    register_code(KC_RCTL);
+    register_code(KC_SPC);
+    unregister_code(KC_RCTL);
+    unregister_code(KC_SPC);
+}
+
+void activate_caps_word_toggle(uint16_t keycode, keyrecord_t *record) {
+    caps_word_toggle();
+}
+
+void toggle_mouse_layer(uint16_t keycode, keyrecord_t *record) {
+    layer_invert(_MOUSE);
+}
+
+void colon(uint16_t keycode, keyrecord_t *record) {
+    register_code(KC_LSFT);
+    register_code(KC_SCLN);
+    unregister_code(KC_LSFT);
+    unregister_code(KC_SCLN);
+}
+
 KeyCallback CUSTOM_KEYS[] = {
     { DBL_SPACE, double_space },
     { TOGGLE_VIM, toggle_vim },
@@ -371,7 +352,12 @@ KeyCallback CUSTOM_KEYS[] = {
     { POWERSCROLL_DOWN, powerscroll_down },
     { TO_DEFAULT_LAYER, to_default_layer },
     { TOGGLE_MAC, toggle_macos_default },
-    { TOGGLE_COLEMAK, toggle_colemak_default }
+    { TOGGLE_COLEMAK, toggle_colemak_default },
+    { TERM_TOGGLE, term_toggle },
+    { TMUX_LEADER, tmux_leader },
+    { CAPS_WORD_TOGGLE, activate_caps_word_toggle },
+    { TOGGLE_MOUSE, toggle_mouse_layer },
+    { COLON, colon }
 };
 
 bool process_custom_key_user(uint16_t keycode, keyrecord_t *record) {
@@ -397,10 +383,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %u, time: %5u, int: %u, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
 #endif
 
+
     if (!process_vim_mode(keycode, record)) return false;
 
-    process_custom_key_user(keycode, record);
-    return process_custom_mod_tap_user(keycode, record);
+    if (process_custom_mod_tap_user(keycode, record)) {
+        process_custom_key_user(keycode, record);
+    }
+
+
+    return true;
 }
 
 // mac mode for vim and auto-select mac layer
