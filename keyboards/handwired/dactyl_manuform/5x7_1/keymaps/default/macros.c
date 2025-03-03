@@ -1,0 +1,11 @@
+// Some basic macros
+#define TASK        LCTL(LSFT(KC_ESC))
+#define TAB_R       LCTL(KC_TAB)
+#define TAB_L       LCTL(LSFT(KC_TAB))
+#define TAB_RO      LCTL(LSFT(KC_T))
+#define SELECT_ALL  LCTL(KC_A)
+#define COPY        LCTL(KC_C)
+#define PASTE       LCTL(KC_V)
+#define CUT         LCTL(KC_X)
+#define UNDO        LCTL(KC_Z)
+#define REDO        LCTL(KC_R)
