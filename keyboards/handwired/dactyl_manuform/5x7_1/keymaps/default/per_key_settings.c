@@ -1,3 +1,5 @@
+#include "./layers.c"
+
 // Keys that should not use "hold on other key press" behavior (automatically considered a hold if another key is pressed before mod release)
 const uint16_t non_hold_keys[] = {
     RSFT_T(KC_ENT),  // Right Shift / Enter
@@ -31,4 +33,30 @@ bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
         }
     }
     return false;
+}
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case RCTL_T(KC_SPC):
+        case RGUI_T(KC_BSPC):
+            return TAPPING_TERM + 100;
+        case RSFT_T(KC_ENT):
+            return TAPPING_TERM - 50;
+        case TT(_NUMPAD):
+        case TT(_FN):
+            return TAPPING_TERM - 100;
+        default:
+            return TAPPING_TERM;
+    }
+}
+
+bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LT(1, KC_BSPC):
+            // Immediately select the hold action when another key is tapped.
+            return true;
+        default:
+            // Do not select the hold action when another key is tapped.
+            return false;
+    }
 }
