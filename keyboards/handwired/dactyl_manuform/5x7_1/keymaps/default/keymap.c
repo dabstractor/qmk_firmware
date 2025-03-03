@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
-#include "qmk-vim/src/vim.h"
+#include "./qmk-vim/src/vim.h"
+#include "./qmk-notifier/notifier.h"
 #include "./secrets.h"
 #include "./keycombos.h"
 #include "./custom_mod_map.c"
@@ -8,6 +9,7 @@
 #include "./layers.c"
 #include "./macros.c"
 #include "./tap_dance.c"
+#include "./serial_command.c"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -27,10 +29,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                  TT(_NUMPAD),       TT(_FN),
                                                  KC_MS_BTN4,
         // right hand
-        KC_PRINT_SCREEN,  KC_6,  KC_7,   KC_8,     KC_9,    KC_0,     KC_DEL,
-        KC_MS_BTN1,       KC_Y,  KC_U,   KC_I,     KC_O,    KC_P,     KC_BSLS,
-        KC_HOME,          KC_H,  KC_J,   KC_K,     KC_L,    KC_SCLN,  KC_QUOT,
-        KC_END,           KC_N,  KC_M,   KC_COMM,  KC_DOT,  KC_SLSH,  TOGGLE_MOUSE,
+        KC_CALC,     KC_6,  KC_7,   KC_8,     KC_9,    KC_0,              KC_DEL,
+        KC_MS_BTN1,  KC_Y,  KC_U,   KC_I,     KC_O,    KC_P,              KC_BSLS,
+        KC_HOME,     KC_H,  KC_J,   KC_K,     KC_L,    KC_SCLN,           KC_QUOT,
+        KC_END,      KC_N,  KC_M,   KC_COMM,  KC_DOT,  KC_SLSH,           TOGGLE_MOUSE,
                                     KC_MINS,  KC_EQL,  MO(_POWERSCROLL),  TG(_MOUSE),
         RCTL_T(KC_SPC),   RSFT_T(KC_ENT),
         RGUI_T(KC_BSPC),  KC_RALT,
@@ -50,10 +52,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                       TT(_NUMPAD), TT(_FN),
                                                       KC_MS_BTN4,
         // right hand
-        KC_PRINT_SCREEN,  KC_6,  KC_7,   KC_8,     KC_9,    KC_0,     KC_DEL,
-        KC_MS_BTN1,       KC_J,  KC_L,   KC_U,     KC_Y,    KC_SCLN,  KC_BSLS,
-        KC_HOME,          KC_H,  KC_N,   KC_E,     KC_I,    KC_O,     KC_QUOT,
-        KC_END,           KC_K,  KC_M,   KC_COMM,  KC_DOT,  KC_SLSH,  KC_RSFT,
+        KC_CALC,     KC_6,  KC_7,   KC_8,     KC_9,    KC_0,     KC_DEL,
+        KC_MS_BTN1,  KC_J,  KC_L,   KC_U,     KC_Y,    KC_SCLN,  KC_BSLS,
+        KC_HOME,     KC_H,  KC_N,   KC_E,     KC_I,    KC_O,     KC_QUOT,
+        KC_END,      KC_K,  KC_M,   KC_COMM,  KC_DOT,  KC_SLSH,  KC_RSFT,
                                     KC_MINS,  KC_EQL,  KC_LBRC,  KC_RBRC,
         RCTL_T(KC_SPC),   RSFT_T(KC_ENT),
         RGUI_T(KC_BSPC),  RALT_T(KC_BSPC),
@@ -74,11 +76,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                       KC_MS_BTN4,
 
         // right hand
-        KC_PRINT_SCREEN,  KC_6,  KC_7,   KC_8,     KC_9,    KC_0,     KC_DEL,
-        KC_MS_BTN1,       KC_Y,  KC_U,   KC_I,     KC_O,    KC_P,     KC_BSLS,
-        KC_HOME,          KC_H,  KC_J,   KC_K,     KC_L,    KC_SCLN,  KC_QUOT,
-        KC_END,           KC_N,  KC_M,   KC_COMM,  KC_DOT,  KC_SLSH,  KC_RSFT,
-                                         KC_MINS,  KC_EQL,  KC_LBRC,  KC_RBRC,
+        KC_CALC,     KC_6,  KC_7,   KC_8,     KC_9,    KC_0,     KC_DEL,
+        KC_MS_BTN1,  KC_Y,  KC_U,   KC_I,     KC_O,    KC_P,     KC_BSLS,
+        KC_HOME,     KC_H,  KC_J,   KC_K,     KC_L,    KC_SCLN,  KC_QUOT,
+        KC_END,      KC_N,  KC_M,   KC_COMM,  KC_DOT,  KC_SLSH,  KC_RSFT,
+                                    KC_MINS,  KC_EQL,  KC_LBRC,  KC_RBRC,
         RCTL_T(KC_SPC),   RSFT_T(KC_ENT),
         RGUI_T(KC_BSPC),  RALT_T(KC_BSPC),
         TD(TD_LEAD_FN),   TT(_NUMPAD),
@@ -87,11 +89,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_FN] = LAYOUT_5x7_1(
         // left hand
-        QK_BOOT,           KC_F1,     KC_F2,     KC_F3,     KC_F4,     KC_F5,    _______,
-        _______,           KC_F1,     KC_F2,     KC_F3,     KC_F4,     KC_F5,    _______,
-        TO_DEFAULT_LAYER,  _______,   _______,   KC_UP,     _______,   _______,  _______,
-        _______,           _______,   KC_LEFT,   KC_DOWN,   KC_RGHT,   _______,  _______,
-        KC_MSTP,           KC_MPLY,   KC_MPRV,   KC_MNXT,
+        QK_BOOT,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    _______,
+        _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    _______,
+        _______,  _______,  _______,  KC_UP,    _______,  _______,  _______,
+        _______,  _______,  KC_LEFT,  KC_DOWN,  KC_RGHT,  _______,  TO_DEFAULT_LAYER,
+        KC_MSTP,  KC_MPLY,  KC_MPRV,  KC_MNXT,
                                                                  _______, _______,
                                                                  _______, _______,
                                                                  _______, _______,
@@ -110,21 +112,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_NUMPAD] = LAYOUT_5x7_1(
         // left hand
-        _______,           _______,  _______,  _______,  _______,  _______,  KC_CALC,
-        _______,           KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     _______,
-        TO_DEFAULT_LAYER,  _______,  _______,  _______,  _______,  _______,  _______,
-        _______,           _______,  _______,  _______,  _______,  _______,  _______,
-        _______,           _______,  _______,  _______,
-                                                              _______,  _______,
-                                                              _______,  _______,
-                                                              _______,  _______,
-                                                              _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  TO_DEFAULT_LAYER,
+        _______,  _______,  _______,  _______,
+                                               _______,  _______,
+                                               _______,  _______,
+                                               _______,  _______,
+                                               _______,
         // right hand
-        KC_NUM,   _______,  _______,  _______,  KC_PMNS,  KC_PPLS,  _______,
-        KC_CALC,  KC_6,     KC_P7,    KC_P8,    KC_P9,    KC_0,     _______,
-        _______,  _______,  KC_P4,    KC_P5,    KC_P6,    KC_PAST,  _______,
-        _______,  _______,  KC_P1,    KC_P2,    KC_P3,    KC_PSLS,  _______,
-                                      KC_P0,    KC_PDOT,  KC_PENT,  _______,
+        KC_CALC,     _______,  _______,  _______,  _______,  KC_PPLS,  _______,
+        SELECT_ALL,  KC_6,     KC_P7,    KC_P8,    KC_P9,    KC_PMNS,  _______,
+        COPY,        _______,  KC_P4,    KC_P5,    KC_P6,    KC_PAST,  _______,
+        PASTE,       _______,  KC_P1,    KC_P2,    KC_P3,    KC_PSLS,  _______,
+                                         KC_P0,    KC_PDOT,  KC_PENT,  _______,
         _______,  KC_PENT,
         _______,  _______,
         _______,  _______,
@@ -133,11 +135,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_CMD] = LAYOUT_5x7_1(
         // left hand
-        _______,           _______,   _______,   _______,   _______,   _______,  QK_DYNAMIC_MACRO_RECORD_START_1,
-        _______,           _______,   _______,   _______,   _______,   _______,  QK_DYNAMIC_MACRO_RECORD_STOP,
-        TO_DEFAULT_LAYER,  _______,   _______,   _______,   _______,   _______,  QK_DYNAMIC_MACRO_PLAY_1,
-        _______,           _______,   _______,   _______,   _______,   _______,  TOGGLE_MAC,
-        _______,           _______,   _______,   _______,
+        _______,  _______,   _______,   _______,   _______,   _______,  QK_DYNAMIC_MACRO_RECORD_START_1,
+        _______,  _______,   _______,   _______,   _______,   _______,  QK_DYNAMIC_MACRO_RECORD_STOP,
+        _______,  _______,   _______,   _______,   _______,   _______,  QK_DYNAMIC_MACRO_PLAY_1,
+        _______,  _______,   _______,   _______,   _______,   _______,  TO_DEFAULT_LAYER,
+        MO(_CMD), _______,   _______,   _______,
                                                                   _______, _______,
                                                                   _______, _______,
                                                                   _______, _______,
@@ -147,7 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         QK_DYNAMIC_MACRO_RECORD_STOP,     _______,     _______,   _______,   _______,     _______,   _______,
         QK_DYNAMIC_MACRO_PLAY_2,          KC_MS_BTN4,  _______,   _______,   KC_MS_BTN5,  _______,   _______,
         TOGGLE_COLEMAK,                   _______,     _______,   _______,   _______,     _______,   _______,
-                                          _______,     _______,   _______,   _______,
+                                                                  _______,   _______,     _______,   _______,
         _______,  _______,
         _______,  _______,
         _______,  _______,
@@ -156,25 +158,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_MOUSE] = LAYOUT_5x7_1(
         // left hand
-        _______,           _______,  _______,     _______,     _______,      _______,  _______,
-        _______,           _______,  KC_MS_BTN3,  KC_MS_BTN2,  KC_MS_BTN1,   _______,  _______,
-        TO_DEFAULT_LAYER,  _______,  _______,     KC_MS_UP,    _______,      _______,  _______,
-        _______,           _______,  KC_MS_LEFT,  KC_MS_DOWN,  KC_MS_RIGHT,  _______,  _______,
-        _______,           _______,  _______,     _______,
-                                                                        _______,  _______,
-                                                                        _______,  _______,
-                                                                        _______,  _______,
-                                                                        _______,
+        _______,  _______,  _______,     _______,     _______,      _______,  _______,
+        _______,  _______,  KC_MS_BTN3,  KC_MS_BTN2,  KC_MS_BTN1,   _______,  _______,
+        _______,  _______,  _______,     KC_MS_UP,    _______,      _______,  _______,
+        _______,  _______,  KC_MS_LEFT,  KC_MS_DOWN,  KC_MS_RIGHT,  _______,  TO_DEFAULT_LAYER,
+        _______,  _______,  _______,     _______,
+                                                                    _______,  _______,
+                                                                    _______,  _______,
+                                                                    _______,  _______,
+                                                                    _______,
         _______,  _______,     _______,     _______,     _______,      _______,  _______,
         _______,  _______,     KC_MS_BTN1,  KC_MS_BTN2,  KC_MS_BTN3,   _______,  _______,
         _______,  KC_MS_BTN4,  _______,     KC_MS_UP,    KC_MS_BTN5,   _______,  _______,
         _______,  _______,     KC_MS_LEFT,  KC_MS_DOWN,  KC_MS_RIGHT,  _______,  _______,
                                             _______,     _______,      _______,  _______,
         _______,  _______,
-        _______,    _______,
+        _______,  _______,
         TT(_FN),    TT(_NUMPAD),
         _______
     ),
+
     [_POWERSCROLL] = LAYOUT_5x7_1(
         // left hand
         _______,  _______,  _______,  _______,  _______,  _______,  _______,
