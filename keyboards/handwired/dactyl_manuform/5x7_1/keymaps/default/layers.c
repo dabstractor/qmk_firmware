@@ -7,3 +7,4 @@
 #define _NUMPAD      4
 #define _CMD         5
 #define _MOUSE       6
+#define _POWERSCROLL 7

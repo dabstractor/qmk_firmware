@@ -21,17 +21,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,           KC_Q,        KC_W,     KC_E,   KC_R,   KC_T,   TG(_NUMPAD),
         KC_ESC,           KC_A,        KC_S,     KC_D,   KC_F,   KC_G,   KC_PGUP,
         LSFT_T(KC_CAPS),  KC_Z,        KC_X,     KC_C,   KC_V,   KC_B,   KC_PGDN,
-        TOGGLE_VIM,       QK_LEAD,     KC_LBRC,  KC_RBRC,
-                                                  CAPS_WORD_TOGGLE,  TMUX_LEADER,
-                                                  COLON,             TERM_TOGGLE,
-                                                  TT(_NUMPAD),       TT(_FN),
-                                                  KC_MS_BTN4,
+        MO(_CMD),         QK_LEAD,     KC_LBRC,  KC_RBRC,
+                                                 CAPS_WORD_TOGGLE,  TMUX_LEADER,
+                                                 COLON,             TERM_TOGGLE,
+                                                 TT(_NUMPAD),       TT(_FN),
+                                                 KC_MS_BTN4,
         // right hand
         KC_PRINT_SCREEN,  KC_6,  KC_7,   KC_8,     KC_9,    KC_0,     KC_DEL,
         KC_MS_BTN1,       KC_Y,  KC_U,   KC_I,     KC_O,    KC_P,     KC_BSLS,
         KC_HOME,          KC_H,  KC_J,   KC_K,     KC_L,    KC_SCLN,  KC_QUOT,
         KC_END,           KC_N,  KC_M,   KC_COMM,  KC_DOT,  KC_SLSH,  TOGGLE_MOUSE,
-                                         KC_MINS,  KC_EQL,  KC_LBRC,  KC_RBRC,
+                                    KC_MINS,  KC_EQL,  MO(_POWERSCROLL),  TG(_MOUSE),
         RCTL_T(KC_SPC),   RSFT_T(KC_ENT),
         RGUI_T(KC_BSPC),  KC_RALT,
         TD(TD_LEAD_FN),   TT(_NUMPAD),
@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,           KC_Q,     KC_W,     KC_F,    KC_P,   KC_G,   TG(_NUMPAD),
         KC_ESC,           KC_A,     KC_R,     KC_S,    KC_T,   KC_D,   KC_PGUP,
         LSFT_T(KC_CAPS),  KC_Z,     KC_X,     KC_C,    KC_V,   KC_B,   KC_PGDN,
-        TOGGLE_VIM,       QK_LEAD,  KC_LBRC,  KC_RBRC,
+        MO(_CMD),         QK_LEAD,  KC_LBRC,  KC_RBRC,
                                                       KC_LSFT,     KC_LCTL,
                                                       KC_LALT,     KC_LGUI,
                                                       TT(_NUMPAD), TT(_FN),
@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MS_BTN1,       KC_J,  KC_L,   KC_U,     KC_Y,    KC_SCLN,  KC_BSLS,
         KC_HOME,          KC_H,  KC_N,   KC_E,     KC_I,    KC_O,     KC_QUOT,
         KC_END,           KC_K,  KC_M,   KC_COMM,  KC_DOT,  KC_SLSH,  KC_RSFT,
-                                         KC_MINS,  KC_EQL,  KC_LBRC,  KC_RBRC,
+                                    KC_MINS,  KC_EQL,  KC_LBRC,  KC_RBRC,
         RCTL_T(KC_SPC),   RSFT_T(KC_ENT),
         RGUI_T(KC_BSPC),  RALT_T(KC_BSPC),
         TD(TD_LEAD_FN),   TT(_NUMPAD),
@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,           KC_Q,     KC_W,     KC_E,    KC_R,   KC_T,   TG(_NUMPAD),
         KC_ESC,           KC_A,     KC_S,     KC_D,    KC_F,   KC_G,   KC_PGUP,
         LSFT_T(KC_CAPS),  KC_Z,     KC_X,     KC_C,    KC_V,   KC_B,   KC_PGDN,
-        TOGGLE_VIM,       QK_LEAD,  KC_LBRC,  KC_RBRC,
+        MO(_CMD),         QK_LEAD,  KC_LBRC,  KC_RBRC,
                                                       KC_LSFT,     KC_LCTL,
                                                       KC_LALT,     KC_LGUI,
                                                       TT(_NUMPAD), TT(_FN),
@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_F12,   KC_F6,       KC_F7,      KC_F8,    KC_F9,       KC_F10,    _______,
         KC_F13,   KC_MS_BTN4,  _______,    KC_UP,    KC_MS_BTN5,  _______,   _______,
         KC_F14,   _______,     KC_LEFT,    KC_DOWN,  KC_RGHT,     _______,   _______,
-                                           _______,   _______,    _______,   TOGGLE_VIM,
+                                           _______,   _______,    _______,   _______,
         _______,  _______,
         KC_DEL,   _______,
         _______,  _______,
@@ -175,18 +175,42 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TT(_FN),    TT(_NUMPAD),
         _______
     ),
+    [_POWERSCROLL] = LAYOUT_5x7_1(
+        // left hand
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,  _______,
+                                                          _______,  _______,
+                                                          _______,  _______,
+                                                          _______,  _______,
+                                                          _______,
+        // right hand
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,
+                                      _______,  _______,  _______,  _______,
+        _______,        _______,
+        _______,        _______,
+        TD(TD_TG_VIM),  _______,
+        _______
+    ),
 };
 
 #if defined(ENCODER_MAP_ENABLE)
+#define DEFAULT_ENCODER { ENCODER_CCW_CW(KC_MS_WH_LEFT, KC_MS_WH_RIGHT), ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)  }
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-                  // left                                        // right
-    [_QWERTY] =  { ENCODER_CCW_CW(KC_MS_WH_LEFT, KC_MS_WH_RIGHT),     ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)  },
-    [_COLEMAK] = { ENCODER_CCW_CW(KC_MS_WH_LEFT, KC_MS_WH_RIGHT),     ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)  },
-    [_MAC] =     { ENCODER_CCW_CW(KC_MS_WH_LEFT, KC_MS_WH_RIGHT),     ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)  },
-    [_FN]     =  { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),                  ENCODER_CCW_CW(TAB_L, TAB_R) },
-    [_NUMPAD] =  { ENCODER_CCW_CW(KC_UP, KC_DOWN),                    ENCODER_CCW_CW(KC_LEFT, KC_RIGHT) },
-    [_CMD]    =  { ENCODER_CCW_CW(POWERSCROLL_UP, POWERSCROLL_DOWN),  ENCODER_CCW_CW(KC_BSPC, KC_SPC) },
-    [_MOUSE]  =  { ENCODER_CCW_CW(KC_MS_UP, KC_MS_DOWN),              ENCODER_CCW_CW(KC_MS_LEFT, KC_MS_RIGHT) },
+                       // left                                            // right
+    [_QWERTY]      = DEFAULT_ENCODER,
+    [_COLEMAK]     = DEFAULT_ENCODER,
+    [_MAC]         = DEFAULT_ENCODER,
+    [_FN]          = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),                  ENCODER_CCW_CW(TAB_L, TAB_R) },
+    [_NUMPAD]      = { ENCODER_CCW_CW(KC_UP, KC_DOWN),                    ENCODER_CCW_CW(KC_LEFT, KC_RIGHT) },
+    [_CMD]         = { ENCODER_CCW_CW(POWERSCROLL_UP, POWERSCROLL_DOWN),  ENCODER_CCW_CW(KC_BSPC, KC_SPC) },
+    [_MOUSE]       = { ENCODER_CCW_CW(KC_MS_UP, KC_MS_DOWN),              ENCODER_CCW_CW(KC_MS_LEFT, KC_MS_RIGHT) },
+    [_POWERSCROLL] = { ENCODER_CCW_CW(KC_MS_UP, KC_MS_DOWN),              ENCODER_CCW_CW(POWERSCROLL_UP, POWERSCROLL_DOWN) },
 };
 #endif
 
