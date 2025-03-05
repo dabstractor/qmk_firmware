@@ -31,3 +31,6 @@
 [submodule "keyboards/handwired/dactyl_manuform/5x7_1/qmk-notifier"]
 	path = keyboards/handwired/dactyl_manuform/5x7_1/qmk-notifier
 	url = https://github.com/dabstractor/qmk-notifier.git
+[submodule "keyboards/handwired/dactyl_manuform/5x7_1/--force"]
+	path = keyboards/handwired/dactyl_manuform/5x7_1/--force
+	url = https://github.com/dabstractor/qmk-vim.git
