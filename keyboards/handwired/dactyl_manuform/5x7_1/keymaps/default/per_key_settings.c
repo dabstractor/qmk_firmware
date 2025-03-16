@@ -7,9 +7,7 @@ const uint16_t non_hold_keys[] = {
 };
 
 // Keys that should use retro tapping behavior (if key is held longer than TAPPING_TERM, register the key as a mod hold)
-const uint16_t retro_tapping_keys[] = {
-    RGUI_T(KC_BSPC)  // Right GUI / Backspace - allows for easier backspace access
-};
+const uint16_t retro_tapping_keys[] = { };
 
 // Array sizes for iteration
 #define NON_HOLD_KEYS_SIZE (sizeof(non_hold_keys) / sizeof(uint16_t))
