@@ -53,5 +53,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VIM_W_BEGINNING_OF_WORD
 #define VIM_NUMBERED_JUMPS
 #define VIM_FOR_ALL
+#define VIM_ESC_PASSTHROUGH
 
 #define IS_COMMAND() (get_mods() == MOD_MASK_ALT)
