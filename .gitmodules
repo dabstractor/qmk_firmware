@@ -27,7 +27,7 @@
 	branch = release/v8.2
 [submodule "keyboards/handwired/dactyl_manuform/5x7_1/qmk-vim"]
 	path = keyboards/handwired/dactyl_manuform/5x7_1/qmk-vim
-	url = https://github.com/andrewjrae/qmk-vim.git
+	url = https://github.com/dabstractor/qmk-vim.git
 [submodule "keyboards/handwired/dactyl_manuform/5x7_1/qmk-notifier"]
 	path = keyboards/handwired/dactyl_manuform/5x7_1/qmk-notifier
 	url = https://github.com/dabstractor/qmk-notifier.git
