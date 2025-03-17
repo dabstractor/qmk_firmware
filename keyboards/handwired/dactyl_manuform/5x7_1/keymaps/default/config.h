@@ -25,6 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ENCODER_DEFAULT_POS 0x3
 
+#define LAYER_STATE_32BIT
+
 #define TAPPING_TERM_PER_KEY
 
 #define PERMISSIVE_HOLD
