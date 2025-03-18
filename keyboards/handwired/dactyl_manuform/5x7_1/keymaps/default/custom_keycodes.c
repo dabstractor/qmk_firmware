@@ -1,5 +1,8 @@
 #pragma once
+#include QMK_KEYBOARD_H
 #include "./qmk-vim/src/vim.h"
+
+extern os_variant_t detected_os;
 
 enum custom_keycodes {
     DBL_SPACE = SAFE_RANGE,
@@ -12,12 +15,34 @@ enum custom_keycodes {
     TERM_TOGGLE,
     CAPS_WORD_TOGGLE,
     TMUX_LEADER,
+    TMUX_TAB_NEXT,
+    TMUX_TAB_PREV,
+    TMUX_LAST_SESSION,
+    TMUX_SESSIONX,
+    VIM_BUFFERS,
     TOGGLE_MOUSE,
     COLON,
     TO_DEFAULT_LAYER,
-    TOGGLE_MAC,
-    TOGGLE_COLEMAK
+    CHROME_URL_BAR,
+    CTRL_C,
+    CTRL_K,
+    CTRL_R,
+    CTRL_W,
+    MATTERHORN_PREV,
+    MATTERHORN_NEXT,
 };
+
+void combo(uint16_t mod, uint16_t key) {
+    register_code(mod);
+    register_code(key);
+    unregister_code(mod);
+    unregister_code(key);
+}
+
+void press(uint16_t key) {
+    register_code(key);
+    unregister_code(key);
+}
 
 void double_space(uint16_t keycode, keyrecord_t *record) {
     send_string("  ");
@@ -36,17 +61,11 @@ void click_this_spot(uint16_t keycode, keyrecord_t *record) {
 }
 
 void workspace_left(uint16_t keycode, keyrecord_t *record) {
-    register_code(KC_RGUI);
-    register_code(KC_H);
-    unregister_code(KC_H);
-    unregister_code(KC_RGUI);
+    combo(KC_LGUI, KC_H);
 }
 
 void workspace_right(uint16_t keycode, keyrecord_t *record) {
-    register_code(KC_RGUI);
-    register_code(KC_L);
-    unregister_code(KC_L);
-    unregister_code(KC_RGUI);
+    combo(KC_LGUI, KC_L);
 }
 
 void to_default_layer(uint16_t keycode, keyrecord_t *record) {
@@ -56,14 +75,6 @@ void to_default_layer(uint16_t keycode, keyrecord_t *record) {
 
 void toggle_default_layer(int layer) {
     set_single_default_layer(default_layer_state == (1UL << layer) ? _QWERTY : layer);
-}
-
-void toggle_macos_default(uint16_t keycode, keyrecord_t *record) {
-    toggle_default_layer(_MAC);
-}
-
-void toggle_colemak_default(uint16_t keycode, keyrecord_t *record) {
-    toggle_default_layer(_COLEMAK);
 }
 
 #define POWERSCROLL_FACTOR 15
@@ -84,21 +95,17 @@ void powerscroll_down(uint16_t keycode, keyrecord_t *record) {
 }
 
 void term_toggle(uint16_t keycode, keyrecord_t *record) {
-    // send GUI+Space
-    register_code(KC_RALT);
-    register_code(KC_SPC);
-    unregister_code(KC_RALT);
-    unregister_code(KC_SPC);
-
+    combo(KC_LALT, KC_SPC);
     disable_vim_mode(); // if I'm doing stuff in the terminal, I definitely don't want to be in vim mode anymore
 }
 
 void tmux_leader(uint16_t keycode, keyrecord_t *record) {
-    // send Ctrl+Space
-    register_code(KC_RCTL);
-    register_code(KC_SPC);
-    unregister_code(KC_RCTL);
-    unregister_code(KC_SPC);
+    combo(KC_LCTL, KC_SPC);
+}
+
+void vim_buffers(uint16_t keycode, keyrecord_t *record) {
+    press(KC_SPC);
+    press(KC_SPC);
 }
 
 void activate_caps_word_toggle(uint16_t keycode, keyrecord_t *record) {
@@ -110,29 +117,70 @@ void toggle_mouse_layer(uint16_t keycode, keyrecord_t *record) {
 }
 
 void copy(uint16_t keycode, keyrecord_t *record) {
-    register_code(KC_LCTL);
-    register_code(KC_C);
-    unregister_code(KC_LCTL);
-    unregister_code(KC_C);
+    combo(KC_LCTL, KC_C);
 }
 
 void paste(uint16_t keycode, keyrecord_t *record) {
-    register_code(KC_LCTL);
-    register_code(KC_V);
-    unregister_code(KC_LCTL);
-    unregister_code(KC_V);
+    combo(KC_LCTL, KC_V);
 }
 
 void select_all(uint16_t keycode, keyrecord_t *record) {
-    register_code(KC_LCTL);
-    register_code(KC_A);
-    unregister_code(KC_LCTL);
-    unregister_code(KC_A);
+    combo(KC_LCTL, KC_A);
 }
 
 void colon(uint16_t keycode, keyrecord_t *record) {
-    register_code(KC_LSFT);
-    register_code(KC_SCLN);
-    unregister_code(KC_LSFT);
-    unregister_code(KC_SCLN);
+    combo(KC_LSFT, KC_SCLN);
+}
+
+void chrome_url_bar(uint16_t keycode, keyrecord_t *record) {
+    if (detected_os == OS_MACOS) {
+        combo(KC_LGUI, KC_L);
+        return;
+    }
+
+    combo(KC_LCTL, KC_L);
+}
+
+void tmux_tab_next(uint16_t keycode, keyrecord_t *record) {
+    combo(KC_LCTL, KC_SPC);
+    press(KC_N);
+}
+
+void tmux_tab_prev(uint16_t keycode, keyrecord_t *record) {
+    combo(KC_LCTL, KC_SPC);
+    press(KC_P);
+}
+
+void tmux_last_session(uint16_t keycode, keyrecord_t *record) {
+    combo(KC_LCTL, KC_SPC);
+    combo(KC_LSFT, KC_L);
+}
+
+void tmux_sessionx(uint16_t keycode, keyrecord_t *record) {
+    combo(KC_LCTL, KC_SPC);
+    press(KC_O);
+}
+
+void ctrl_c(uint16_t keycode, keyrecord_t *record) {
+    combo(KC_LCTL, KC_C);
+}
+
+void ctrl_k(uint16_t keycode, keyrecord_t *record) {
+    combo(KC_LCTL, KC_K);
+}
+
+void ctrl_r(uint16_t keycode, keyrecord_t *record) {
+    combo(KC_LCTL, KC_R);
+}
+
+void ctrl_w(uint16_t keycode, keyrecord_t *record) {
+    combo(KC_LCTL, KC_W);
+}
+
+void matterhorn_prev(uint16_t keycode, keyrecord_t *record) {
+    SEND_STRING("/left\n");
+}
+
+void matterhorn_next(uint16_t keycode, keyrecord_t *record) {
+    SEND_STRING("/right\n");
 }
