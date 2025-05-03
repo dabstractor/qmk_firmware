@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                  KC_MS_BTN4,
 
         // right hand
-        KC_CALC,     KC_6,  KC_7,   KC_8,     KC_9,    KC_0,              KC_DEL,
+        KC_MS_BTN2,  KC_6,  KC_7,   KC_8,     KC_9,    KC_0,              KC_DEL,
         KC_MS_BTN1,  KC_Y,  KC_U,   KC_I,     KC_O,    KC_P,              KC_BSLS,
         KC_UP,       KC_H,  KC_J,   KC_K,     KC_L,    KC_SCLN,           KC_QUOT,
         KC_DOWN,     KC_N,  KC_M,   KC_COMM,  KC_DOT,  KC_SLSH,           TOGGLE_MOUSE,
@@ -163,6 +163,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,  _______,  _______,  _______,  MATTERHORN_NEXT,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,  _______,
+                                                          _______,  _______,
+                                                          _______,  _______,
+                                                          _______,  _______,
+                                                          _______,
+        // right hand
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        KC_NO,    _______,  _______,  _______,  _______,  _______,  _______,
+        KC_NO,    _______,  _______,  _______,  _______,  _______,  _______,
+                                      _______,  _______,  _______,  _______,
+        _______,  _______,
+        _______,  _______,
+        _______,  _______,
+        _______
+    ),
+
+    [_INKSCAPE] = LAYOUT_5x7_1(
+        // left hand
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  KC_N,
         _______,  _______,  _______,  _______,
                                                           _______,  _______,
                                                           _______,  _______,
@@ -310,6 +333,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_JITSI]       = TRANS_ENCODER,
     [_CLICKUP]     = TRANS_ENCODER,
     [_MATTERHORN]  = TRANS_ENCODER,
+    [_INKSCAPE]    = TRANS_ENCODER,
                        // left                                            // right
     [_NUMPAD]      = { ENCODER_CCW_CW(KC_UP, KC_DOWN),                    ENCODER_CCW_CW(KC_LEFT, KC_RIGHT) },
     [_FN]          = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),                  ENCODER_CCW_CW(TAB_L, TAB_R) },
@@ -334,6 +358,7 @@ KeyCombo leader_keys[] = {
     { KEYS(KC_D, KC_P), "/join ~dustin-private\n" },
     { KEYS(KC_J, KC_I), SS_TAP(X_HOME) "https://jitsi.mulletware.io/\n" },
     { KEYS(KC_1), "!-1:" },
+    { KEYS(KC_1, KC_1), "!-1:1" SS_TAP(X_TAB) },
     { KEYS(KC_G, KC_P), SS_TAP(X_TAB) SS_TAP(X_TAB) SS_TAP(X_TAB) SS_TAP(X_ENTER) }
 
 };

@@ -7,6 +7,8 @@
 #define _JITSI       4
 #define _CLICKUP     5
 #define _MATTERHORN  6
+#define _INKSCAPE    7
+
 #define _NUMPAD      27
 #define _FN          28
 #define _CMD         29
