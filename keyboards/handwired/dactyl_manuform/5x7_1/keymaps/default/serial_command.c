@@ -16,7 +16,12 @@ DEFINE_SERIAL_COMMANDS({
     { "*claude*", &vim_lazy_insert, &disable_vim_mode },
     { WT("*chrome*", "*claude*"), &vim_lazy_insert, &disable_vim_mode },
     { WT("*chrome*", "*chatgpt*"), &vim_lazy_insert, &disable_vim_mode },
-    { WT("*chrome*", "*deepseek*"), &vim_lazy_insert, &disable_vim_mode }
+    { WT("*chrome*", "*deepseek*"), &vim_lazy_insert, &disable_vim_mode },
+    { WT("*chrome*", "*gemini*"), &vim_lazy_insert, &disable_vim_mode },
+    { WT("*brave*", "*claude*"), &vim_lazy_insert, &disable_vim_mode },
+    { WT("*brave*", "*chatgpt*"), &vim_lazy_insert, &disable_vim_mode },
+    { WT("*brave*", "*deepseek*"), &vim_lazy_insert, &disable_vim_mode },
+    { WT("*brave*", "*gemini*"), &vim_lazy_insert, &disable_vim_mode }
 });
 
 DEFINE_SERIAL_LAYERS({
@@ -28,5 +33,7 @@ DEFINE_SERIAL_LAYERS({
     { WT("*alacritty*", "*matterhorn*"), _MATTERHORN },
     { "*clickup*", _CLICKUP },
     { "*neovide*", _NEOVIM },
-    { "*chrome*", _CHROME }
+    { "*chrome*", _CHROME },
+    { "*brave*", _CHROME },
+    { "*inkscape*", _INKSCAPE }
 });
