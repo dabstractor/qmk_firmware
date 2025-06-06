@@ -1,6 +1,7 @@
 #pragma once
 #include QMK_KEYBOARD_H
 #include "./qmk-vim/src/vim.h"
+#include "./qmk-vim/src/modes.h"
 #include "keycombo.h"
 
 extern os_variant_t detected_os;
@@ -14,6 +15,8 @@ enum custom_keycodes {
     POWERSCROLL_UP,
     POWERSCROLL_DOWN,
     TERM_TOGGLE,
+    KILL_RUN,
+    TERM_KILL_RUN,
     CAPS_WORD_TOGGLE,
     TMUX_LEADER,
     TMUX_TAB_NEXT,
@@ -191,4 +194,47 @@ void matterhorn_prev(uint16_t keycode, keyrecord_t *record) {
 
 void matterhorn_next(uint16_t keycode, keyrecord_t *record) {
     SEND_STRING("/right\n");
+}
+
+void kill_run(uint16_t keycode, keyrecord_t *record) {
+    combo(KC_LCTL, KC_C);
+    combo(KC_LCTL, KC_K);
+    press(KC_ENTER);
+}
+
+void term_kill_run(uint16_t keycode, keyrecord_t *record) {
+    bool is_layer_off = IS_LAYER_OFF(_TERMINAL);
+
+    if (is_layer_off) {
+        term_toggle(keycode, record);
+    }
+
+    bool is_vim_enabled = vim_mode_enabled();
+    vim_mode_t vim_mode = get_vim_mode();
+    wait_ms(100);
+    kill_run(keycode, record);
+
+    if (is_vim_enabled) {
+        enable_vim_mode();
+        switch (vim_mode) {
+            case NORMAL_MODE:
+                normal_mode();
+                break;
+            case INSERT_MODE:
+                insert_mode();
+                break;
+            case VISUAL_MODE:
+                visual_mode();
+                break;
+            case VISUAL_LINE_MODE:
+                visual_line_mode();
+                break;
+            default:
+                break;
+        }
+    }
+
+    if (is_layer_off) {
+        term_toggle(keycode, record);
+    }
 }
