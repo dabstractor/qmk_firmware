@@ -1,6 +1,7 @@
 #pragma once
 #include QMK_KEYBOARD_H
 #include "./qmk-vim/src/vim.h"
+#include "keycombo.h"
 
 extern os_variant_t detected_os;
 
@@ -31,13 +32,6 @@ enum custom_keycodes {
     MATTERHORN_PREV,
     MATTERHORN_NEXT,
 };
-
-void combo(uint16_t mod, uint16_t key) {
-    register_code(mod);
-    register_code(key);
-    unregister_code(mod);
-    unregister_code(key);
-}
 
 void press(uint16_t key) {
     register_code(key);
