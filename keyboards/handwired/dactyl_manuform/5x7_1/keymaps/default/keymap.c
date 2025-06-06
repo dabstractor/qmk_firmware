@@ -82,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,  _______,  _______,  _______,  _______,
                                       _______,  _______,  _______,  _______,
         _______,  _______,
-        _______,  CTRL_R,
+        _______,  TAB_EXTRACT,
         _______,  _______,
         _______
     ),
@@ -380,13 +380,13 @@ CustomModMap CUSTOM_MOD_TAP_KEYS[] = {
     { CAPS_WORD_TOGGLE, KC_LSFT },
     { TOGGLE_MOUSE, KC_RSFT },
     { CHROME_URL_BAR, KC_LCTL },
+    { TAB_EXTRACT, KC_RALT },
     { CTRL_C, KC_RALT },
     { CTRL_K, KC_LALT },
     { TMUX_LAST_SESSION, KC_RALT },
     { TMUX_SESSIONX, KC_LALT },
     { COLON, KC_LALT },
     { VIM_BUFFERS, KC_LCTL },
-    { CTRL_R, KC_RALT },
     { CTRL_W, KC_RALT }
 };
 
@@ -429,6 +429,7 @@ KeyCallback CUSTOM_KEYS[] = {
     { CAPS_WORD_TOGGLE, &activate_caps_word_toggle },
     { TOGGLE_MOUSE, &toggle_mouse_layer },
     { CHROME_URL_BAR, &chrome_url_bar },
+    { TAB_EXTRACT, &tab_extract_combine },
     { SELECT_ALL, &select_all },
     { COPY, &copy },
     { PASTE, &paste },
@@ -436,7 +437,6 @@ KeyCallback CUSTOM_KEYS[] = {
     { VIM_BUFFERS, &vim_buffers },
     { CTRL_C, &ctrl_c },
     { CTRL_K, &ctrl_k },
-    { CTRL_R, &ctrl_r },
     { CTRL_W, &ctrl_w },
     { MATTERHORN_PREV, &matterhorn_prev },
     { MATTERHORN_NEXT, &matterhorn_next }
