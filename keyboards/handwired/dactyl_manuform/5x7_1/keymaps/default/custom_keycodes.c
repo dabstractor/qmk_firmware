@@ -25,9 +25,9 @@ enum custom_keycodes {
     COLON,
     TO_DEFAULT_LAYER,
     CHROME_URL_BAR,
+    TAB_EXTRACT,
     CTRL_C,
     CTRL_K,
-    CTRL_R,
     CTRL_W,
     MATTERHORN_PREV,
     MATTERHORN_NEXT,
@@ -135,6 +135,24 @@ void chrome_url_bar(uint16_t keycode, keyrecord_t *record) {
     combo(KC_LCTL, KC_L);
 }
 
+void tab_extract(uint16_t keycode, keyrecord_t *record) {
+    combo(KC_LALT, KC_LSFT, KC_X);
+}
+
+void tab_combine(uint16_t keycode, keyrecord_t *record) {
+    combo(KC_LALT, KC_LSFT, KC_Z);
+}
+
+void tab_extract_combine(uint16_t keycode, keyrecord_t *record) {
+    if (get_mods() & MOD_MASK_ALT) {
+        unregister_code(KC_LALT);
+        tab_combine(keycode, record);
+        register_code(KC_LALT);
+    } else {
+        tab_extract(keycode, record);
+    }
+}
+
 void tmux_tab_next(uint16_t keycode, keyrecord_t *record) {
     combo(KC_LCTL, KC_SPC);
     press(KC_N);
@@ -161,10 +179,6 @@ void ctrl_c(uint16_t keycode, keyrecord_t *record) {
 
 void ctrl_k(uint16_t keycode, keyrecord_t *record) {
     combo(KC_LCTL, KC_K);
-}
-
-void ctrl_r(uint16_t keycode, keyrecord_t *record) {
-    combo(KC_LCTL, KC_R);
 }
 
 void ctrl_w(uint16_t keycode, keyrecord_t *record) {
