@@ -34,7 +34,8 @@ DEFINE_SERIAL_LAYERS({
     { WT("*alacritty*", "*matterhorn*"), _MATTERHORN },
     { "*clickup*", _CLICKUP },
     { "*neovide*", _NEOVIM },
-    { "*chrome*", _CHROME },
-    { "*brave*", _CHROME },
+    { "*chrome*", _BROWSER },
+    { "*brave*", _BROWSER },
+    { WT("org.gnome.Nautilus", "*"), _BROWSER },
     { "*inkscape*", _INKSCAPE }
 });

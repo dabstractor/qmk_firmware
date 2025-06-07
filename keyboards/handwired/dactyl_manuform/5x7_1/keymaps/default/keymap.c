@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______
     ),
 
-    [_CHROME] = LAYOUT_5x7_1(
+    [_BROWSER] = LAYOUT_5x7_1(
         // left hand
         _______,  _______,  _______,  _______,  _______,  _______,  TO_DEFAULT_LAYER,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,
@@ -351,7 +351,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_QWERTY]      = DEFAULT_ENCODER,
     /* [_MAC]         = TRANS_ENCODER, */
     [_NEOVIM]      = TRANS_ENCODER,
-    [_CHROME]      = TRANS_ENCODER,
+    [_BROWSER]      = TRANS_ENCODER,
     [_TERMINAL]    = TRANS_ENCODER,
     [_JITSI]       = TRANS_ENCODER,
     [_CLICKUP]     = TRANS_ENCODER,
@@ -382,6 +382,10 @@ KeyCombo leader_keys[] = {
     { KEYS(KC_J, KC_I), SS_TAP(X_HOME) "https://jitsi.mulletware.io/\n" },
     { KEYS(KC_1), "!-1:" },
     { KEYS(KC_1, KC_1), "!-1:1" SS_TAP(X_TAB) },
+    { KEYS(KC_2, KC_2), "!-1:2" SS_TAP(X_TAB) },
+    { KEYS(KC_3, KC_3), "!-1:3" SS_TAP(X_TAB) },
+    { KEYS(KC_4, KC_4), "!-1:4" SS_TAP(X_TAB) },
+    { KEYS(KC_5, KC_5), "!-1:5" SS_TAP(X_TAB) },
     { KEYS(KC_G, KC_P), SS_TAP(X_TAB) SS_TAP(X_TAB) SS_TAP(X_TAB) SS_TAP(X_ENTER) }
 
 };
