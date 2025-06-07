@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,  _______,  _______,  _______,  _______,
                                       _______,  _______,  _______,  _______,
         _______,  _______,
-        _______,  CTRL_W,
+        _______,  RESUME_SEARCH,
         _______,  _______,
         _______
     ),
@@ -410,7 +410,7 @@ CustomModMap CUSTOM_MOD_TAP_KEYS[] = {
     { TMUX_SESSIONX, KC_LALT },
     { COLON, KC_LALT },
     { VIM_BUFFERS, KC_LCTL },
-    { CTRL_W, KC_RALT }
+    { RESUME_SEARCH, KC_RALT }
 };
 
 bool process_custom_mod_tap_user(uint16_t keycode, keyrecord_t *record) {
@@ -460,6 +460,7 @@ KeyCallback CUSTOM_KEYS[] = {
     { PASTE, &paste },
     { COLON, &colon },
     { VIM_BUFFERS, &vim_buffers },
+    { RESUME_SEARCH, &resume_search },
     { CTRL_C, &ctrl_c },
     { CTRL_K, &ctrl_k },
     { CTRL_W, &ctrl_w },
