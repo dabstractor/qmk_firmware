@@ -2,7 +2,7 @@
 
 #define _QWERTY      0
 #define _NEOVIM      1
-#define _CHROME      2
+#define _BROWSER     2
 #define _TERMINAL    3
 #define _JITSI       4
 #define _CLICKUP     5
