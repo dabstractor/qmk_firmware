@@ -24,6 +24,7 @@ enum custom_keycodes {
     TMUX_LAST_SESSION,
     TMUX_SESSIONX,
     VIM_BUFFERS,
+    RESUME_SEARCH,
     TOGGLE_MOUSE,
     COLON,
     TO_DEFAULT_LAYER,
@@ -236,5 +237,16 @@ void term_kill_run(uint16_t keycode, keyrecord_t *record) {
 
     if (is_layer_off) {
         term_toggle(keycode, record);
+    }
+}
+
+void resume_search(uint16_t keycode, keyrecord_t *record) {
+    if (get_mods() & MOD_MASK_ALT) {
+        printf("\n\n doing the thing bruh \n\n\n");
+        unregister_code(KC_LALT);
+        send_string(" sr");
+        register_code(KC_LALT);
+    } else {
+        ctrl_w(keycode, record);
     }
 }
