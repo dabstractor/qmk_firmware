@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                           _______,  CHROME_URL_BAR,
                                                           CTRL_K,   _______,
                                                           _______,  _______,
-                                                          _______,
+                                                          KC_MS_BTN5,
         // right hand
         _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,
@@ -84,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,
         _______,  TAB_EXTRACT,
         _______,  _______,
-        _______
+        KC_MS_BTN4
     ),
 
     [_TERMINAL] = LAYOUT_5x7_1(
