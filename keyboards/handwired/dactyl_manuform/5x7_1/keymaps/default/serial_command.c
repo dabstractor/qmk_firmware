@@ -21,7 +21,8 @@ DEFINE_SERIAL_COMMANDS({
     { WT("*brave*", "*claude*"), &vim_lazy_insert, &disable_vim_mode },
     { WT("*brave*", "*chatgpt*"), &vim_lazy_insert, &disable_vim_mode },
     { WT("*brave*", "*deepseek*"), &vim_lazy_insert, &disable_vim_mode },
-    { WT("*brave*", "*gemini*"), &vim_lazy_insert, &disable_vim_mode }
+    { WT("*brave*", "*gemini*"), &vim_lazy_insert, &disable_vim_mode },
+    { WT("*brave*", "*aistudio*"), &vim_lazy_insert, &disable_vim_mode }
 });
 
 DEFINE_SERIAL_LAYERS({
