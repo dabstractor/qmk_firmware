@@ -48,9 +48,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,  _______,  _______,  _______,  KC_F21,
         _______,  _______,  _______,  _______,  _______,  _______,  KC_F22,
         _______,  _______,  _______,  _______,
-                                                          _______,  VIM_BUFFERS,
-                                                          COLON,    _______,
-                                                          _______,  _______,
+                                                          _______,     VIM_BUFFERS,
+                                                          VIM_COMMAND, _______,
+                                                          _______,     _______,
                                                           _______,
         // right hand
         _______,  _______,  _______,  _______,  _______,  _______,  _______,
@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,  _______,  _______,  _______,  _______,
                                       _______,  _______,  _______,  _______,
         _______,  _______,
-        _______,  RESUME_SEARCH,
+        _______,  VIM_RESUME_SEARCH,
         _______,  _______,
         _______
     ),
@@ -412,9 +412,9 @@ CustomModMap CUSTOM_MOD_TAP_KEYS[] = {
     { CTRL_K, KC_LALT },
     { TMUX_LAST_SESSION, KC_RALT },
     { TMUX_SESSIONX, KC_LALT },
-    { COLON, KC_LALT },
+    { VIM_COMMAND, KC_LALT },
     { VIM_BUFFERS, KC_LCTL },
-    { RESUME_SEARCH, KC_RALT }
+    { VIM_RESUME_SEARCH, KC_RALT }
 };
 
 bool process_custom_mod_tap_user(uint16_t keycode, keyrecord_t *record) {
@@ -464,9 +464,9 @@ KeyCallback CUSTOM_KEYS[] = {
     { SELECT_ALL, &select_all },
     { COPY, &copy },
     { PASTE, &paste },
-    { COLON, &colon },
     { VIM_BUFFERS, &vim_buffers },
-    { RESUME_SEARCH, &resume_search },
+    { VIM_RESUME_SEARCH, &vim_resume_search },
+    { VIM_COMMAND, &vim_command },
     { CTRL_C, &ctrl_c },
     { CTRL_K, &ctrl_k },
     { CTRL_W, &ctrl_w },
