@@ -102,8 +102,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,   _______,  _______,  _______,  _______,  _______,  _______,
         _______,   _______,  _______,  _______,  _______,  _______,  _______,
         _______,   _______,  _______,  _______,  _______,  _______,  _______,
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,
-                                      _______,  _______,  _______,  _______,
+        _______,   _______,  _______,  _______,  _______,  _______,  _______,
+                                       _______,  _______,  _______,  _______,
         _______,  _______,
         _______,  TMUX_LAST_SESSION,
         _______,  _______,
@@ -261,10 +261,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                _______,  _______,
                                                _______,
         // right hand
-        KC_CALC,       _______,  _______,  _______,  _______,  KC_PPLS,  _______,
-        SELECT_ALL,    KC_6,     KC_P7,    KC_P8,    KC_P9,    KC_PMNS,  _______,
-        COPY,          _______,  KC_P4,    KC_P5,    KC_P6,    KC_PAST,  _______,
-        PASTE, _______,  KC_P1,    KC_P2,    KC_P3,    KC_PSLS,  _______,
+        KC_CALC,     _______,  _______,  _______,  _______,  KC_PPLS,  _______,
+        SELECT_ALL,  KC_6,     KC_P7,    KC_P8,    KC_P9,    KC_PMNS,  _______,
+        COPY,        _______,  KC_P4,    KC_P5,    KC_P6,    KC_PAST,  _______,
+        PASTE,       _______,  KC_P1,    KC_P2,    KC_P3,    KC_PSLS,  _______,
                                            KC_P0,    KC_PDOT,  KC_PENT,  _______,
         _______,  KC_PENT,
         _______,  _______,
@@ -357,12 +357,12 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_CLICKUP]     = TRANS_ENCODER,
     [_MATTERHORN]  = TRANS_ENCODER,
     [_INKSCAPE]    = TRANS_ENCODER,
-                       // left                                            // right
-    [_NUMPAD]      = { ENCODER_CCW_CW(KC_UP, KC_DOWN),                    ENCODER_CCW_CW(KC_LEFT, KC_RIGHT) },
-    [_FN]          = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),                  ENCODER_CCW_CW(TAB_L, TAB_R) },
-    [_CMD]         = { ENCODER_CCW_CW(POWERSCROLL_UP, POWERSCROLL_DOWN),  ENCODER_CCW_CW(KC_BSPC, KC_SPC) },
-    [_MOUSE]       = { ENCODER_CCW_CW(KC_MS_UP, KC_MS_DOWN),              ENCODER_CCW_CW(KC_MS_LEFT, KC_MS_RIGHT) },
-    [_POWERSCROLL] = { ENCODER_CCW_CW(KC_MS_UP, KC_MS_DOWN),              ENCODER_CCW_CW(POWERSCROLL_UP, POWERSCROLL_DOWN) },
+                       // left                                              // right
+    [_NUMPAD]      = { ENCODER_CCW_CW(KC_UP, KC_DOWN),                      ENCODER_CCW_CW(KC_LEFT, KC_RIGHT) },
+    [_FN]          = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),                    ENCODER_CCW_CW(TAB_L, TAB_R) },
+    [_CMD]         = { ENCODER_CCW_CW(POWERSCROLL_UP, POWERSCROLL_DOWN),    ENCODER_CCW_CW(KC_BSPC, KC_SPC) },
+    [_MOUSE]       = { ENCODER_CCW_CW(KC_MS_UP, KC_MS_DOWN),                ENCODER_CCW_CW(KC_MS_LEFT, KC_MS_RIGHT) },
+    [_POWERSCROLL] = { ENCODER_CCW_CW(POWERSCROLL_LEFT, POWERSCROLL_RIGHT), ENCODER_CCW_CW(POWERSCROLL_UP, POWERSCROLL_DOWN) },
 };
 #endif
 
@@ -446,6 +446,8 @@ KeyCallback CUSTOM_KEYS[] = {
     { WORKSPACE_RIGHT, &workspace_right },
     { POWERSCROLL_UP, &powerscroll_up },
     { POWERSCROLL_DOWN, &powerscroll_down },
+    { POWERSCROLL_LEFT, &powerscroll_left },
+    { POWERSCROLL_RIGHT, &powerscroll_right },
     { TO_DEFAULT_LAYER, &to_default_layer },
     { TERM_TOGGLE, &term_toggle },
     { KILL_RUN, &kill_run },

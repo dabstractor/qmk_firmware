@@ -14,6 +14,8 @@ enum custom_keycodes {
     WORKSPACE_RIGHT,
     POWERSCROLL_UP,
     POWERSCROLL_DOWN,
+    POWERSCROLL_LEFT,
+    POWERSCROLL_RIGHT,
     TERM_TOGGLE,
     KILL_RUN,
     TERM_KILL_RUN,
@@ -90,6 +92,14 @@ void powerscroll_up(uint16_t keycode, keyrecord_t *record) {
 
 void powerscroll_down(uint16_t keycode, keyrecord_t *record) {
     repeat_code(KC_MS_WH_DOWN, POWERSCROLL_FACTOR);
+}
+
+void powerscroll_left(uint16_t keycode, keyrecord_t *record) {
+    repeat_code(KC_MS_WH_LEFT, POWERSCROLL_FACTOR);
+}
+
+void powerscroll_right(uint16_t keycode, keyrecord_t *record) {
+    repeat_code(KC_MS_WH_RIGHT, POWERSCROLL_FACTOR);
 }
 
 void term_toggle(uint16_t keycode, keyrecord_t *record) {
