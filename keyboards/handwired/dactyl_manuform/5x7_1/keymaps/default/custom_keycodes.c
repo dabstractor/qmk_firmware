@@ -3,6 +3,7 @@
 #include "./qmk-vim/src/vim.h"
 #include "./qmk-vim/src/modes.h"
 #include "keycombo.h"
+#include "utils/mods.c"
 
 extern os_variant_t detected_os;
 
@@ -26,7 +27,8 @@ enum custom_keycodes {
     TMUX_LAST_SESSION,
     TMUX_SESSIONX,
     VIM_BUFFERS,
-    RESUME_SEARCH,
+    VIM_RESUME_SEARCH,
+    VIM_COMMAND,
     TOGGLE_MOUSE,
     COLON,
     TO_DEFAULT_LAYER,
@@ -158,13 +160,11 @@ void tab_combine(uint16_t keycode, keyrecord_t *record) {
 }
 
 void tab_extract_combine(uint16_t keycode, keyrecord_t *record) {
-    if (get_mods() & MOD_MASK_ALT) {
-        unregister_code(KC_LALT);
-        tab_combine(keycode, record);
-        register_code(KC_LALT);
-    } else {
-        tab_extract(keycode, record);
-    }
+    IF_MODS_ELSE(
+        MOD_MASK_ALT,
+        { tab_combine(keycode, record); },
+        { tab_extract(keycode, record); }
+    );
 }
 
 void tmux_tab_next(uint16_t keycode, keyrecord_t *record) {
@@ -250,13 +250,18 @@ void term_kill_run(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-void resume_search(uint16_t keycode, keyrecord_t *record) {
-    if (get_mods() & MOD_MASK_ALT) {
-        printf("\n\n doing the thing bruh \n\n\n");
-        unregister_code(KC_LALT);
-        send_string(" sr");
-        register_code(KC_LALT);
-    } else {
-        ctrl_w(keycode, record);
-    }
+void vim_resume_search(uint16_t keycode, keyrecord_t *record) {
+    IF_MODS_ELSE(
+        MOD_MASK_ALT,
+        { send_string(" sr"); },
+        { ctrl_w(keycode, record); }
+    );
+}
+
+void vim_command(uint16_t keycode, keyrecord_t *record) {
+    IF_MODS_ELSE(
+        MOD_MASK_ALT,
+        { press(KC_ESC); send_string(" :"); press(KC_UP); },
+        { colon(keycode, record); }
+    );
 }
