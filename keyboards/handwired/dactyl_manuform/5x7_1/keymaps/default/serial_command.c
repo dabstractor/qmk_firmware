@@ -21,8 +21,11 @@ DEFINE_SERIAL_COMMANDS({
     { WT("*brave*", "*claude*"), &vim_lazy_insert, &disable_vim_mode },
     { WT("*brave*", "*chatgpt*"), &vim_lazy_insert, &disable_vim_mode },
     { WT("*brave*", "*deepseek*"), &vim_lazy_insert, &disable_vim_mode },
-    { WT("*brave*", "*gemini*"), &vim_lazy_insert, &disable_vim_mode },
-    { WT("*brave*", "*aistudio*"), &vim_lazy_insert, &disable_vim_mode }
+    { WT("*brave*", "gemini*"), &vim_lazy_insert, &disable_vim_mode },
+    { WT("*brave*", "*ai*studio*"), &vim_lazy_insert, &disable_vim_mode },
+    { WT("*", "*orderlands*"), &disable_vim_mode },
+    { WT("steam_app*", "*"), &disable_vim_mode },
+    { WT("cs2", "Counter-Strike 2"), &disable_vim_mode },
 });
 
 DEFINE_SERIAL_LAYERS({
@@ -37,5 +40,9 @@ DEFINE_SERIAL_LAYERS({
     { "*chrome*", _BROWSER },
     { "*brave*", _BROWSER },
     { WT("org.gnome.Nautilus", "*"), _BROWSER },
-    { "*inkscape*", _INKSCAPE }
+    { "*inkscape*", _INKSCAPE },
+    { "borderlands*", _GAMING },
+    { WT("steam_app*", "*orderlands*"), _GAMING },
+    { "steam_app*", _GAMING },
+    { WT("cs2", "Counter-Strike 2"), _GAMING },
 });

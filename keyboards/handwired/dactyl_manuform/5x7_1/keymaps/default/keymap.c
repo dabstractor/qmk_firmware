@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                           _______,  CHROME_URL_BAR,
                                                           CTRL_K,   _______,
                                                           _______,  _______,
-                                                          KC_MS_BTN5,
+                                                          KC_MS_BTN4,
         // right hand
         _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,
@@ -84,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,
         _______,  TAB_EXTRACT,
         _______,  _______,
-        KC_MS_BTN4
+        KC_MS_BTN5
     ),
 
     [_TERMINAL] = LAYOUT_5x7_1(
@@ -182,7 +182,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_INKSCAPE] = LAYOUT_5x7_1(
         // left hand
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  KC_DELETE,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  KC_N,
@@ -208,11 +208,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  KC_R,     KC_W,     KC_E,     _______,  _______,
         _______,  KC_G,     KC_A,     KC_S,     KC_D,     KC_F,     TO_DEFAULT_LAYER,
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        KC_LSFT,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,
-                                                          _______,  _______,
-                                                          _______,  KC_SPACE,
-                                                          _______,  _______,
+                                                          KC_LSFT,  KC_SPACE,
+                                                          _______,  KC_LCTL,
+                                                          _______,  KC_LGUI,
                                                           _______,
         // right hand
         _______,  _______,  _______,  _______,  _______,  _______,  _______,
@@ -265,7 +265,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         SELECT_ALL,  KC_6,     KC_P7,    KC_P8,    KC_P9,    KC_PMNS,  _______,
         COPY,        _______,  KC_P4,    KC_P5,    KC_P6,    KC_PAST,  _______,
         PASTE,       _______,  KC_P1,    KC_P2,    KC_P3,    KC_PSLS,  _______,
-                                           KC_P0,    KC_PDOT,  KC_PENT,  _______,
+                                         KC_P0,    KC_PDOT,  KC_PENT,  _______,
         _______,  KC_PENT,
         _______,  _______,
         _______,  _______,
@@ -288,7 +288,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,     _______,   _______,   _______,     _______,   _______,
         _______,  KC_MS_BTN4,  _______,   _______,   KC_MS_BTN5,  _______,   _______,
         _______,  _______,     _______,   _______,   _______,     _______,   _______,
-                                                                  _______,   _______,     _______,   _______,
+                                          _______,   _______,     _______,   _______,
         _______,  _______,
         _______,  _______,
         _______,  _______,
@@ -351,7 +351,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_QWERTY]      = DEFAULT_ENCODER,
     /* [_MAC]         = TRANS_ENCODER, */
     [_NEOVIM]      = TRANS_ENCODER,
-    [_BROWSER]      = TRANS_ENCODER,
+    [_BROWSER]     = TRANS_ENCODER,
     [_TERMINAL]    = TRANS_ENCODER,
     [_JITSI]       = TRANS_ENCODER,
     [_CLICKUP]     = TRANS_ENCODER,
