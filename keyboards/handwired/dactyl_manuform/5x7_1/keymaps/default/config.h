@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SERIAL_USART_RX_PIN GP1  // USART RX pin
 
 #define ENCODER_DEFAULT_POS 0x3
+#define ENCODER_DEBOUNCE 5
 
 #define LAYER_STATE_32BIT
 
