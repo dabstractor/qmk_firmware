@@ -27,12 +27,17 @@ echo
 
 if is_arch; then
     # qmk flash works fine on arch, it's mounting that's the problem
+    has_automount=$(which udiskie)
     COMMAND="qmk flash -bl uf2-split-$SIDE"
-    ./mount.sh > /dev/null 2>&1 &
+    if [ -z "$has_automount" ]; then
+        ./mount.sh > /dev/null 2>&1 &
 
-    mount_pid=$!
-    trap "kill $mount_pid; exit" SIGINT
-    POST_COMPILE_COMMAND="killall mount.sh > /dev/null 2>&1"
+        mount_pid=$!
+        trap "kill $mount_pid; exit" SIGINT
+        POST_COMPILE_COMMAND="killall mount.sh > /dev/null 2>&1"
+    else
+        POST_COMPILE_COMMAND=""
+    fi
 elif is_macos; then
     if ! type picotool &> /dev/null; then
         echo "Error: picotool is not installed. Please install picotool and try again."
