@@ -13,8 +13,8 @@ DEFINE_SERIAL_COMMANDS({
     { "neovide", &disable_vim_mode },
     { "alacritty", &disable_vim_mode },
     { "*iterm*", &disable_vim_mode },
-    { "*claude*", &vim_lazy_insert, &disable_vim_mode },
-    { WT("*chrome*", "*claude*"), &vim_lazy_insert, &disable_vim_mode },
+    { WT("^Claude$", "*Claude$"), &vim_lazy_insert, &disable_vim_mode }, // claude desktop app
+    { WT("*chrome*", "*claude*"), &vim_lazy_insert, &disable_vim_mode }, // claude.ai
     { WT("*chrome*", "*chatgpt*"), &vim_lazy_insert, &disable_vim_mode },
     { WT("*chrome*", "*deepseek*"), &vim_lazy_insert, &disable_vim_mode },
     { WT("*chrome*", "*gemini*"), &vim_lazy_insert, &disable_vim_mode },
@@ -46,3 +46,4 @@ DEFINE_SERIAL_LAYERS({
     { "steam_app*", _GAMING },
     { WT("cs2", "Counter-Strike 2"), _GAMING },
 });
+
