@@ -19,11 +19,11 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT_5x7_1(
         // left hand
-        KC_GRV,           KC_1,        KC_2,     KC_3,   KC_4,   KC_5,   KC_HOME,
-        KC_TAB,           KC_Q,        KC_W,     KC_E,   KC_R,   KC_T,   KC_END,
-        KC_ESC,           KC_A,        KC_S,     KC_D,   KC_F,   KC_G,   KC_PGUP,
-        LSFT_T(KC_CAPS),  KC_Z,        KC_X,     KC_C,   KC_V,   KC_B,   KC_PGDN,
-        MO(_CMD),         QK_LEAD,     KC_LBRC,  KC_RBRC,
+        KC_GRV,           KC_1,              KC_2,     KC_3,   KC_4,   KC_5,   KC_HOME,
+        KC_TAB,           KC_Q,              KC_W,     KC_E,   KC_R,   KC_T,   KC_END,
+        KC_ESC,           KC_A,              KC_S,     KC_D,   KC_F,   KC_G,   KC_PGUP,
+        LSFT_T(KC_CAPS),  KC_Z,              KC_X,     KC_C,   KC_V,   KC_B,   KC_PGDN,
+        MO(_CMD),         MO(_POWERSCROLL),  KC_LBRC,  KC_RBRC,
                                                  CAPS_WORD_TOGGLE,  TMUX_LEADER,
                                                  KC_LALT,           TERM_TOGGLE,
                                                  TT(_NUMPAD),       TT(_FN),
@@ -331,8 +331,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // right hand
         QK_DYNAMIC_MACRO_RECORD_START_2,  _______,  _______,  _______,  _______,  _______,  _______,
         QK_DYNAMIC_MACRO_RECORD_STOP,     _______,  _______,  _______,  _______,  _______,  _______,
-        QK_DYNAMIC_MACRO_PLAY_2,          _______,  _______,  _______,  _______,  _______,  _______,
-        _______,                          _______,  _______,  _______,  _______,  _______,  _______,
+        QK_DYNAMIC_MACRO_PLAY_2,          _______,  _______,  KC_UP,    _______,  _______,  _______,
+        _______,                          _______,  KC_LEFT,  KC_DOWN,  KC_RIGHT, _______,  _______,
                                                               _______,  _______,  _______,  _______,
         _______,        _______,
         _______,        _______,
