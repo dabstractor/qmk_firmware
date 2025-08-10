@@ -38,12 +38,13 @@
         "leader": true,
         "nkro": true,
         "os_detection": true,
+        "raw_hid": true,
         "tri_layer": true
     },
 
     "caps_word": {
         "enabled": true,
-        "both_shifts_turns_on": true,
+        "both_shifts_turns_on": true
     },
 
     "matrix_pins": {
@@ -72,7 +73,7 @@
                 "layer_state": true,
                 "modifiers": true,
                 "wpm": true
-            },
+            }
         }
     },
 
@@ -194,7 +195,7 @@
                 { "matrix": [ 11, 3 ], "x": 9,  "y": 6 },
                 { "matrix": [ 11, 4 ], "x": 10, "y": 6 },
 
-                { "matrix": [ 10, 0 ], "x": 10, "y": 6 },
+                { "matrix": [ 10, 0 ], "x": 10, "y": 6 }
             ]
 
         }

@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# QMK Field Kit Flash Wrapper
+# Python-based replacement for the original flash.sh
+
+# Extract keyboard and keymap from QMK config
+KEYBOARD=$(qmk config user.keyboard | cut -d'=' -f2)
+KEYMAP=$(qmk config user.keymap | cut -d'=' -f2)
+
+# Validate that we got the config values
+if [ -z "$KEYBOARD" ] || [ -z "$KEYMAP" ]; then
+    echo "Error: Could not extract keyboard or keymap from QMK config"
+    echo "Please ensure QMK is properly configured with 'qmk config user.keyboard=<keyboard>' and 'qmk config user.keymap=<keymap>'"
+    exit 1
+fi
+
+# Navigate to the QMK Field Kit directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+FIELD_KIT_DIR="$SCRIPT_DIR/keyboards/$KEYBOARD/qmk-field-kit"
+
+# Check if QMK Field Kit exists
+if [ ! -d "$FIELD_KIT_DIR" ]; then
+    echo "Error: QMK Field Kit not found at $FIELD_KIT_DIR"
+    echo "Please ensure the qmk-field-kit directory exists and contains the Python modules."
+    exit 1
+fi
+
+# Change to field kit directory
+cd "$FIELD_KIT_DIR"
+
+# Run the Python module with all arguments passed through
+python3 -m qmk_field_kit "$@"
