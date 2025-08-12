@@ -7,6 +7,8 @@
 #include "./custom_mod_map.c"
 #include "./per_key_settings.c"
 #include "./custom_keycodes.c"
+#include "./custom_keycodes.h"
+#include "./powerscroll.c"
 #include "./layers.c"
 #include "./macros.c"
 #include "./tap_dance.c"
@@ -24,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,           KC_Q,              KC_W,     KC_E,   KC_R,   KC_T,   KC_END,
         KC_ESC,           KC_A,              KC_S,     KC_D,   KC_F,   KC_G,   KC_PGUP,
         LSFT_T(KC_CAPS),  KC_Z,              KC_X,     KC_C,   KC_V,   KC_B,   KC_PGDN,
-        MO(_CMD),         MO(_POWERSCROLL),  KC_LBRC,  KC_RBRC,
+        MO(_CMD),         POWERSCROLL_HOLD,  KC_LBRC,  KC_RBRC,
                                                  CAPS_WORD_TOGGLE,  TMUX_LEADER,
                                                  KC_LALT,           TERM_TOGGLE,
                                                  TT(_NUMPAD),       TT(_FN),
@@ -35,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MS_BTN1,  KC_Y,  KC_U,   KC_I,     KC_O,    KC_P,              KC_BSLS,
         KC_UP,       KC_H,  KC_J,   KC_K,     KC_L,    KC_SCLN,           KC_QUOT,
         KC_DOWN,     KC_N,  KC_M,   KC_COMM,  KC_DOT,  KC_SLSH,           TOGGLE_MOUSE,
-                                    KC_MINS,  KC_EQL,  MO(_POWERSCROLL),  TG(_MOUSE),
+                                    KC_MINS,  KC_EQL,  POWERSCROLL_HOLD,  TG(_MOUSE),
         RCTL_T(KC_SPC),   RSFT_T(KC_ENT),
         RGUI_T(KC_BSPC),  KC_RALT,
         TD(TD_LEAD_FN),   TT(_NUMPAD),
@@ -242,8 +244,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_F11,   KC_F6,       KC_F7,      KC_F8,    KC_F9,       KC_F10,    QK_BOOT,
         KC_F12,   KC_F6,       KC_F7,      KC_F8,    KC_F9,       KC_F10,    _______,
         KC_F13,   KC_MS_BTN4,  _______,    KC_UP,    KC_MS_BTN5,  _______,   _______,
-        KC_F14,   _______,     KC_LEFT,    KC_DOWN,  KC_RGHT,     _______,   _______,
-                                           KC_F21,   KC_F22,      KC_F23,    KC_F24,
+        KC_F14,   _______,     KC_LEFT,    KC_DOWN,  KC_RGHT,     KC_F23,    KC_F24,
+                                           KC_F21,   KC_F22,      _______,   _______,
         _______,  _______,
         KC_DEL,   _______,
         _______,  _______,
@@ -264,9 +266,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // right hand
         KC_CALC,     _______,  _______,  _______,  _______,  KC_PPLS,  _______,
         SELECT_ALL,  KC_6,     KC_P7,    KC_P8,    KC_P9,    KC_PMNS,  _______,
-        COPY,        _______,  KC_P4,    KC_P5,    KC_P6,    KC_PAST,  _______,
+        COPY,        _______,  KC_P4,    KC_P5,    KC_P6,    KC_PAST,  KC_PENT,
         PASTE,       _______,  KC_P1,    KC_P2,    KC_P3,    KC_PSLS,  _______,
-                                         KC_P0,    KC_PDOT,  KC_PENT,  _______,
+                                         KC_P0,    KC_PDOT,  _______,  _______,
         _______,  KC_PENT,
         _______,  _______,
         _______,  _______,
@@ -290,63 +292,39 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  KC_MS_BTN4,  _______,   _______,   KC_MS_BTN5,  _______,   _______,
         _______,  _______,     _______,   _______,   _______,     _______,   _______,
                                           _______,   _______,     _______,   _______,
-        _______,  _______,
-        _______,  _______,
-        _______,  _______,
-        _______
-    ),
-
-    [_MOUSE] = LAYOUT_5x7_1(
-        // left hand
-        _______,  _______,  _______,     _______,     _______,      _______,  TO_DEFAULT_LAYER,
-        _______,  _______,  KC_MS_BTN3,  KC_MS_BTN2,  KC_MS_BTN1,   _______,  _______,
-        _______,  _______,  _______,     KC_MS_UP,    _______,      _______,  _______,
-        _______,  _______,  KC_MS_LEFT,  KC_MS_DOWN,  KC_MS_RIGHT,  _______,  _______,
-        _______,  _______,  _______,     _______,
-                                                                    _______,  _______,
-                                                                    _______,  _______,
-                                                                    _______,  _______,
-                                                                    _______,
-        _______,  _______,     _______,     _______,     _______,      _______,  _______,
-        _______,  _______,     KC_MS_BTN1,  KC_MS_BTN2,  KC_MS_BTN3,   _______,  _______,
-        _______,  KC_MS_BTN4,  _______,     KC_MS_UP,    KC_MS_BTN5,   _______,  _______,
-        _______,  _______,     KC_MS_LEFT,  KC_MS_DOWN,  KC_MS_RIGHT,  _______,  _______,
-                                            _______,     _______,      _______,  _______,
-        _______,  _______,
-        _______,  _______,
-        TT(_FN),    TT(_NUMPAD),
-        _______
-    ),
-
-    [_POWERSCROLL] = LAYOUT_5x7_1(
-        // left hand
-        _______,  _______,  _______,  _______,  _______,  _______,  TO_DEFAULT_LAYER,
-        _______,  _______,  _______,  _______,  _______,  _______,  QK_DYNAMIC_MACRO_RECORD_START_1,
-        _______,  _______,  _______,  _______,  _______,  _______,  QK_DYNAMIC_MACRO_RECORD_STOP,
-        _______,  _______,  _______,  _______,  _______,  _______,  QK_DYNAMIC_MACRO_PLAY_1,
-        _______,  _______,  _______,  _______,
-                                                          _______,  _______,
-                                                          _______,  _______,
-                                                          _______,  _______,
-                                                          _______,
-        // right hand
-        QK_DYNAMIC_MACRO_RECORD_START_2,  _______,  _______,  _______,  _______,  _______,  _______,
-        QK_DYNAMIC_MACRO_RECORD_STOP,     _______,  _______,  _______,  _______,  _______,  _______,
-        QK_DYNAMIC_MACRO_PLAY_2,          _______,  _______,  KC_UP,    _______,  _______,  _______,
-        _______,                          _______,  KC_LEFT,  KC_DOWN,  KC_RIGHT, _______,  _______,
-                                                              _______,  _______,  _______,  _______,
         _______,        _______,
         _______,        _______,
         TD(TD_TG_VIM),  _______,
         _______
     ),
 
+    [_MOUSE] = LAYOUT_5x7_1(
+        // left hand
+        _______,  _______,  _______,     _______,     _______,      _______,  TO_DEFAULT_LAYER,
+        _______,  _______,  KC_MS_BTN3,  KC_MS_BTN2,  KC_MS_BTN1,   _______,  QK_DYNAMIC_MACRO_RECORD_START_1,
+        _______,  _______,  _______,     KC_MS_UP,    _______,      _______,  QK_DYNAMIC_MACRO_RECORD_STOP,
+        _______,  _______,  KC_MS_LEFT,  KC_MS_DOWN,  KC_MS_RIGHT,  _______,  QK_DYNAMIC_MACRO_PLAY_1,
+        _______,  _______,  _______,     _______,
+                                                                    _______,  _______,
+                                                                    _______,  _______,
+                                                                    _______,  _______,
+                                                                    _______,
+        _______,                          _______,     _______,     _______,     _______,      _______,  _______,
+        QK_DYNAMIC_MACRO_RECORD_START_2,  _______,     KC_MS_BTN1,  KC_MS_BTN2,  KC_MS_BTN3,   _______,  _______,
+        QK_DYNAMIC_MACRO_RECORD_STOP,     KC_MS_BTN4,  _______,     KC_MS_UP,    KC_MS_BTN5,   _______,  _______,
+        QK_DYNAMIC_MACRO_PLAY_2,          _______,     KC_MS_LEFT,  KC_MS_DOWN,  KC_MS_RIGHT,  _______,  _______,
+                                          _______,     _______,      _______,  _______,
+        _______,  _______,
+        _______,  _______,
+        _______,  _______,
+        _______
+    ),
 };
 
 #if defined(ENCODER_MAP_ENABLE)
                           // left                                        // right
-#define DEFAULT_ENCODER { ENCODER_CCW_CW(KC_MS_WH_LEFT, KC_MS_WH_RIGHT), ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)  }
-#define TRANS_ENCODER { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______)  }
+#define DEFAULT_ENCODER { ENCODER_CCW_CW(KC_MS_WH_LEFT, KC_MS_WH_RIGHT), ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN) }
+#define TRANS_ENCODER  { ENCODER_CCW_CW(_______, _______),              ENCODER_CCW_CW(_______, _______) }
 
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_QWERTY]      = DEFAULT_ENCODER,
@@ -359,11 +337,10 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_MATTERHORN]  = TRANS_ENCODER,
     [_INKSCAPE]    = TRANS_ENCODER,
                        // left                                              // right
-    [_NUMPAD]      = { ENCODER_CCW_CW(KC_UP, KC_DOWN),                      ENCODER_CCW_CW(KC_LEFT, KC_RIGHT) },
-    [_FN]          = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),                    ENCODER_CCW_CW(TAB_L, TAB_R) },
-    [_CMD]         = { ENCODER_CCW_CW(POWERSCROLL_UP, POWERSCROLL_DOWN),    ENCODER_CCW_CW(KC_BSPC, KC_SPC) },
-    [_MOUSE]       = { ENCODER_CCW_CW(KC_MS_UP, KC_MS_DOWN),                ENCODER_CCW_CW(KC_MS_LEFT, KC_MS_RIGHT) },
-    [_POWERSCROLL] = { ENCODER_CCW_CW(POWERSCROLL_LEFT, POWERSCROLL_RIGHT), ENCODER_CCW_CW(POWERSCROLL_UP, POWERSCROLL_DOWN) },
+    [_NUMPAD]      = { ENCODER_CCW_CW(KC_UP, KC_DOWN),                       ENCODER_CCW_CW(KC_LEFT, KC_RIGHT) },
+    [_FN]          = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),                     ENCODER_CCW_CW(TAB_L, TAB_R) },
+    [_CMD]         = { ENCODER_CCW_CW(KC_MS_WH_LEFT, KC_MS_WH_RIGHT),        ENCODER_CCW_CW(KC_BSPC, KC_SPC) },
+    [_MOUSE]       = { ENCODER_CCW_CW(KC_MS_UP, KC_MS_DOWN),                 ENCODER_CCW_CW(KC_MS_LEFT, KC_MS_RIGHT) },
 };
 #endif
 
@@ -445,10 +422,6 @@ KeyCallback CUSTOM_KEYS[] = {
     { CLICK_THIS_SPOT, &click_this_spot },
     { WORKSPACE_LEFT, &workspace_left },
     { WORKSPACE_RIGHT, &workspace_right },
-    { POWERSCROLL_UP, &powerscroll_up },
-    { POWERSCROLL_DOWN, &powerscroll_down },
-    { POWERSCROLL_LEFT, &powerscroll_left },
-    { POWERSCROLL_RIGHT, &powerscroll_right },
     { TO_DEFAULT_LAYER, &to_default_layer },
     { TERM_TOGGLE, &term_toggle },
     { KILL_RUN, &kill_run },
@@ -495,7 +468,6 @@ bool process_custom_key_user(uint16_t keycode, keyrecord_t *record) {
 extern void check_vim_lazy_insert(bool pressed);
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
 #ifdef CONSOLE_ENABLE // Logging
     uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %u, time: %5u, int: %u, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
 #endif
@@ -504,10 +476,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     if (!process_vim_mode(keycode, record)) return false;
 
+    // Single integration point: powerscroll handler
+    if (!powerscroll_process(keycode, record)) return false;
+
     if (process_custom_mod_tap_user(keycode, record)) {
         process_custom_key_user(keycode, record);
     }
-
 
     return true;
 }

@@ -4,42 +4,9 @@
 #include "./qmk-vim/src/modes.h"
 #include "keycombo.h"
 #include "utils/mods.c"
+#include "./custom_keycodes.h"
 
 extern os_variant_t detected_os;
-
-enum custom_keycodes {
-    DBL_SPACE = SAFE_RANGE,
-    CLICK_THIS_SPOT,
-    TOGGLE_VIM,
-    WORKSPACE_LEFT,
-    WORKSPACE_RIGHT,
-    POWERSCROLL_UP,
-    POWERSCROLL_DOWN,
-    POWERSCROLL_LEFT,
-    POWERSCROLL_RIGHT,
-    TERM_TOGGLE,
-    KILL_RUN,
-    TERM_KILL_RUN,
-    CAPS_WORD_TOGGLE,
-    TMUX_LEADER,
-    TMUX_TAB_NEXT,
-    TMUX_TAB_PREV,
-    TMUX_LAST_SESSION,
-    TMUX_SESSIONX,
-    VIM_BUFFERS,
-    VIM_RESUME_SEARCH,
-    VIM_COMMAND,
-    TOGGLE_MOUSE,
-    COLON,
-    TO_DEFAULT_LAYER,
-    CHROME_URL_BAR,
-    TAB_EXTRACT,
-    CTRL_C,
-    CTRL_K,
-    CTRL_W,
-    MATTERHORN_PREV,
-    MATTERHORN_NEXT,
-};
 
 void press(uint16_t key) {
     register_code(key);
@@ -79,29 +46,11 @@ void toggle_default_layer(int layer) {
     set_single_default_layer(default_layer_state == (1UL << layer) ? _QWERTY : layer);
 }
 
-#define POWERSCROLL_FACTOR 15
-
 void repeat_code(uint16_t keycode, uint8_t count) {
     for(int i = 0; i < count; i++) {
         register_code(keycode);
         unregister_code(keycode);
     }
-}
-
-void powerscroll_up(uint16_t keycode, keyrecord_t *record) {
-    repeat_code(KC_MS_WH_UP, POWERSCROLL_FACTOR);
-}
-
-void powerscroll_down(uint16_t keycode, keyrecord_t *record) {
-    repeat_code(KC_MS_WH_DOWN, POWERSCROLL_FACTOR);
-}
-
-void powerscroll_left(uint16_t keycode, keyrecord_t *record) {
-    repeat_code(KC_MS_WH_LEFT, POWERSCROLL_FACTOR);
-}
-
-void powerscroll_right(uint16_t keycode, keyrecord_t *record) {
-    repeat_code(KC_MS_WH_RIGHT, POWERSCROLL_FACTOR);
 }
 
 void term_toggle(uint16_t keycode, keyrecord_t *record) {

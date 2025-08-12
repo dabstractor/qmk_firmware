@@ -10,8 +10,7 @@
 #define _INKSCAPE    7
 #define _GAMING      8
 
-#define _NUMPAD      27
-#define _FN          28
-#define _CMD         29
-#define _MOUSE       30
-#define _POWERSCROLL 31
+#define _NUMPAD      28
+#define _FN          29
+#define _CMD         30
+#define _MOUSE       31
