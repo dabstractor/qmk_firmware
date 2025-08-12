@@ -58,4 +58,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VIM_FOR_ALL
 #define VIM_ESC_PASSTHROUGH
 
+#define POWERSCROLL_LEVEL 10 // over 9000
+#define POWERSCROLL_DELAY_MS 9 // fine-tuned for terminal input
+
 #define IS_COMMAND() (get_mods() == MOD_MASK_ALT)
