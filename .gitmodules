@@ -33,4 +33,4 @@
 	url = https://github.com/dabstractor/qmk-vim.git
 [submodule "keyboards/handwired/dactyl_manuform/5x7_1/qmk-field-kit"]
 	path = keyboards/handwired/dactyl_manuform/5x7_1/qmk-field-kit
-	url = git@github.com:dabstractor/qmk-field-kit.git
+	url = https://github.com/dabstractor/qmk-field-kit
