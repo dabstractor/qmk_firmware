@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,  _______,  _______,  _______,  KILL_RUN,
         _______,  _______,  _______,  _______,
                                                           _______,        TMUX_LEADER,
-                                                          TMUX_SESSIONX,  _______,
+                                                          TMUX_ZOOM,      _______,
                                                           _______,        _______,
                                                           TMUX_TAB_PREV,
         // right hand
@@ -444,6 +444,7 @@ KeyCallback CUSTOM_KEYS[] = {
     { TMUX_TAB_NEXT, &tmux_tab_next },
     { TMUX_TAB_PREV, &tmux_tab_prev },
     { TMUX_LAST_SESSION, &tmux_last_session },
+    { TMUX_ZOOM, &tmux_zoom },
     { TMUX_SESSIONX, &tmux_sessionx },
     { CAPS_WORD_TOGGLE, &activate_caps_word_toggle },
     { TOGGLE_MOUSE, &toggle_mouse_layer },

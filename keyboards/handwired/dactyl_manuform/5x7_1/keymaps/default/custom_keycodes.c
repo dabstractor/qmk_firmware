@@ -131,6 +131,11 @@ void tmux_last_session(uint16_t keycode, keyrecord_t *record) {
     combo(KC_LSFT, KC_L);
 }
 
+void tmux_zoom(uint16_t keycode, keyrecord_t *record) {
+    combo(KC_LCTL, KC_SPC);
+    press(KC_Z);
+}
+
 void tmux_sessionx(uint16_t keycode, keyrecord_t *record) {
     combo(KC_LCTL, KC_SPC);
     press(KC_O);
