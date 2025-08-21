@@ -360,12 +360,26 @@ KeyCombo leader_keys[] = {
     { KEYS(KC_J, KC_I), SS_TAP(X_HOME) "https://jitsi.mulletware.io/\n" },
     { KEYS(KC_1), "!-1:" },
     { KEYS(KC_1, KC_1), "!-1:1" SS_TAP(X_TAB) },
-    { KEYS(KC_2, KC_2), "!-1:2" SS_TAP(X_TAB) },
-    { KEYS(KC_3, KC_3), "!-1:3" SS_TAP(X_TAB) },
-    { KEYS(KC_4, KC_4), "!-1:4" SS_TAP(X_TAB) },
-    { KEYS(KC_5, KC_5), "!-1:5" SS_TAP(X_TAB) },
+    { KEYS(KC_1, KC_2), "!-1:2" SS_TAP(X_TAB) },
+    { KEYS(KC_1, KC_3), "!-1:3" SS_TAP(X_TAB) },
+    { KEYS(KC_1, KC_4), "!-1:4" SS_TAP(X_TAB) },
+    { KEYS(KC_1, KC_5), "!-1:5" SS_TAP(X_TAB) },
+    { KEYS(KC_2, KC_1), "!-2:1" SS_TAP(X_TAB) },
+    { KEYS(KC_2, KC_2), "!-2:2" SS_TAP(X_TAB) },
+    { KEYS(KC_2, KC_3), "!-2:3" SS_TAP(X_TAB) },
+    { KEYS(KC_2, KC_4), "!-2:4" SS_TAP(X_TAB) },
+    { KEYS(KC_2, KC_5), "!-2:4" SS_TAP(X_TAB) },
+    { KEYS(KC_3, KC_1), "!-3:1" SS_TAP(X_TAB) },
+    { KEYS(KC_3, KC_2), "!-3:2" SS_TAP(X_TAB) },
+    { KEYS(KC_3, KC_3), "!-3:3" SS_TAP(X_TAB) },
+    { KEYS(KC_3, KC_4), "!-3:4" SS_TAP(X_TAB) },
+    { KEYS(KC_3, KC_5), "!-3:4" SS_TAP(X_TAB) },
+    { KEYS(KC_4, KC_1), "!-4:1" SS_TAP(X_TAB) },
+    { KEYS(KC_4, KC_2), "!-4:2" SS_TAP(X_TAB) },
+    { KEYS(KC_4, KC_3), "!-4:3" SS_TAP(X_TAB) },
+    { KEYS(KC_4, KC_4), "!-4:4" SS_TAP(X_TAB) },
+    { KEYS(KC_4, KC_5), "!-4:4" SS_TAP(X_TAB) },
     { KEYS(KC_G, KC_P), SS_TAP(X_TAB) SS_TAP(X_TAB) SS_TAP(X_TAB) SS_TAP(X_ENTER) }
-
 };
 
 void leader_end_user(void) {

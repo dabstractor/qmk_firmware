@@ -11,18 +11,22 @@ extern void vim_lazy_insert(void);
 
 DEFINE_SERIAL_COMMANDS({
     { "neovide", &disable_vim_mode },
-    { "alacritty", &disable_vim_mode },
+    { WT("^alacritty$", "^terminal$"), &disable_vim_mode },
+    { WT("^alacritty$", "alacritty"), &disable_vim_mode },
     { "*iterm*", &disable_vim_mode },
-    { WT("^Claude$", "*Claude$"), &vim_lazy_insert, &disable_vim_mode }, // claude desktop app
+    { WT("^Claude$", "^Claude$"), &vim_lazy_insert, &disable_vim_mode }, // claude desktop app
     { WT("*chrome*", "*claude*"), &vim_lazy_insert, &disable_vim_mode }, // claude.ai
     { WT("*chrome*", "*chatgpt*"), &vim_lazy_insert, &disable_vim_mode },
     { WT("*chrome*", "*deepseek*"), &vim_lazy_insert, &disable_vim_mode },
     { WT("*chrome*", "*gemini*"), &vim_lazy_insert, &disable_vim_mode },
-    { WT("*brave*", "*claude*"), &vim_lazy_insert, &disable_vim_mode },
-    { WT("*brave*", "*chatgpt*"), &vim_lazy_insert, &disable_vim_mode },
-    { WT("*brave*", "*deepseek*"), &vim_lazy_insert, &disable_vim_mode },
-    { WT("*brave*", "gemini*"), &vim_lazy_insert, &disable_vim_mode },
-    { WT("*brave*", "*ai*studio*"), &vim_lazy_insert, &disable_vim_mode },
+    { WT("^brave-browser$", "*claude*"), &vim_lazy_insert, &disable_vim_mode },
+    { WT("^brave-browser$", "*chatgpt*"), &vim_lazy_insert, &disable_vim_mode },
+    { WT("^brave-browser$", "*deepseek*"), &vim_lazy_insert, &disable_vim_mode },
+    { WT("^brave-browser$", "gemini*"), &vim_lazy_insert, &disable_vim_mode },
+    { WT("^brave-browser$", "*ai*studio*"), &vim_lazy_insert, &disable_vim_mode },
+    { WT("^brave-browser$", "*ai*studio*"), &vim_lazy_insert, &disable_vim_mode },
+    { WT("^brave-browser$", "^zoho mail"), &vim_lazy_insert, &disable_vim_mode },
+    { WT("*", "Mulletware Wiki"), &vim_lazy_insert, &disable_vim_mode },
     { WT("*", "*orderlands*"), &disable_vim_mode },
     { WT("steam_app*", "*"), &disable_vim_mode },
     { WT("cs2", "Counter-Strike 2"), &disable_vim_mode },
@@ -31,7 +35,7 @@ DEFINE_SERIAL_COMMANDS({
 DEFINE_SERIAL_LAYERS({
     { "*calculator", _NUMPAD },
     { WT("*chrome*", "*jitsi*"), _JITSI },
-    { WT("alacritty", "terminal"), _TERMINAL },
+    { WT("^alacritty$", "^terminal$"), _TERMINAL },
     { WT("alacritty", "alacritty"), _TERMINAL },
     { "*iterm*", _TERMINAL },
     { WT("*alacritty*", "*matterhorn*"), _MATTERHORN },
