@@ -10,26 +10,26 @@
 extern void vim_lazy_insert(void);
 
 DEFINE_SERIAL_COMMANDS({
-    { "neovide", &disable_vim_mode },
-    { WT("^alacritty$", "^terminal$"), &disable_vim_mode },
-    { WT("^alacritty$", "alacritty"), &disable_vim_mode },
-    { "*iterm*", &disable_vim_mode },
-    { WT("^Claude$", "^Claude$"), &vim_lazy_insert, &disable_vim_mode }, // claude desktop app
-    { WT("*chrome*", "*claude*"), &vim_lazy_insert, &disable_vim_mode }, // claude.ai
-    { WT("*chrome*", "*chatgpt*"), &vim_lazy_insert, &disable_vim_mode },
-    { WT("*chrome*", "*deepseek*"), &vim_lazy_insert, &disable_vim_mode },
-    { WT("*chrome*", "*gemini*"), &vim_lazy_insert, &disable_vim_mode },
-    { WT("^brave-browser$", "*claude*"), &vim_lazy_insert, &disable_vim_mode },
-    { WT("^brave-browser$", "*chatgpt*"), &vim_lazy_insert, &disable_vim_mode },
-    { WT("^brave-browser$", "*deepseek*"), &vim_lazy_insert, &disable_vim_mode },
-    { WT("^brave-browser$", "gemini*"), &vim_lazy_insert, &disable_vim_mode },
-    { WT("^brave-browser$", "*ai*studio*"), &vim_lazy_insert, &disable_vim_mode },
-    { WT("^brave-browser$", "*ai*studio*"), &vim_lazy_insert, &disable_vim_mode },
-    { WT("^brave-browser$", "^zoho mail"), &vim_lazy_insert, &disable_vim_mode },
-    { WT("*", "Mulletware Wiki"), &vim_lazy_insert, &disable_vim_mode },
-    { WT("*", "*orderlands*"), &disable_vim_mode },
-    { WT("steam_app*", "*"), &disable_vim_mode },
-    { WT("cs2", "Counter-Strike 2"), &disable_vim_mode },
+    { "neovide", &disable_vim },
+    { WT("^alacritty$", "^terminal$"), &disable_vim },
+    { WT("^alacritty$", "alacritty"), &disable_vim },
+    { "*iterm*", &disable_vim },
+    { WT("^Claude$", "^Claude$"), &vim_lazy_insert, &disable_vim }, // claude desktop app
+    { WT("*chrome*", "*claude*"), &vim_lazy_insert, &disable_vim }, // claude.ai
+    { WT("*chrome*", "*chatgpt*"), &vim_lazy_insert, &disable_vim },
+    { WT("*chrome*", "*deepseek*"), &vim_lazy_insert, &disable_vim },
+    { WT("*chrome*", "*gemini*"), &vim_lazy_insert, &disable_vim },
+    { WT("^brave-browser$", "*claude*"), &vim_lazy_insert, &disable_vim },
+    { WT("^brave-browser$", "*chatgpt*"), &vim_lazy_insert, &disable_vim },
+    { WT("^brave-browser$", "*deepseek*"), &vim_lazy_insert, &disable_vim },
+    { WT("^brave-browser$", "gemini*"), &vim_lazy_insert, &disable_vim },
+    { WT("^brave-browser$", "*ai*studio*"), &vim_lazy_insert, &disable_vim },
+    { WT("^brave-browser$", "*ai*studio*"), &vim_lazy_insert, &disable_vim },
+    { WT("^brave-browser$", "^zoho mail"), &vim_lazy_insert, &disable_vim },
+    { WT("*", "Mulletware Wiki"), &vim_lazy_insert, &disable_vim },
+    { WT("*", "*orderlands*"), &disable_vim },
+    { WT("steam_app*", "*"), &disable_vim },
+    { WT("cs2", "Counter-Strike 2"), &disable_vim },
 });
 
 DEFINE_SERIAL_LAYERS({

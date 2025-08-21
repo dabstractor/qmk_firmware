@@ -10,10 +10,16 @@ bool wants_vim_insert = false;
 uint8_t held_count = 0;
 
 void vim_lazy_insert(void) {
+    #ifdef CONSOLE_ENABLE // Logging
+        uprintf("sending vim lazy insert trigger\n");
+    #endif
     wants_vim_insert = true;
 }
 
 void vim_do_lazy_insert(void) {
+    #ifdef CONSOLE_ENABLE // Logging
+        uprintf("entering vim mode\n");
+    #endif
     vim_insert();
     wants_vim_insert = false;
 }
@@ -30,4 +36,9 @@ void check_vim_lazy_insert(bool pressed) {
     }
 }
 
-
+void disable_vim(void) {
+    #ifdef CONSOLE_ENABLE // Logging
+        uprintf("disabling vim mode\n");
+    #endif
+    disable_vim_mode();
+}
