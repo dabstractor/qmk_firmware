@@ -40,5 +40,6 @@ void disable_vim(void) {
     #ifdef CONSOLE_ENABLE // Logging
         uprintf("disabling vim mode\n");
     #endif
+    wants_vim_insert = false;
     disable_vim_mode();
 }
