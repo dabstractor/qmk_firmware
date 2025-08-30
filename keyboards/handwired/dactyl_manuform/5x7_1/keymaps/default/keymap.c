@@ -541,6 +541,26 @@ void keyboard_post_init_user(void) {
 layer_state_t layer_state_set_user(layer_state_t state) {
     // when layers _FN and _NUMPAD are active, _CMD is active
     state = update_tri_layer_state(state, _FN, _NUMPAD, _CMD);
+
+    // Control Numlock based on _NUMPAD layer state
+    bool numpad_active = layer_state_cmp(state, _NUMPAD);
+    bool numpad_was_active = layer_state_cmp(layer_state, _NUMPAD);
+
+    if (numpad_active != numpad_was_active) {
+        // _NUMPAD layer state changed
+        bool numlock_currently_on = host_keyboard_led_state().num_lock;
+
+        if (numpad_active && !numlock_currently_on) {
+            // _NUMPAD activated and Numlock is OFF → Turn it ON
+            register_code(KC_NUM_LOCK);
+            unregister_code(KC_NUM_LOCK);
+        } else if (!numpad_active && numlock_currently_on) {
+            // _NUMPAD deactivated and Numlock is ON → Turn it OFF
+            register_code(KC_NUM_LOCK);
+            unregister_code(KC_NUM_LOCK);
+        }
+    }
+
     return state;
 }
 
