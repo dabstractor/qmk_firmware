@@ -102,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                           _______,        _______,
                                                           TMUX_TAB_PREV,
         // right hand
-        _______,   _______,  _______,  _______,  _______,  _______,  _______,
+        KILL_RUN,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,   _______,  _______,  _______,  _______,  _______,  _______,
         _______,   _______,  _______,  _______,  _______,  _______,  _______,
         _______,   _______,  _______,  _______,  _______,  _______,  _______,
@@ -344,6 +344,8 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 };
 #endif
 
+#define ZK(...) ( __VA_ARGS__ SS_TAP(X_ENTER) )
+
 #if defined(LEADER_ENABLE)
 #define PW(...) ( __VA_ARGS__ SS_TAP(X_ENTER) )// accepts up to 5 keys
 KeyCombo leader_keys[] = {
@@ -358,27 +360,34 @@ KeyCombo leader_keys[] = {
     { KEYS(KC_S, KC_R), "/join ~shiny-rocks\n" },
     { KEYS(KC_D, KC_P), "/join ~dustin-private\n" },
     { KEYS(KC_J, KC_I), SS_TAP(X_HOME) "https://jitsi.mulletware.io/\n" },
-    { KEYS(KC_1), "!-1:" },
-    { KEYS(KC_1, KC_1), "!-1:1" SS_TAP(X_TAB) },
-    { KEYS(KC_1, KC_2), "!-1:2" SS_TAP(X_TAB) },
-    { KEYS(KC_1, KC_3), "!-1:3" SS_TAP(X_TAB) },
-    { KEYS(KC_1, KC_4), "!-1:4" SS_TAP(X_TAB) },
-    { KEYS(KC_1, KC_5), "!-1:5" SS_TAP(X_TAB) },
-    { KEYS(KC_2, KC_1), "!-2:1" SS_TAP(X_TAB) },
-    { KEYS(KC_2, KC_2), "!-2:2" SS_TAP(X_TAB) },
-    { KEYS(KC_2, KC_3), "!-2:3" SS_TAP(X_TAB) },
-    { KEYS(KC_2, KC_4), "!-2:4" SS_TAP(X_TAB) },
-    { KEYS(KC_2, KC_5), "!-2:4" SS_TAP(X_TAB) },
-    { KEYS(KC_3, KC_1), "!-3:1" SS_TAP(X_TAB) },
-    { KEYS(KC_3, KC_2), "!-3:2" SS_TAP(X_TAB) },
-    { KEYS(KC_3, KC_3), "!-3:3" SS_TAP(X_TAB) },
-    { KEYS(KC_3, KC_4), "!-3:4" SS_TAP(X_TAB) },
-    { KEYS(KC_3, KC_5), "!-3:4" SS_TAP(X_TAB) },
-    { KEYS(KC_4, KC_1), "!-4:1" SS_TAP(X_TAB) },
-    { KEYS(KC_4, KC_2), "!-4:2" SS_TAP(X_TAB) },
-    { KEYS(KC_4, KC_3), "!-4:3" SS_TAP(X_TAB) },
-    { KEYS(KC_4, KC_4), "!-4:4" SS_TAP(X_TAB) },
-    { KEYS(KC_4, KC_5), "!-4:4" SS_TAP(X_TAB) },
+    { KEYS(KC_1), ZK("!-1") },
+    { KEYS(KC_1, KC_0), ZK("!-1:0") },
+    { KEYS(KC_1, KC_1), ZK("!-1:1") },
+    { KEYS(KC_1, KC_2), ZK("!-1:2") },
+    { KEYS(KC_1, KC_3), ZK("!-1:3") },
+    { KEYS(KC_1, KC_4), ZK("!-1:4") },
+    { KEYS(KC_1, KC_5), ZK("!-1:5") },
+    { KEYS(KC_2), ZK("!-2") },
+    { KEYS(KC_2, KC_0), ZK("!-2:0") },
+    { KEYS(KC_2, KC_1), ZK("!-2:1") },
+    { KEYS(KC_2, KC_2), ZK("!-2:2") },
+    { KEYS(KC_2, KC_3), ZK("!-2:3") },
+    { KEYS(KC_2, KC_4), ZK("!-2:4") },
+    { KEYS(KC_2, KC_5), ZK("!-2:4") },
+    { KEYS(KC_3), ZK("!-3") },
+    { KEYS(KC_3, KC_0), ZK("!-3:0") },
+    { KEYS(KC_3, KC_1), ZK("!-3:1") },
+    { KEYS(KC_3, KC_2), ZK("!-3:2") },
+    { KEYS(KC_3, KC_3), ZK("!-3:3") },
+    { KEYS(KC_3, KC_4), ZK("!-3:4") },
+    { KEYS(KC_3, KC_5), ZK("!-3:4") },
+    { KEYS(KC_4), ZK("!-4") },
+    { KEYS(KC_4, KC_0), ZK("!-4:0") },
+    { KEYS(KC_4, KC_1), ZK("!-4:1") },
+    { KEYS(KC_4, KC_2), ZK("!-4:2") },
+    { KEYS(KC_4, KC_3), ZK("!-4:3") },
+    { KEYS(KC_4, KC_4), ZK("!-4:4") },
+    { KEYS(KC_4, KC_5), ZK("!-4:4") },
     { KEYS(KC_G, KC_P), SS_TAP(X_TAB) SS_TAP(X_TAB) SS_TAP(X_TAB) SS_TAP(X_ENTER) }
 };
 

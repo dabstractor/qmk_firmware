@@ -128,7 +128,7 @@ void tmux_tab_prev(uint16_t keycode, keyrecord_t *record) {
 
 void tmux_last_session(uint16_t keycode, keyrecord_t *record) {
     combo(KC_LCTL, KC_SPC);
-    combo(KC_LSFT, KC_L);
+    combo(KC_LSFT, KC_Z);
 }
 
 void tmux_zoom(uint16_t keycode, keyrecord_t *record) {
