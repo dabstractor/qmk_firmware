@@ -1,0 +1,1 @@
+- To flash this project, navigate up the directory tree until you hit the `qmk` directory. There, there will be a `./flash` script you can run.
