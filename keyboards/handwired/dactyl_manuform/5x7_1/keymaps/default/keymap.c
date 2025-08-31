@@ -536,7 +536,10 @@ void keyboard_post_init_user(void) {
     debug_enable=true;
     debug_matrix=true;
     debug_keyboard=true;
-    //debug_mouse=true;
+    debug_mouse=true;
+
+    // Initialize powerscroll conflicts from encoder map
+    powerscroll_init_conflicts();
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
