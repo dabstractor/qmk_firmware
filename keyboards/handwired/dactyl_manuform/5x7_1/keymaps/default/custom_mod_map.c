@@ -1,4 +1,5 @@
 #include "leader.h"
+#include "powerscroll.h"
 #define MAX_MOD_KEYS 8
 
 /* #define CUSTOM_SAFE_RANGE (SAFE_RANGE + 12) */
@@ -102,6 +103,9 @@ void matrix_scan_user(void) {
             register_code(mod_states[i].mod_code);
         }
     }
+    
+    // Add powerscroll processing
+    powerscroll_matrix_scan();
 }
 
 

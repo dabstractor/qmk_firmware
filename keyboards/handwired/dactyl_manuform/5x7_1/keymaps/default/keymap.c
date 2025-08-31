@@ -8,6 +8,7 @@
 #include "./per_key_settings.c"
 #include "./custom_keycodes.c"
 #include "./custom_keycodes.h"
+#include "./powerscroll.h"
 #include "./powerscroll.c"
 #include "./layers.c"
 #include "./macros.c"
