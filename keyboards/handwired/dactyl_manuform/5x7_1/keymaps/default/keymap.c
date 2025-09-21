@@ -325,7 +325,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #if defined(ENCODER_MAP_ENABLE)
                           // left                                        // right
 #define DEFAULT_ENCODER { ENCODER_CCW_CW(KC_MS_WH_LEFT, KC_MS_WH_RIGHT), ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN) }
-#define TRANS_ENCODER  { ENCODER_CCW_CW(_______, _______),              ENCODER_CCW_CW(_______, _______) }
+#define TRANS_ENCODER   { ENCODER_CCW_CW(_______, _______),              ENCODER_CCW_CW(_______, _______) }
 
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_QWERTY]      = DEFAULT_ENCODER,
@@ -345,7 +345,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 };
 #endif
 
-#define ZK(...) ( __VA_ARGS__ SS_TAP(X_ENTER) )
+#define ZK(...) ( __VA_ARGS__ SS_TAP(X_TAB) )
 
 #if defined(LEADER_ENABLE)
 #define PW(...) ( __VA_ARGS__ SS_TAP(X_ENTER) )// accepts up to 5 keys
@@ -374,29 +374,33 @@ KeyCombo leader_keys[] = {
     { KEYS(KC_2, KC_2), ZK("!-2:2") },
     { KEYS(KC_2, KC_3), ZK("!-2:3") },
     { KEYS(KC_2, KC_4), ZK("!-2:4") },
-    { KEYS(KC_2, KC_5), ZK("!-2:4") },
+    { KEYS(KC_2, KC_5), ZK("!-2:5") },
     { KEYS(KC_3), ZK("!-3") },
     { KEYS(KC_3, KC_0), ZK("!-3:0") },
     { KEYS(KC_3, KC_1), ZK("!-3:1") },
     { KEYS(KC_3, KC_2), ZK("!-3:2") },
     { KEYS(KC_3, KC_3), ZK("!-3:3") },
     { KEYS(KC_3, KC_4), ZK("!-3:4") },
-    { KEYS(KC_3, KC_5), ZK("!-3:4") },
+    { KEYS(KC_3, KC_5), ZK("!-3:5") },
     { KEYS(KC_4), ZK("!-4") },
     { KEYS(KC_4, KC_0), ZK("!-4:0") },
     { KEYS(KC_4, KC_1), ZK("!-4:1") },
     { KEYS(KC_4, KC_2), ZK("!-4:2") },
     { KEYS(KC_4, KC_3), ZK("!-4:3") },
     { KEYS(KC_4, KC_4), ZK("!-4:4") },
-    { KEYS(KC_4, KC_5), ZK("!-4:4") },
+    { KEYS(KC_4, KC_5), ZK("!-4:5") },
     { KEYS(KC_G, KC_P), SS_TAP(X_TAB) SS_TAP(X_TAB) SS_TAP(X_TAB) SS_TAP(X_ENTER) }
 };
 
 void leader_end_user(void) {
-    for (size_t i = 0; i < sizeof(leader_keys) / sizeof(leader_keys[0]); ++i) {
-        if (leader_keys[i].count > 0 && leader_keys[i].count <= MAX_COMBO_KEYS) {
-            if (leader(leader_keys[i].keys, leader_keys[i].count)) {
-                SEND_STRING(leader_keys[i].output);
+    // Prefer the longest matching sequences so prefixes don't win.
+    for (int len = MAX_COMBO_KEYS; len >= 1; --len) {
+        for (size_t i = 0; i < sizeof(leader_keys) / sizeof(leader_keys[0]); ++i) {
+            if (leader_keys[i].count == (uint8_t)len) {
+                if (leader(leader_keys[i].keys, leader_keys[i].count)) {
+                    SEND_STRING(leader_keys[i].output);
+                    return; // stop after first (longest) match
+                }
             }
         }
     }

@@ -6,12 +6,12 @@
 #define MAX_COMBO_KEYS 5
 
 typedef struct {
-    char keys[MAX_COMBO_KEYS + 1];
-    int count;
+    uint16_t keys[MAX_COMBO_KEYS + 1];
+    uint8_t count;
     const char* output;
 } KeyCombo;
 
-bool leader(char *keys, int length) {
+bool leader(uint16_t *keys, int length) {
   switch(length) {
     case 1: return leader_sequence_one_key(keys[0]);
     case 2: return leader_sequence_two_keys(keys[0], keys[1]);
