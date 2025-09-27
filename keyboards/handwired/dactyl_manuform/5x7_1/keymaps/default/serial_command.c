@@ -26,7 +26,7 @@ DEFINE_SERIAL_COMMANDS({
     { WT("^brave-browser$", "*ai*studio*"), &vim_lazy_insert, &disable_vim },
     { WT("^brave-browser$", "*ai*studio*"), &vim_lazy_insert, &disable_vim },
     { WT("^brave-browser$", "^zoho mail"), &vim_lazy_insert, &disable_vim },
-    { WT("*", "Mulletware Wiki"), &vim_lazy_insert, &disable_vim },
+    { "Mulletware Wiki", &vim_lazy_insert, &disable_vim },
     { WT("*", "*orderlands*"), &disable_vim },
     { WT("steam_app*", "*"), &disable_vim },
     { WT("cs2", "Counter-Strike 2"), &disable_vim },
