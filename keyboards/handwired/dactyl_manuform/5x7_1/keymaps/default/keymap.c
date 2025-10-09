@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ENT,           POWERSCROLL_HOLD,  KC_LBRC,  KC_RBRC,
                                                  CAPS_WORD_TOGGLE,  TMUX_LEADER,
                                                  KC_LALT,           TERM_TOGGLE,
-                                                 TT(_NUMPAD),       TT(_FN),
+                                                 MO(_NUMPAD),       MO(_FN),
                                                  KC_MS_BTN4,
 
         // right hand
@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                     KC_MINS,  KC_EQL,  POWERSCROLL_HOLD,  KC_TAB,
         RCTL_T(KC_SPC),   RSFT_T(KC_ENT),
         RGUI_T(KC_BSPC),  KC_RALT,
-        TD(TD_LEAD_FN),   TT(_NUMPAD),
+        TD(TD_LEAD_FN),   MO(_NUMPAD),
         KC_MS_BTN5
     ),
 
@@ -239,7 +239,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MSTP,  KC_MPLY,  KC_MPRV,  KC_MNXT,
                                                                  _______, _______,
                                                                  _______, _______,
-                                                                 _______, _______,
+                                                                 _______, TG(_FN),
                                                                  _______,
         // right hand
         KC_F11,   KC_F6,       KC_F7,      KC_F8,    KC_F9,       KC_F10,    QK_BOOT,
@@ -249,7 +249,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                            KC_F21,   KC_F22,      _______,   _______,
         _______,  _______,
         KC_DEL,   _______,
-        _______,  _______,
+        TG(_FN),  _______,
         _______
     ),
 
@@ -260,9 +260,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,
-                                               _______,  _______,
-                                               _______,  _______,
-                                               _______,  _______,
+                                               _______,      _______,
+                                               _______,      _______,
+                                               TG(_NUMPAD),  _______,
                                                _______,
         // right hand
         KC_CALC,     _______,  _______,  _______,  _______,  KC_PPLS,  _______,
@@ -272,7 +272,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                          KC_P0,    KC_PDOT,  _______,  _______,
         _______,  KC_PENT,
         _______,  _______,
-        _______,  _______,
+        _______,  TG(_NUMPAD),
         _______
     ),
 
