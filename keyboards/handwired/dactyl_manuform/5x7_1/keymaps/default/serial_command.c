@@ -19,7 +19,7 @@ DEFINE_SERIAL_COMMANDS({
     { WT("*chrome*", "*chatgpt*"), &vim_lazy_insert, &disable_vim },
     { WT("*chrome*", "*deepseek*"), &vim_lazy_insert, &disable_vim },
     { WT("*chrome*", "*gemini*"), &vim_lazy_insert, &disable_vim },
-    { WT("^brave-browser$", "*claude*"), &vim_lazy_insert, &disable_vim },
+    { WT("^brave-browser$", "*Claude - Brave$"), &vim_lazy_insert, &disable_vim },
     { WT("^brave-browser$", "*chatgpt*"), &vim_lazy_insert, &disable_vim },
     { WT("^brave-browser$", "*deepseek*"), &vim_lazy_insert, &disable_vim },
     { WT("^brave-browser$", "gemini*"), &vim_lazy_insert, &disable_vim },
