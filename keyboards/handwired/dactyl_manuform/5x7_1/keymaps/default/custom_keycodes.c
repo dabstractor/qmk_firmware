@@ -58,10 +58,6 @@ void term_toggle(uint16_t keycode, keyrecord_t *record) {
     disable_vim_mode(); // if I'm doing stuff in the terminal, I definitely don't want to be in vim mode anymore
 }
 
-void tmux_leader(uint16_t keycode, keyrecord_t *record) {
-    combo(KC_LCTL, KC_SPC);
-}
-
 void vim_buffers(uint16_t keycode, keyrecord_t *record) {
     press(KC_SPC);
     press(KC_SPC);
@@ -108,12 +104,34 @@ void tab_combine(uint16_t keycode, keyrecord_t *record) {
     combo(KC_LALT, KC_LSFT, KC_Z);
 }
 
+void tmux_last_window(uint16_t keycode, keyrecord_t *record) {
+    combo(KC_LCTL, KC_SPC);
+    combo(KC_LSFT, KC_B);
+}
+
+void tmux_last_session(uint16_t keycode, keyrecord_t *record) {
+    combo(KC_LCTL, KC_SPC);
+    combo(KC_LSFT, KC_L);
+}
+
 void tab_extract_combine(uint16_t keycode, keyrecord_t *record) {
     IF_MODS_ELSE(
         MOD_MASK_ALT,
         { tab_combine(keycode, record); },
         { tab_extract(keycode, record); }
     );
+}
+
+void tmux_win_prev(uint16_t keycode, keyrecord_t *record) {
+    IF_MODS_ELSE(
+        MOD_MASK_ALT,
+        { tmux_last_window(keycode, record); },
+        { tmux_last_session(keycode, record); }
+    );
+}
+
+void tmux_leader(uint16_t keycode, keyrecord_t *record) {
+    combo(KC_LCTL, KC_SPC);
 }
 
 void tmux_tab_next(uint16_t keycode, keyrecord_t *record) {
@@ -126,11 +144,6 @@ void tmux_tab_prev(uint16_t keycode, keyrecord_t *record) {
     press(KC_P);
 }
 
-void tmux_last_session(uint16_t keycode, keyrecord_t *record) {
-    combo(KC_LCTL, KC_SPC);
-    combo(KC_LSFT, KC_L);
-}
-
 void tmux_zoom(uint16_t keycode, keyrecord_t *record) {
     combo(KC_LCTL, KC_SPC);
     press(KC_Z);
@@ -139,6 +152,11 @@ void tmux_zoom(uint16_t keycode, keyrecord_t *record) {
 void tmux_sessionx(uint16_t keycode, keyrecord_t *record) {
     combo(KC_LCTL, KC_SPC);
     press(KC_O);
+}
+
+void tmux_copy_mode(uint16_t keycode, keyrecord_t *record) {
+    combo(KC_LCTL, KC_SPC);
+    combo(KC_LSFT, KC_LBRC);
 }
 
 void ctrl_c(uint16_t keycode, keyrecord_t *record) {
@@ -219,3 +237,4 @@ void vim_command(uint16_t keycode, keyrecord_t *record) {
         { colon(keycode, record); }
     );
 }
+

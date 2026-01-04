@@ -20,6 +20,7 @@ enum custom_keycodes {
     TMUX_TAB_PREV,
     TMUX_LAST_SESSION,
     TMUX_ZOOM,
+    TMUX_COPY_MODE,
     TMUX_SESSIONX,
     VIM_BUFFERS,
     VIM_RESUME_SEARCH,

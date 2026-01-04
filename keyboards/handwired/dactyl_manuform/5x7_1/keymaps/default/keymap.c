@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,  _______,  _______,  _______,  KC_F21,
         _______,  _______,  _______,  _______,  _______,  _______,  KC_F22,
         _______,  _______,  _______,  _______,
-                                                          _______,     VIM_BUFFERS,
+                                                          _______,     CTRL_W,
                                                           VIM_COMMAND, _______,
                                                           _______,     _______,
                                                           _______,
@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                           _______,        TMUX_LEADER,
                                                           TMUX_ZOOM,      _______,
                                                           _______,        _______,
-                                                          TMUX_TAB_PREV,
+                                                          TMUX_COPY_MODE,
         // right hand
         KILL_RUN,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,   _______,  _______,  _______,  _______,  _______,  _______,
@@ -111,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,
         _______,  TMUX_LAST_SESSION,
         _______,  _______,
-        TMUX_TAB_NEXT
+        TMUX_COPY_MODE
     ),
 
     [_JITSI] = LAYOUT_5x7_1(
@@ -356,18 +356,15 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     ZK_ENTRY_N(cmd, 5) ZK_ENTRY_N(cmd, 6) ZK_ENTRY_N(cmd, 7) ZK_ENTRY_N(cmd, 8) ZK_ENTRY_N(cmd, 9)
 
 KeyCombo leader_keys[] = {
-    { KEYS(KC_U, KC_A), USERNAME1 },
-    { KEYS(KC_U, KC_S), USERNAME2 },
-    { KEYS(KC_U, KC_D), USERNAME3 },
-    { KEYS(KC_P, KC_A), PW(PASSWORD1) },
-    { KEYS(KC_P, KC_S), PW(PASSWORD2) },
-    { KEYS(KC_P, KC_D), PW(PASSWORD2) },
-    { KEYS(KC_P, KC_B, KC_W), PW(BITWARDENPW) },
-    { KEYS(KC_J, KC_J), "/msg @edjimucator\n" },
-    { KEYS(KC_S, KC_R), "/join ~shiny-rocks\n" },
-    { KEYS(KC_D, KC_P), "/join ~dustin-private\n" },
-    { KEYS(KC_J, KC_I), SS_TAP(X_HOME) "https://jitsi.mulletware.io/\n" },
-    { KEYS(KC_G, KC_P), SS_TAP(X_TAB) SS_TAP(X_TAB) SS_TAP(X_TAB) SS_TAP(X_ENTER) },
+    { KEYS(KC_U, KC_I), USERNAME1 },
+    { KEYS(KC_U, KC_O), USERNAME2 },
+    { KEYS(KC_U, KC_P), USERNAME3 },
+    { KEYS(KC_J, KC_K), PW(PASSWORD1) },
+    { KEYS(KC_J, KC_L), PW(PASSWORD2) },
+    { KEYS(KC_J, KC_SCLN), PW(PASSWORD2) },
+    { KEYS(KC_J, KC_K, KC_L), PW(BITWARDENPW) },
+    { KEYS(KC_G), " | grep -i "},
+    { KEYS(KC_C), " | ccc\n" },
     { KEYS(KC_BSLS), " | "},
 
     // Single digit: 0 = !-10, 1-9 = !-N
@@ -414,9 +411,11 @@ CustomModMap CUSTOM_MOD_TAP_KEYS[] = {
     { TAB_EXTRACT, KC_RALT },
     { CTRL_C, KC_RALT },
     { CTRL_K, KC_LALT },
+    { CTRL_W, KC_LCTL },
     { TMUX_LAST_SESSION, KC_RALT },
     { TMUX_SESSIONX, KC_LALT },
     { TMUX_ZOOM, KC_LALT },
+    { TMUX_COPY_MODE, KC_LALT },
     { VIM_COMMAND, KC_LALT },
     { VIM_BUFFERS, KC_LCTL },
     { VIM_RESUME_SEARCH, KC_RALT }
@@ -456,8 +455,9 @@ KeyCallback CUSTOM_KEYS[] = {
     { TMUX_LEADER, &tmux_leader },
     { TMUX_TAB_NEXT, &tmux_tab_next },
     { TMUX_TAB_PREV, &tmux_tab_prev },
-    { TMUX_LAST_SESSION, &tmux_last_session },
+    { TMUX_LAST_SESSION, &tmux_win_prev },
     { TMUX_ZOOM, &tmux_zoom },
+    { TMUX_COPY_MODE, &tmux_copy_mode },
     { TMUX_SESSIONX, &tmux_sessionx },
     { CAPS_WORD_TOGGLE, &activate_caps_word_toggle },
     { TOGGLE_MOUSE, &toggle_mouse_layer },
