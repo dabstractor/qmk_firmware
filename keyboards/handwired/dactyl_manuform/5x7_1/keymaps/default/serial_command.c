@@ -46,6 +46,7 @@ DEFINE_SERIAL_LAYERS({
     { WT("firefox", "*"), _BROWSER },
     { WT("org.gnome.Nautilus", "*"), _BROWSER },
     { "*inkscape*", _INKSCAPE },
+    { "blender", _BLENDER },
     { "borderlands*", _GAMING },
     { WT("steam_app*", "*orderlands*"), _GAMING },
     { "steam_app*", _GAMING },
