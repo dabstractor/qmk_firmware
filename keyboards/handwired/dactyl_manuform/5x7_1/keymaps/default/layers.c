@@ -8,7 +8,8 @@
 #define _CLICKUP     5
 #define _MATTERHORN  6
 #define _INKSCAPE    7
-#define _GAMING      8
+#define _BLENDER     8
+#define _GAMING      9
 
 #define _NUMPAD      28
 #define _FN          29
