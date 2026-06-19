@@ -104,14 +104,23 @@ void tab_combine(uint16_t keycode, keyrecord_t *record) {
     combo(KC_LALT, KC_LSFT, KC_Z);
 }
 
-void tmux_last_window(uint16_t keycode, keyrecord_t *record) {
+void send_tmux_leader(void) {
     combo(KC_LCTL, KC_SPC);
+}
+
+void tmux_last_window(uint16_t keycode, keyrecord_t *record) {
+    send_tmux_leader();
     combo(KC_LSFT, KC_B);
 }
 
 void tmux_last_session(uint16_t keycode, keyrecord_t *record) {
-    combo(KC_LCTL, KC_SPC);
+    send_tmux_leader();
     combo(KC_LSFT, KC_L);
+}
+
+void tmux_last_pane(uint16_t keycode, keyrecord_t *record) {
+    send_tmux_leader();
+    combo(KC_LSFT, KC_G);
 }
 
 void tab_extract_combine(uint16_t keycode, keyrecord_t *record) {
@@ -123,39 +132,53 @@ void tab_extract_combine(uint16_t keycode, keyrecord_t *record) {
 }
 
 void tmux_win_prev(uint16_t keycode, keyrecord_t *record) {
+    int found_key = 1;
+
+    IF_MODS_ELSE(
+        MOD_MASK_SHIFT,
+        { tmux_last_pane(keycode, record); },
+        { found_key = 0; }
+    );
+
     IF_MODS_ELSE(
         MOD_MASK_ALT,
         { tmux_last_window(keycode, record); },
-        { tmux_last_session(keycode, record); }
+        { found_key = 0; }
     );
+
+    if (!found_key) {
+        { tmux_last_session(keycode, record); }
+    }
+
 }
 
+
 void tmux_leader(uint16_t keycode, keyrecord_t *record) {
-    combo(KC_LCTL, KC_SPC);
+    send_tmux_leader();
 }
 
 void tmux_tab_next(uint16_t keycode, keyrecord_t *record) {
-    combo(KC_LCTL, KC_SPC);
+    send_tmux_leader();
     press(KC_N);
 }
 
 void tmux_tab_prev(uint16_t keycode, keyrecord_t *record) {
-    combo(KC_LCTL, KC_SPC);
+    send_tmux_leader();
     press(KC_P);
 }
 
 void tmux_zoom(uint16_t keycode, keyrecord_t *record) {
-    combo(KC_LCTL, KC_SPC);
+    send_tmux_leader();
     press(KC_Z);
 }
 
 void tmux_sessionx(uint16_t keycode, keyrecord_t *record) {
-    combo(KC_LCTL, KC_SPC);
+    send_tmux_leader();
     press(KC_O);
 }
 
 void tmux_copy_mode(uint16_t keycode, keyrecord_t *record) {
-    combo(KC_LCTL, KC_SPC);
+    send_tmux_leader();
     combo(KC_LSFT, KC_LBRC);
 }
 
