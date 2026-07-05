@@ -123,6 +123,16 @@ void tmux_last_pane(uint16_t keycode, keyrecord_t *record) {
     combo(KC_LSFT, KC_G);
 }
 
+void tmux_history_back(uint16_t keycode, keyrecord_t *record) {
+    send_tmux_leader();
+    combo(KC_LCTL, KC_F9);
+}
+
+void tmux_history_forward(uint16_t keycode, keyrecord_t *record) {
+    send_tmux_leader();
+    combo(KC_LCTL, KC_F10);
+}
+
 void tab_extract_combine(uint16_t keycode, keyrecord_t *record) {
     IF_MODS_ELSE(
         MOD_MASK_ALT,
