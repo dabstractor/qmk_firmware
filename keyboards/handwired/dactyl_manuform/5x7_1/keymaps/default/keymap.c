@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                           _______,        TMUX_LEADER,
                                                           TMUX_ZOOM,      _______,
                                                           _______,        _______,
-                                                          TMUX_COPY_MODE,
+                                                          TMUX_HISTORY_BACK,
         // right hand
         KILL_RUN,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,   _______,  _______,  _______,  _______,  _______,  _______,
@@ -111,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,
         _______,  TMUX_LAST_SESSION,
         _______,  _______,
-        TMUX_COPY_MODE
+        TMUX_HISTORY_FORWARD
     ),
 
     [_JITSI] = LAYOUT_5x7_1(
@@ -482,6 +482,8 @@ KeyCallback CUSTOM_KEYS[] = {
     { TMUX_LAST_SESSION, &tmux_win_prev },
     { TMUX_ZOOM, &tmux_zoom },
     { TMUX_COPY_MODE, &tmux_copy_mode },
+    { TMUX_HISTORY_BACK, &tmux_history_back },
+    { TMUX_HISTORY_FORWARD, &tmux_history_forward },
     { TMUX_SESSIONX, &tmux_sessionx },
     { CAPS_WORD_TOGGLE, &activate_caps_word_toggle },
     { TOGGLE_MOUSE, &toggle_mouse_layer },
