@@ -162,17 +162,26 @@ static void stop_conflicting_streams(uint16_t new_keycode) {
 
     uprintf("POWERSCROLL: keycode 0x%04X conflicts with 0x%04X\n", new_keycode, conflicts_with);
 
-    // Stop any active stream running the conflicting keycode
+    // Stop any active stream running the conflicting keycode.
+    // stopped_streams only feeds the debug log, so it (and its prints) must be
+    // compiled out when CONSOLE_ENABLE is off; otherwise uprintf becomes a no-op
+    // and -Wunused-but-set-variable fires under -Werror.
+#ifdef CONSOLE_ENABLE
     int stopped_streams = 0;
+#endif
     for (int i = 0; i < MAX_POWERSCROLL_STREAMS; i++) {
         if (powerscroll_streams[i].is_active && powerscroll_streams[i].keycode == conflicts_with) {
+#ifdef CONSOLE_ENABLE
             uprintf("POWERSCROLL: STOPPING conflicting stream %d (keycode 0x%04X)\n", i, conflicts_with);
-            powerscroll_streams[i].is_active = false;
             stopped_streams++;
+#endif
+            powerscroll_streams[i].is_active = false;
         }
     }
 
+#ifdef CONSOLE_ENABLE
     uprintf("POWERSCROLL: stopped %d conflicting streams\n", stopped_streams);
+#endif
 }
 
 // Core non-blocking scheduling function supporting parallel streams
