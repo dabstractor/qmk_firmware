@@ -23,7 +23,7 @@
     "leader_key": {
         "enabled": true,
         "timing": true,
-        "timeout": 200
+        "timeout": 350
     },
 
     "features": {
