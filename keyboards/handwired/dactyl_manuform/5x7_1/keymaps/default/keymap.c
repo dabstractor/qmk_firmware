@@ -393,7 +393,7 @@ KeyCombo leader_keys[] = {
 
     // Single digit: 0 = !-10, 1-9 = !-N
     { KEYS(KC_0), ZK("!-10") },
-    { KEYS(KC_1), ZK("!-1") },
+    { KEYS(KC_1), ZK("!-1:1") },
     { KEYS(KC_2), ZK("!-2") },
     { KEYS(KC_3), ZK("!-3") },
     { KEYS(KC_4), ZK("!-4") },
