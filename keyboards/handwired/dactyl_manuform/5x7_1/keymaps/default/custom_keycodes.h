@@ -37,4 +37,5 @@ enum custom_keycodes {
     CTRL_W,
     MATTERHORN_PREV,
     MATTERHORN_NEXT,
+    MOUSE_TO_CORNER
 };

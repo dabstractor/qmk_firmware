@@ -29,6 +29,22 @@ void click_this_spot(uint16_t keycode, keyrecord_t *record) {
     tap_code(KC_MS_BTN1);
 }
 
+void mouse_to_corner(uint16_t keycode, keyrecord_t *record) {
+    // Hurl the cursor to the bottom-left corner of the screen. Each mouse-key
+    // tap moves the pointer a fixed amount, so we blast a generous burst in
+    // each direction. The host clamps movement at the screen edge, so sending
+    // more than enough is harmless. The short delay between taps keeps each one
+    // in its own USB report so none get coalesced into a single move.
+    for (uint8_t i = 0; i < 250; i++) {
+        tap_code(KC_MS_DOWN);
+        wait_ms(2);
+    }
+    for (uint8_t i = 0; i < 250; i++) {
+        tap_code(KC_MS_LEFT);
+        wait_ms(2);
+    }
+}
+
 void workspace_left(uint16_t keycode, keyrecord_t *record) {
     combo(KC_LGUI, KC_H);
 }
