@@ -30,18 +30,26 @@ void click_this_spot(uint16_t keycode, keyrecord_t *record) {
 }
 
 void mouse_to_corner(uint16_t keycode, keyrecord_t *record) {
-    // Hurl the cursor to the bottom-left corner of the screen. Each mouse-key
-    // tap moves the pointer a fixed amount, so we blast a generous burst in
-    // each direction. The host clamps movement at the screen edge, so sending
-    // more than enough is harmless. The short delay between taps keeps each one
-    // in its own USB report so none get coalesced into a single move.
-    for (uint8_t i = 0; i < 250; i++) {
-        tap_code(KC_MS_DOWN);
-        wait_ms(2);
-    }
-    for (uint8_t i = 0; i < 250; i++) {
-        tap_code(KC_MS_LEFT);
-        wait_ms(2);
+    // Send the cursor to the bottom-left corner, assuming it starts near the
+    // middle of the screen. Each tap is ~16px (MK_C_OFFSET_UNMOD); the counts
+    // below (120 down, 180 left) cover up to a 4K display with margin. The
+    // moves are interleaved (3 left, 2 down per round) so the cursor travels
+    // diagonally rather than down-then-left. The 2ms gap keeps each tap in its
+    // own USB report; ~300 taps total runs in ~0.6s.
+    //   down: 120 * 16px = 1920px   left: 180 * 16px = 2880px
+    uint8_t left = 180;
+    uint8_t down = 120;
+    while (left > 0 || down > 0) {
+        for (uint8_t i = 0; i < 3 && left > 0; i++) {
+            tap_code(KC_MS_LEFT);
+            wait_ms(2);
+            left--;
+        }
+        for (uint8_t i = 0; i < 2 && down > 0; i++) {
+            tap_code(KC_MS_DOWN);
+            wait_ms(2);
+            down--;
+        }
     }
 }
 
