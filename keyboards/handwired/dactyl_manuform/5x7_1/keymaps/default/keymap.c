@@ -311,10 +311,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                           _______,  _______,
                                                           _______,
         // right hand
-        _______,  _______,     _______,   _______,   _______,     _______,   _______,
-        _______,  _______,     _______,   _______,   _______,     _______,   _______,
-        _______,  KC_MS_BTN4,  _______,   _______,   KC_MS_BTN5,  _______,   _______,
-        _______,  _______,     _______,   _______,   _______,     _______,   _______,
+        MOUSE_TO_CORNER,  _______,     _______,   _______,   _______,     _______,   _______,
+        _______,          _______,     _______,   _______,   _______,     _______,   _______,
+        _______,          KC_MS_BTN4,  _______,   _______,   KC_MS_BTN5,  _______,   _______,
+        _______,          _______,     _______,   _______,   _______,     _______,   _______,
                                           _______,   _______,     _______,   TG(_CMD),
         _______,        _______,
         _______,        _______,
@@ -499,7 +499,8 @@ KeyCallback CUSTOM_KEYS[] = {
     { CTRL_K, &ctrl_k },
     { CTRL_W, &ctrl_w },
     { MATTERHORN_PREV, &matterhorn_prev },
-    { MATTERHORN_NEXT, &matterhorn_next }
+    { MATTERHORN_NEXT, &matterhorn_next },
+    { MOUSE_TO_CORNER, &mouse_to_corner }
 };
 
 bool process_custom_key_user(uint16_t keycode, keyrecord_t *record) {
