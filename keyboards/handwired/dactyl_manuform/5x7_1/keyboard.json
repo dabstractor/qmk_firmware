@@ -2,7 +2,7 @@
     "manufacturer": "dabstractor",
     "keyboard_name": "Dactyl-Manuform (5x7-1)",
     "maintainer": "dabstractor",
-    "url": "",
+    "url": "https://github.com/dabstractor",
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
 
