@@ -28,7 +28,7 @@ typedef struct {
     bool is_active;              // Stream currently running
     uint16_t last_tap_time;      // Last time we sent a scroll event (timer_read() format)
     uint8_t remaining_taps;      // How many more scroll events to send
-    uint16_t keycode;            // Which keycode to send (KC_MS_WH_UP, etc.)
+    uint16_t keycode;            // Which keycode to send (MS_WHLU, etc.)
     uint8_t tap_interval_ms;     // Delay between taps (POWERSCROLL_DELAY_MS)
     uint8_t stream_id;           // Unique identifier for debugging
 } PowerscrollStream;

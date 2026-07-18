@@ -31,18 +31,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                  CAPS_WORD_TOGGLE,  TMUX_LEADER,
                                                  KC_LALT,           TERM_TOGGLE,
                                                  MO(_NUMPAD),       MO(_FN),
-                                                 KC_MS_BTN4,
+                                                 MS_BTN4,
 
         // right hand
-        KC_MS_BTN2,  KC_6,  KC_7,   KC_8,     KC_9,    KC_0,              KC_DEL,
-        KC_MS_BTN1,  KC_Y,  KC_U,   KC_I,     KC_O,    KC_P,              KC_BSLS,
+        MS_BTN2,  KC_6,  KC_7,   KC_8,     KC_9,    KC_0,              KC_DEL,
+        MS_BTN1,  KC_Y,  KC_U,   KC_I,     KC_O,    KC_P,              KC_BSLS,
         KC_UP,       KC_H,  KC_J,   KC_K,     KC_L,    KC_SCLN,           KC_QUOT,
         KC_DOWN,     KC_N,  KC_M,   KC_COMM,  KC_DOT,  KC_SLSH,           TOGGLE_MOUSE,
                                     KC_MINS,  KC_EQL,  POWERSCROLL_HOLD,  KC_TAB,
         RCTL_T(KC_SPC),   RSFT_T(KC_ENT),
         RGUI_T(KC_BSPC),  KC_RALT,
         TD(TD_LEAD_FN),   MO(_NUMPAD),
-        KC_MS_BTN5
+        MS_BTN5
     ),
 
     [_NEOVIM] = LAYOUT_5x7_1(
@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                           _______,  CHROME_URL_BAR,
                                                           CTRL_K,   _______,
                                                           _______,  _______,
-                                                          KC_MS_BTN4,
+                                                          MS_BTN4,
         // right hand
         _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,
@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,
         _______,  TAB_EXTRACT,
         _______,  _______,
-        KC_MS_BTN5
+        MS_BTN5
     ),
 
     [_TERMINAL] = LAYOUT_5x7_1(
@@ -267,7 +267,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // right hand
         KC_F11,   KC_F6,       KC_F7,      KC_F8,    KC_F9,       KC_F10,    QK_BOOT,
         KC_F12,   KC_F6,       KC_F7,      KC_F8,    KC_F9,       KC_F10,    _______,
-        KC_F13,   KC_MS_BTN4,  _______,    KC_UP,    KC_MS_BTN5,  _______,   _______,
+        KC_F13,   MS_BTN4,  _______,    KC_UP,    MS_BTN5,  _______,   _______,
         KC_F14,   _______,     KC_LEFT,    KC_DOWN,  KC_RGHT,     KC_F23,    KC_F24,
                                            KC_F21,   KC_F22,      _______,   TG(_FN),
         _______,  _______,
@@ -313,7 +313,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // right hand
         _______,          _______,     _______,   _______,   _______,     _______,   _______,
         _______,          _______,     _______,   _______,   _______,     _______,   _______,
-        _______,          KC_MS_BTN4,  _______,   _______,   KC_MS_BTN5,  _______,   _______,
+        _______,          MS_BTN4,  _______,   _______,   MS_BTN5,  _______,   _______,
         MOUSE_TO_CORNER,  _______,     _______,   _______,   _______,     _______,   _______,
                                           _______,   _______,     _______,   TG(_CMD),
         _______,        _______,
@@ -324,19 +324,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_MOUSE] = LAYOUT_5x7_1(
         // left hand
-        _______,  _______,  _______,     _______,     _______,      _______,  TO_DEFAULT_LAYER,
-        _______,  _______,  KC_MS_BTN3,  KC_MS_BTN2,  KC_MS_BTN1,   _______,  QK_DYNAMIC_MACRO_RECORD_START_1,
-        _______,  _______,  _______,     KC_MS_UP,    _______,      _______,  QK_DYNAMIC_MACRO_RECORD_STOP,
-        _______,  _______,  KC_MS_LEFT,  KC_MS_DOWN,  KC_MS_RIGHT,  _______,  QK_DYNAMIC_MACRO_PLAY_1,
-        _______,  _______,  _______,     _______,
+        _______,  _______,  _______,  _______,   _______,  _______,  TO_DEFAULT_LAYER,
+        _______,  _______,  MS_BTN3,  MS_BTN2,  MS_BTN1,   _______,  QK_DYNAMIC_MACRO_RECORD_START_1,
+        _______,  _______,  _______,  MS_UP,    _______,   _______,  QK_DYNAMIC_MACRO_RECORD_STOP,
+        _______,  _______,  MS_LEFT,  MS_DOWN,  MS_RGHT,   _______,  QK_DYNAMIC_MACRO_PLAY_1,
+        _______,  _______,  _______,  _______,
                                                                     _______,  _______,
                                                                     _______,  _______,
                                                                     _______,  _______,
                                                                     _______,
         _______,                          _______,     _______,     _______,     _______,      _______,  _______,
-        QK_DYNAMIC_MACRO_RECORD_START_2,  _______,     KC_MS_BTN1,  KC_MS_BTN2,  KC_MS_BTN3,   _______,  _______,
-        QK_DYNAMIC_MACRO_RECORD_STOP,     KC_MS_BTN4,  _______,     KC_MS_UP,    KC_MS_BTN5,   _______,  _______,
-        QK_DYNAMIC_MACRO_PLAY_2,          _______,     KC_MS_LEFT,  KC_MS_DOWN,  KC_MS_RIGHT,  _______,  _______,
+        QK_DYNAMIC_MACRO_RECORD_START_2,  _______,     MS_BTN1,  MS_BTN2,  MS_BTN3,   _______,  _______,
+        QK_DYNAMIC_MACRO_RECORD_STOP,     MS_BTN4,  _______,     MS_UP,    MS_BTN5,   _______,  _______,
+        QK_DYNAMIC_MACRO_PLAY_2,          _______,     MS_LEFT,  MS_DOWN,  MS_RGHT,  _______,  _______,
                                           _______,     _______,      _______,  _______,
         _______,  _______,
         _______,  _______,
@@ -347,7 +347,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #if defined(ENCODER_MAP_ENABLE)
                           // left                                        // right
-#define DEFAULT_ENCODER { ENCODER_CCW_CW(KC_MS_WH_LEFT, KC_MS_WH_RIGHT), ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN) }
+#define DEFAULT_ENCODER { ENCODER_CCW_CW(MS_WHLL, MS_WHLR), ENCODER_CCW_CW(MS_WHLU, MS_WHLD) }
 #define TRANS_ENCODER   { ENCODER_CCW_CW(_______, _______),              ENCODER_CCW_CW(_______, _______) }
 
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
@@ -364,8 +364,8 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
                        // left                                              // right
     [_NUMPAD]      = { ENCODER_CCW_CW(KC_UP, KC_DOWN),                       ENCODER_CCW_CW(KC_LEFT, KC_RIGHT) },
     [_FN]          = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),                     ENCODER_CCW_CW(TAB_L, TAB_R) },
-    [_CMD]         = { ENCODER_CCW_CW(KC_MS_WH_LEFT, KC_MS_WH_RIGHT),        ENCODER_CCW_CW(KC_BSPC, KC_SPC) },
-    [_MOUSE]       = { ENCODER_CCW_CW(KC_MS_UP, KC_MS_DOWN),                 ENCODER_CCW_CW(KC_MS_LEFT, KC_MS_RIGHT) },
+    [_CMD]         = { ENCODER_CCW_CW(MS_WHLL, MS_WHLR),        ENCODER_CCW_CW(KC_BSPC, KC_SPC) },
+    [_MOUSE]       = { ENCODER_CCW_CW(MS_UP, MS_DOWN),                 ENCODER_CCW_CW(MS_LEFT, MS_RGHT) },
 };
 #endif
 
