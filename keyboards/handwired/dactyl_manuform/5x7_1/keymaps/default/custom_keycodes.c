@@ -22,11 +22,11 @@ void toggle_vim(uint16_t keycode, keyrecord_t *record) {
 }
 
 void click_this_spot(uint16_t keycode, keyrecord_t *record) {
-    tap_code(KC_MS_LEFT);
-    tap_code(KC_MS_UP);
-    tap_code(KC_MS_RIGHT);
-    tap_code(KC_MS_DOWN);
-    tap_code(KC_MS_BTN1);
+    tap_code(MS_LEFT);
+    tap_code(MS_UP);
+    tap_code(MS_RGHT);
+    tap_code(MS_DOWN);
+    tap_code(MS_BTN1);
 }
 
 void mouse_to_corner(uint16_t keycode, keyrecord_t *record) {
@@ -41,12 +41,12 @@ void mouse_to_corner(uint16_t keycode, keyrecord_t *record) {
     uint8_t down = 120;
     while (left > 0 || down > 0) {
         for (uint8_t i = 0; i < 3 && left > 0; i++) {
-            tap_code(KC_MS_LEFT);
+            tap_code(MS_LEFT);
             wait_ms(2);
             left--;
         }
         for (uint8_t i = 0; i < 2 && down > 0; i++) {
-            tap_code(KC_MS_DOWN);
+            tap_code(MS_DOWN);
             wait_ms(2);
             down--;
         }
