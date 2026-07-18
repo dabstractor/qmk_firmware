@@ -129,3 +129,5 @@ via*.json
 /keyboards/**/keymaps/via/*
 /keyboards/**/keymaps/vial/*
 .aider*
+
+.agents
