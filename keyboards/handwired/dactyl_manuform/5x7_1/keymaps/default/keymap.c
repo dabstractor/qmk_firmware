@@ -1,6 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "./qmk-vim/src/vim.h"
-#include "./qmk-notifier/notifier.h"
+#include "notifier.h"
 #include "./qmk-field-kit/field_kit.h"
 #include "./secrets.h"
 #include "./keycombos.h"
@@ -599,7 +599,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 void raw_hid_receive(uint8_t *data, uint8_t length) {
-    // Try field kit first, then fall back to qmk-notifier
+    // Try field kit first, then qmk_notifier (community module)
     field_kit_process_message(data, length);
     hid_notify(data, length);
 }
