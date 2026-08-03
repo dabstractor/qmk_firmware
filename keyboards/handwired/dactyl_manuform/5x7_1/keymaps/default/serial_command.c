@@ -53,3 +53,6 @@ DEFINE_SERIAL_LAYERS({
     { WT("cs2", "Counter-Strike 2"), _GAMING },
 });
 
+DEFINE_HOST_CALLBACKS({
+    { "vim_lazy", &vim_lazy_insert, &disable_vim },   // on_disable fires on focus-out
+});
