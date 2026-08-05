@@ -2,9 +2,14 @@
 #include QMK_KEYBOARD_H
 
 // Shared custom keycodes enum so multiple compilation units can reference them
-
+//
+// VIA note: rebased to QK_KB_0 (0x7E00) instead of SAFE_RANGE (QK_USER,
+// 0x7E40). The VIA app has only a QK_KB constant (0x7E00) — no QK_USER — so its
+// definition `customKeycodes` array is indexed from 0x7E00. Starting this enum
+// there makes each keycode line up with its label in via_definition.json.
+// (default keymap is unchanged — this rebasing is via-only.)
 enum custom_keycodes {
-    DBL_SPACE = SAFE_RANGE,
+    DBL_SPACE = QK_KB_0,
     CLICK_THIS_SPOT,
     TOGGLE_VIM,
     WORKSPACE_LEFT,

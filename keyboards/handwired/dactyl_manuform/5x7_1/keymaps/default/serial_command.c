@@ -11,7 +11,7 @@ extern void vim_lazy_insert(void);
 
 DEFINE_SERIAL_COMMANDS({
     { "neovide", &disable_vim },
-    { WT("*tty$", "^terminal$"), &disable_vim },
+    { WT("*tty$", "^terminal*"), &disable_vim },
     { WT("*tty$", "*tty"), &disable_vim },
     { "*iterm*", &disable_vim },
     { WT("^Claude$", "^Claude$"), &vim_lazy_insert, &disable_vim }, // claude desktop app
@@ -35,7 +35,7 @@ DEFINE_SERIAL_COMMANDS({
 DEFINE_SERIAL_LAYERS({
     { "*calculator", _NUMPAD },
     { WT("*chrome*", "*jitsi*"), _JITSI },
-    { WT("tty$", "^terminal$"), _TERMINAL },
+    { WT("tty$", "^terminal*"), _TERMINAL },
     { WT("tty$", "tty"), _TERMINAL },
     { "*iterm*", _TERMINAL },
     { WT("*alacritty*", "*matterhorn*"), _MATTERHORN },

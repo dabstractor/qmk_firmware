@@ -62,3 +62,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define POWERSCROLL_DELAY_MS 9 // fine-tuned for terminal input
 
 #define IS_COMMAND() (get_mods() == MOD_MASK_ALT)
+
+// VIA runtime keymap editor
+// ---------------------------------------------------------------------------
+// 32 layers because the keymap uses sparse, high-priority indices
+// (_NUMPAD=28, _FN=29, _CMD=30, _MOUSE=31) via designated initializers, so the
+// compiled keymaps[] array is 32 slots and DYNAMIC_KEYMAP_LAYER_COUNT must match.
+// 32 layers * 12 rows * 7 cols * 2 bytes = 5376 bytes of dynamic-keymap EEPROM,
+// which exceeds the RP2040 default wear-leveling logical size of 4096 — hence
+// the enlarged backing below. The count itself is set in keyboard.json
+// (dynamic_keymap.layer_count) because that's the one location the data-driven
+// config chain honors for this key.
+#define WEAR_LEVELING_BACKING_SIZE 16384   // 16 KiB flash -> 8 KiB logical EEPROM
