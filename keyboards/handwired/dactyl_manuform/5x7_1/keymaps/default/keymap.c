@@ -624,23 +624,19 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
-// VIA coexistence dispatch. With VIA_ENABLE, quantum/via.c owns the strong
-// raw_hid_receive() and invokes this weak hook before its own command switch.
-// Route the two co-resident Raw HID protocols to their handlers and claim them
-// (return true) so VIA never sees — and misinterprets — their bytes:
+// Raw HID dispatch. VIA is now disabled, so quantum/raw_hid.c's weak
+// raw_hid_receive() is OURS to define — nothing else claims the pipe.
+// Route the two co-resident Raw HID protocols to their handlers:
 //   0x81 0x9F  -> qmk_notifier (community module)   [via hid_notify()]
-//   0x82 0x9E  -> qmk-field-kit                       [via field_kit_process_message()]
-// Anything else falls through to VIA's handler (layer/lighting/macro edits).
+//   0x82 0x9E  -> qmk-field-kit                     [via field_kit_process_message()]
 // Both handlers self-filter on their own magic header, so each packet is acted
-// on by at most one of them.
-bool via_command_kb(uint8_t *data, uint8_t length) {
+// on by at most one of them; unknown packets are simply ignored.
+void raw_hid_receive(uint8_t *data, uint8_t length) {
     if (length >= 2) {
-        if ((data[0] == 0x81 && data[1] == 0x9F) ||  // qmk_notifier
-            (data[0] == 0x82 && data[1] == 0x9E)) {  // qmk-field-kit
-            field_kit_process_message(data, length);
+        if (data[0] == 0x81 && data[1] == 0x9F) {  // qmk_notifier
             hid_notify(data, length);
-            return true;
+        } else if (data[0] == 0x82 && data[1] == 0x9E) {  // qmk-field-kit
+            field_kit_process_message(data, length);
         }
     }
-    return false;
 }

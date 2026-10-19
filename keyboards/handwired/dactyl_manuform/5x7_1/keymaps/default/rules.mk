@@ -1,7 +1,9 @@
-# VIA runtime keymap editor (upstream QMK — NOT the vial-qmk fork).
-# Force-enables raw_hid + dynamic_keymap + bootmagic + tri_layer, all of which
-# the keyboard already has on; enabling here is a no-op for those four.
-VIA_ENABLE = yes
+# VIA was a compatibility experiment — now OFF. The keyboard's keyboard.json
+# already force-enables raw_hid + bootmagic + tri_layer, and the notifier
+# module's own rules.mk sets RAW_ENABLE, so removing this only drops the VIA
+# command processor and its EEPROM-backed dynamic keymap (which was shadowing
+# re-flashed keymaps — the reason changes didn't take effect).
+# VIA_ENABLE = yes
 
 # The matching DYNAMIC_KEYMAP_LAYER_COUNT (32) and the enlarged wear-leveling
 # EEPROM backing live elsewhere by necessity:
