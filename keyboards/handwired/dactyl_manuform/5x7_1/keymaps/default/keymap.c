@@ -72,8 +72,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand
         _______,  _______,  _______,  _______,  _______,  _______,  TO_DEFAULT_LAYER,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  KC_EQL,
+        _______,  _______,  _______,  _______,  _______,  _______,  KC_MINS,
         _______,  _______,  _______,  _______,
                                                           _______,  CHROME_URL_BAR,
                                                           CTRL_K,   _______,
@@ -253,6 +253,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______
     ),
 
+    [_VLC] = LAYOUT_5x7_1(
+        // left hand
+        _______,  _______,  _______,  _______,  _______,  _______,  TO_DEFAULT_LAYER,
+        _______,  _______,  _______,  _______,  _______,  _______,  KC_M,
+        _______,  _______,  _______,  KC_UP,    _______,  _______,  KC_P,
+        _______,  _______,  KC_LEFT,  KC_DOWN,  KC_RGHT,  _______,  KC_N,
+        _______,  _______,  _______,  _______,
+                                                          _______,  VLC_START_STOP,
+                                                          _______,  _______,
+                                                          _______,  _______,
+                                                          _______,
+        // right hand
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,
+                                      _______,  _______,  _______,  _______,
+        _______,  _______,
+        _______,  _______,
+        _______,  _______,
+        _______
+    ),
+
    [_NUMPAD] = LAYOUT_5x7_1(
         // left hand
         _______,      _______,  _______,  _______,  _______,  _______,  TG(_NUMPAD),
@@ -361,6 +384,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_MATTERHORN]  = TRANS_ENCODER,
     [_INKSCAPE]    = TRANS_ENCODER,
     [_BLENDER]     = TRANS_ENCODER,
+    [_VLC]         = TRANS_ENCODER,
                        // left                                              // right
     [_NUMPAD]      = { ENCODER_CCW_CW(KC_UP, KC_DOWN),                       ENCODER_CCW_CW(KC_LEFT, KC_RIGHT) },
     [_FN]          = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),                     ENCODER_CCW_CW(TAB_L, TAB_R) },
@@ -442,7 +466,8 @@ CustomModMap CUSTOM_MOD_TAP_KEYS[] = {
     { TMUX_COPY_MODE, KC_LALT },
     { VIM_COMMAND, KC_LALT },
     { VIM_BUFFERS, KC_LCTL },
-    { VIM_RESUME_SEARCH, KC_RALT }
+    { VIM_RESUME_SEARCH, KC_RALT },
+    { VLC_START_STOP, KC_LCTL }
 };
 
 bool process_custom_mod_tap_user(uint16_t keycode, keyrecord_t *record) {
@@ -500,7 +525,8 @@ KeyCallback CUSTOM_KEYS[] = {
     { CTRL_W, &ctrl_w },
     { MATTERHORN_PREV, &matterhorn_prev },
     { MATTERHORN_NEXT, &matterhorn_next },
-    { MOUSE_TO_CORNER, &mouse_to_corner }
+    { MOUSE_TO_CORNER, &mouse_to_corner },
+    { VLC_START_STOP, &vlc_start_stop }
 };
 
 bool process_custom_key_user(uint16_t keycode, keyrecord_t *record) {

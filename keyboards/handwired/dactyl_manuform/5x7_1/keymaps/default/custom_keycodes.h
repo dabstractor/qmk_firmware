@@ -42,5 +42,6 @@ enum custom_keycodes {
     CTRL_W,
     MATTERHORN_PREV,
     MATTERHORN_NEXT,
-    MOUSE_TO_CORNER
+    MOUSE_TO_CORNER,
+    VLC_START_STOP
 };

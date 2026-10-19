@@ -36,6 +36,8 @@ DEFINE_SERIAL_LAYERS({
     { "*calculator", _NUMPAD },
     { WT("*chrome*", "*jitsi*"), _JITSI },
     { WT("tty$", "^terminal*"), _TERMINAL },
+    { WT("tty$", "^tmux attach*"), _TERMINAL },
+    { WT("tty$", "^thinkpad*"), _TERMINAL },
     { WT("tty$", "tty"), _TERMINAL },
     { "*iterm*", _TERMINAL },
     { WT("*alacritty*", "*matterhorn*"), _MATTERHORN },
@@ -51,6 +53,9 @@ DEFINE_SERIAL_LAYERS({
     { WT("steam_app*", "*orderlands*"), _GAMING },
     { "steam_app*", _GAMING },
     { WT("cs2", "Counter-Strike 2"), _GAMING },
+    { "vlc", _VLC },
+    { "mpv", _VLC },
+    { WT("*", "*VLC media player$"), _VLC },
 });
 
 DEFINE_HOST_CALLBACKS({

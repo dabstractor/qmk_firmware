@@ -295,3 +295,7 @@ void vim_command(uint16_t keycode, keyrecord_t *record) {
     );
 }
 
+void vlc_start_stop(uint16_t keycode, keyrecord_t *record) {
+    send_string(" ");
+}
+

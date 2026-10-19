@@ -10,6 +10,7 @@
 #define _INKSCAPE    7
 #define _BLENDER     8
 #define _GAMING      9
+#define _VLC         10
 
 #define _NUMPAD      28
 #define _FN          29
