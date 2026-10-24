@@ -51,8 +51,8 @@ fi
 
 # Extract keyboard and keymap from QMK config (tolerate qmk-config failures;
 # the empty checks below handle missing config with a clear message).
-KEYBOARD=$(qmk config user.keyboard 2>/dev/null | cut -d'=' -f2 || true)
-KEYMAP=$(qmk config user.keymap 2>/dev/null | cut -d'=' -f2 || true)
+KEYBOARD=$(qmk config user.keyboard 2>/dev/null | cut -d'=' -f2 | sed -e 's/ *(config)//' -e 's/[[:space:]]*$//' || true)
+KEYMAP=$(qmk config user.keymap 2>/dev/null | cut -d'=' -f2 | sed -e 's/ *(config)//' -e 's/[[:space:]]*$//' || true)
 
 if [ -z "$KEYBOARD" ] || [ -z "$KEYMAP" ]; then
     echo "Error: Could not extract keyboard or keymap from QMK config" >&2
