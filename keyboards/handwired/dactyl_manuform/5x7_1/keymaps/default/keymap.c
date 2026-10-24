@@ -541,6 +541,7 @@ bool process_custom_key_user(uint16_t keycode, keyrecord_t *record) {
                     CUSTOM_KEYS[i].on_release(keycode, record);
                 }
             }
+            return true; // Keycode is owned by this keymap; caller must not propagate it.
         }
     }
     return false;
@@ -560,8 +561,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Single integration point: powerscroll handler
     if (!powerscroll_process(keycode, record)) return false;
 
-    if (process_custom_mod_tap_user(keycode, record)) {
-        process_custom_key_user(keycode, record);
+    // Custom keycode ownership: once either custom dispatcher claims an event, we
+    // return false so it never leaks into downstream feature processors
+    // (process_caps_word, key overrides, tap dance, leader, auto-shift, ...).
+    // Those handlers don't recognize QK_KB-range keycodes and apply destructive
+    // defaults — e.g. caps_word_press_user() returning false turned caps word
+    // OFF on the press-half of a CAPS_WORD_TOGGLE tap, so the release-half toggle
+    // re-enabled it and the key could never turn caps word off.
+    if (!process_custom_mod_tap_user(keycode, record)) {
+        // Mod-tap machinery owns this event: the press of a CUSTOM_MOD_TAP_KEYS
+        // key, or its release when it resolved to hold-instead-of-tap.
+        return false;
+    }
+
+    if (process_custom_key_user(keycode, record)) {
+        // A CUSTOM_KEYS entry matched (handler ran, or binding is release-only).
+        return false;
     }
 
     return true;
