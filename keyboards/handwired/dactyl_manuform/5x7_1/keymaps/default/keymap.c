@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_TERMINAL] = LAYOUT_5x7_1(
         // left hand
         _______,  _______,  _______,  _______,  _______,  _______,  TO_DEFAULT_LAYER,
-        _______,  _______,  _______,  _______,  _______,  _______,  KILL_RUN,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,
@@ -232,9 +232,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_GAMING] = LAYOUT_5x7_1(
         // left hand
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  TO_DEFAULT_LAYER,
         _______,  _______,  KC_R,     KC_W,     KC_E,     _______,  _______,
-        _______,  KC_G,     KC_A,     KC_S,     KC_D,     KC_F,     TO_DEFAULT_LAYER,
+        _______,  KC_G,     KC_A,     KC_S,     KC_D,     KC_F,     _______,
         KC_LSFT,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,
                                                           KC_LSFT,  KC_SPACE,
@@ -385,11 +385,11 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_INKSCAPE]    = TRANS_ENCODER,
     [_BLENDER]     = TRANS_ENCODER,
     [_VLC]         = TRANS_ENCODER,
-                       // left                                              // right
-    [_NUMPAD]      = { ENCODER_CCW_CW(KC_UP, KC_DOWN),                       ENCODER_CCW_CW(KC_LEFT, KC_RIGHT) },
-    [_FN]          = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),                     ENCODER_CCW_CW(TAB_L, TAB_R) },
-    [_CMD]         = { ENCODER_CCW_CW(MS_WHLL, MS_WHLR),        ENCODER_CCW_CW(KC_BSPC, KC_SPC) },
-    [_MOUSE]       = { ENCODER_CCW_CW(MS_UP, MS_DOWN),                 ENCODER_CCW_CW(MS_LEFT, MS_RGHT) },
+                       // left                             // right
+    [_NUMPAD]      = { ENCODER_CCW_CW(KC_UP, KC_DOWN),     ENCODER_CCW_CW(KC_LEFT, KC_RIGHT) },
+    [_FN]          = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),   ENCODER_CCW_CW(TAB_L, TAB_R) },
+    [_CMD]         = { ENCODER_CCW_CW(MS_WHLL, MS_WHLR),   ENCODER_CCW_CW(KC_BSPC, KC_SPC) },
+    [_MOUSE]       = { ENCODER_CCW_CW(MS_UP, MS_DOWN),     ENCODER_CCW_CW(MS_LEFT, MS_RGHT) },
 };
 #endif
 
@@ -411,9 +411,9 @@ KeyCombo leader_keys[] = {
     { KEYS(KC_J, KC_L), PW(PASSWORD2) },
     { KEYS(KC_J, KC_SCLN), PW(PASSWORD2) },
     { KEYS(KC_J, KC_K, KC_L), PW(BITWARDENPW) },
-    { KEYS(KC_G), " | grep -i "},
-    { KEYS(KC_C), " | ccc\n" },
-    { KEYS(KC_BSLS), " | "},
+    { KEYS(KC_P), "~/projects" },
+    { KEYS(KC_C), "~/.config" },
+    { KEYS(KC_L), "~/.local" },
 
     // Single digit: 0 = !-10, 1-9 = !-N
     { KEYS(KC_0), ZK("!-10") },
