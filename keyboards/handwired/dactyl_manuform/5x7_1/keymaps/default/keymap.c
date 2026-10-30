@@ -411,9 +411,9 @@ KeyCombo leader_keys[] = {
     { KEYS(KC_J, KC_L), PW(PASSWORD2) },
     { KEYS(KC_J, KC_SCLN), PW(PASSWORD2) },
     { KEYS(KC_J, KC_K, KC_L), PW(BITWARDENPW) },
-    { KEYS(KC_P), "~/projects" },
-    { KEYS(KC_C), "~/.config" },
-    { KEYS(KC_L), "~/.local" },
+    { KEYS(KC_P), "~/projects/" },
+    { KEYS(KC_C), "~/.config/" },
+    { KEYS(KC_L), "~/.local/" },
 
     // Single digit: 0 = !-10, 1-9 = !-N
     { KEYS(KC_0), ZK("!-10") },
