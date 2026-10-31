@@ -1,1 +1,3 @@
 - To flash this project, navigate up the directory tree until you hit the `qmk` directory. There, there will be a `./flash` script you can run.
+- NEVER run mass-erase flashing commands (openocd `flash erase_address`, bossac mass erase, `--mass-erase`, `eeconfig` wipes) against any device while this keyboard is plugged in — handedness is stored in EEPROM (`EE_HANDS`) and one mass-erase kills half the keyboard, even from a session targeting a totally different board.
+- If one side of the keyboard goes dead: that's lost `EE_HANDS`, not (probably) broken hardware. Restore with the field-kit SIDE_LOCK tool (`qmk-field-kit/test_sidelock.py`) over raw HID, or reflash per-side from the qmk dir. Do not re-solder anything until you've checked this first.
