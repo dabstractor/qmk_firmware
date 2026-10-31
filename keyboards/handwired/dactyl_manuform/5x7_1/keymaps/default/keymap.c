@@ -10,6 +10,8 @@
 #include "./custom_keycodes.h"
 #include "./powerscroll.h"
 #include "./powerscroll.c"
+#include "./encoder_pairs.h"
+#include "./encoder_pairs.c"
 #include "./layers.c"
 #include "./macros.c"
 #include "./tap_dance.c"
@@ -393,6 +395,24 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 };
 #endif
 
+#if defined(ENCODER_MAP_ENABLE)
+// ============================================================================
+// Layer-pair encoder overlays — per-app encoder behavior for the utility
+// layers (_FN/_NUMPAD/_CMD/_MOUSE), which otherwise always shadow app layers.
+// Syntax/semantics: encoder_pairs.h. Index order reads as a possessive:
+// [_NEOVIM][_FN] = "neovim's FN". Unwritten pair / `_______` slot = stock
+// encoder_map behavior. [_QWERTY][_x] entries act as blanket defaults
+// inherited by app layers without their own entry.
+//
+//                                        left                     right
+// [_NEOVIM][_FN]     = { ENCODER_CCW_CW(KC_F7, KC_F8),          ENCODER_CCW_CW(TAB_L, TAB_R) },
+// [_QWERTY][_FN]     = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),     ENCODER_CCW_CW(KC_MS_WHLL, MS_WHLR) }, // blanket default
+// [_INKSCAPE][_CMD]  = { ENCODER_CCW_CW(KC_MS_WHLD, KC_MS_WHLU), ENCODER_CCW_CW(_______, _______) }, // right knob inherits stock
+// ============================================================================
+DEFINE_ENCODER_PAIRS({
+});
+#endif
+
 #define ZK(...) ( __VA_ARGS__ SS_TAP(X_TAB) )
 
 #if defined(LEADER_ENABLE)
@@ -560,6 +580,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     // Single integration point: powerscroll handler
     if (!powerscroll_process(keycode, record)) return false;
+
+    // Layer-pair encoder overlays — runs only on the powerscroll passthrough
+    // (multiplier wins while POWERSCROLL_HOLD is down). Claims encoder events
+    // whose (context, top) layer pair has a table entry; everything else
+    // falls through to the stock encoder_map dispatch.
+    if (!encoder_pairs_process(keycode, record)) return false;
 
     // Custom keycode ownership: once either custom dispatcher claims an event, we
     // return false so it never leaks into downstream feature processors
