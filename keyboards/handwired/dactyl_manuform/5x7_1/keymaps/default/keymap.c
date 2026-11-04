@@ -3,7 +3,6 @@
 #include "notifier.h"
 #include "./qmk-field-kit/field_kit.h"
 #include "./secrets.h"
-#include "./keycombos.h"
 #include "./custom_mod_map.c"
 #include "./per_key_settings.c"
 #include "./custom_keycodes.c"
@@ -72,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_BROWSER] = LAYOUT_5x7_1(
         // left hand
-        _______,  _______,  _______,  _______,  _______,  _______,  TO_DEFAULT_LAYER,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  KC_EQL,
         _______,  _______,  _______,  _______,  _______,  _______,  KC_MINS,
@@ -95,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_TERMINAL] = LAYOUT_5x7_1(
         // left hand
-        _______,  _______,  _______,  _______,  _______,  _______,  TO_DEFAULT_LAYER,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,
@@ -118,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_JITSI] = LAYOUT_5x7_1(
         // left hand
-        _______,  _______,  _______,  _______,  _______,  _______,  TO_DEFAULT_LAYER,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,
@@ -234,7 +233,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_GAMING] = LAYOUT_5x7_1(
         // left hand
-        _______,  _______,  _______,  _______,  _______,  _______,  TO_DEFAULT_LAYER,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  KC_R,     KC_W,     KC_E,     _______,  _______,
         _______,  KC_G,     KC_A,     KC_S,     KC_D,     KC_F,     _______,
         KC_LSFT,  _______,  _______,  _______,  _______,  _______,  _______,
@@ -257,7 +256,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_VLC] = LAYOUT_5x7_1(
         // left hand
-        _______,  _______,  _______,  _______,  _______,  _______,  TO_DEFAULT_LAYER,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  KC_M,
         _______,  _______,  _______,  KC_UP,    _______,  _______,  KC_P,
         _______,  _______,  KC_LEFT,  KC_DOWN,  KC_RGHT,  _______,  KC_N,
@@ -326,7 +325,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
      [_CMD] = LAYOUT_5x7_1(
         // left hand
-        _______,   KC_MSTP,  KC_MPLY,  KC_MPRV,  KC_MNXT,  _______,  TO_DEFAULT_LAYER,
+        _______,   KC_MSTP,  KC_MPLY,  KC_MPRV,  KC_MNXT,  _______,  _______,
         _______,   _______,  _______,  _______,  _______,  _______,  _______,
         _______,   _______,  _______,  _______,  _______,  _______,  _______,
         _______,   _______,  _______,  _______,  _______,  _______,  _______,
@@ -349,7 +348,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_MOUSE] = LAYOUT_5x7_1(
         // left hand
-        _______,  _______,  _______,  _______,   _______,  _______,  TO_DEFAULT_LAYER,
+        _______,  _______,  _______,  _______,   _______,  _______,  _______,
         _______,  _______,  MS_BTN3,  MS_BTN2,  MS_BTN1,   _______,  QK_DYNAMIC_MACRO_RECORD_START_1,
         _______,  _______,  _______,  MS_UP,    _______,   _______,  QK_DYNAMIC_MACRO_RECORD_STOP,
         _______,  _______,  MS_LEFT,  MS_DOWN,  MS_RGHT,   _______,  QK_DYNAMIC_MACRO_PLAY_1,
@@ -413,62 +412,10 @@ DEFINE_ENCODER_PAIRS({
 });
 #endif
 
-#define ZK(...) ( __VA_ARGS__ SS_TAP(X_TAB) )
-
-#if defined(LEADER_ENABLE)
-#define PW(...) ( __VA_ARGS__ SS_TAP(X_ENTER) )// accepts up to 5 keys
-#define ZK_ENTRY_0(elem) { KEYS(KC_0, KC_##elem), ZK("!-10:" #elem) },
-#define ZK_ENTRY_N(cmd, elem) { KEYS(KC_##cmd, KC_##elem), ZK("!-" #cmd ":" #elem) },
-#define ZK_CMD_ELEMS(cmd) \
-    ZK_ENTRY_N(cmd, 0) ZK_ENTRY_N(cmd, 1) ZK_ENTRY_N(cmd, 2) ZK_ENTRY_N(cmd, 3) ZK_ENTRY_N(cmd, 4) \
-    ZK_ENTRY_N(cmd, 5) ZK_ENTRY_N(cmd, 6) ZK_ENTRY_N(cmd, 7) ZK_ENTRY_N(cmd, 8) ZK_ENTRY_N(cmd, 9)
-
-KeyCombo leader_keys[] = {
-    { KEYS(KC_U, KC_I), USERNAME1 },
-    { KEYS(KC_U, KC_O), USERNAME2 },
-    { KEYS(KC_U, KC_P), USERNAME3 },
-    { KEYS(KC_J, KC_K), PW(PASSWORD1) },
-    { KEYS(KC_J, KC_L), PW(PASSWORD2) },
-    { KEYS(KC_J, KC_SCLN), PW(PASSWORD2) },
-    { KEYS(KC_J, KC_K, KC_L), PW(BITWARDENPW) },
-    { KEYS(KC_P), "~/projects/" },
-    { KEYS(KC_C), "~/.config/" },
-    { KEYS(KC_L), "~/.local/" },
-
-    // Single digit: 0 = !-10, 1-9 = !-N
-    { KEYS(KC_0), ZK("!-10") },
-    { KEYS(KC_1), ZK("!-1:1") },
-    { KEYS(KC_2), ZK("!-2") },
-    { KEYS(KC_3), ZK("!-3") },
-    { KEYS(KC_4), ZK("!-4") },
-    { KEYS(KC_5), ZK("!-5") },
-    { KEYS(KC_6), ZK("!-6") },
-    { KEYS(KC_7), ZK("!-7") },
-    { KEYS(KC_8), ZK("!-8") },
-    { KEYS(KC_9), ZK("!-9") },
-
-    // Two digits: 0X = !-10:X, NX = !-N:X (100 entries generated)
-    ZK_ENTRY_0(0) ZK_ENTRY_0(1) ZK_ENTRY_0(2) ZK_ENTRY_0(3) ZK_ENTRY_0(4)
-    ZK_ENTRY_0(5) ZK_ENTRY_0(6) ZK_ENTRY_0(7) ZK_ENTRY_0(8) ZK_ENTRY_0(9)
-
-    ZK_CMD_ELEMS(1) ZK_CMD_ELEMS(2) ZK_CMD_ELEMS(3) ZK_CMD_ELEMS(4)
-    ZK_CMD_ELEMS(5) ZK_CMD_ELEMS(6) ZK_CMD_ELEMS(7) ZK_CMD_ELEMS(8) ZK_CMD_ELEMS(9)
-};
-
-void leader_end_user(void) {
-    // Prefer the longest matching sequences so prefixes don't win.
-    for (int len = MAX_COMBO_KEYS; len >= 1; --len) {
-        for (size_t i = 0; i < sizeof(leader_keys) / sizeof(leader_keys[0]); ++i) {
-            if (leader_keys[i].count == (uint8_t)len) {
-                if (leader(leader_keys[i].keys, leader_keys[i].count)) {
-                    SEND_STRING(leader_keys[i].output);
-                    return; // stop after first (longest) match
-                }
-            }
-        }
-    }
-}
-#endif // LEADER
+// (Leader key sequences — usernames, passwords, paths, and the zk-kb number
+// codegen — moved to super_leader.def when getreuer/super_leader became the
+// primary leader surface. The old built-in leader feature and leader_keys[]
+// table were removed; nothing emits QK_LEAD anymore.)
 
 CustomModMap CUSTOM_MOD_TAP_KEYS[] = {
     { TERM_TOGGLE, KC_LGUI },
@@ -517,7 +464,6 @@ KeyCallback CUSTOM_KEYS[] = {
     { CLICK_THIS_SPOT, &click_this_spot },
     { WORKSPACE_LEFT, &workspace_left },
     { WORKSPACE_RIGHT, &workspace_right },
-    { TO_DEFAULT_LAYER, &to_default_layer },
     { TERM_TOGGLE, &term_toggle },
     { KILL_RUN, &kill_run },
     { TERM_KILL_RUN, &term_kill_run },

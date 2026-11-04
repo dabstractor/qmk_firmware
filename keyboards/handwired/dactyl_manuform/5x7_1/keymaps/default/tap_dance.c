@@ -1,6 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "./qmk-vim/src/vim.h"
-#include "leader.h"
+#include "super_leader.h"
 
 enum {
     TD_LEAD_FN,
@@ -19,12 +19,14 @@ void fn_layer_reset(tap_dance_state_t *state, void *user_data) {
     layer_off(_FN);
 }
 
-void qmk_leader(void) {
-    leader_sequence_active() ? leader_end() : leader_start();
+// Tap TD_LEAD_FN: toggle a Super Leader sequence (replaces the old built-in
+// leader toggle — super_leader is now the primary leader surface).
+void super_leader_toggle(void) {
+    super_leader_sequence_active() ? super_leader_cancel() : super_leader_start();
 }
 
 void leader_fn_each(tap_dance_state_t *state, void *user_data) {
-    fn_layer_dance(state, &qmk_leader);
+    fn_layer_dance(state, &super_leader_toggle);
 }
 
 void vim_fn_each(tap_dance_state_t *state, void *user_data) {

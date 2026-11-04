@@ -1,0 +1,88 @@
+// Super Leader sequence definitions — the primary leader surface.
+//
+// This file is #included (twice — declaration pass, then table pass) by
+// modules/getreuer/super_leader/introspection.c. Entry forms:
+//   SEQ_KEY(name, (keys), keycode)   keycode re-enters process_record, so QK_KB
+//                                    customs flow through CUSTOM_KEYS/mod-tap.
+//   SEQ_STR(name, (keys), "string")  SEND_STRING semantics (SS_* macros ok).
+//   SEQ_UNI(name, (keys), "unicode")
+//   SEQ_FUN(name, (keys), fn[, data])  call void fn(void*).
+//
+// Sequences resolve immediately when not a prefix of a longer one; otherwise
+// SUPER_LEADER_TIMEOUT (config.h) applies between keys.
+
+// ---- Preamble (guarded: includes must happen only once per TU) ------------
+#ifndef SUPER_LEADER_DEF_PREAMBLE
+#define SUPER_LEADER_DEF_PREAMBLE
+#include "secrets.h"
+#include "custom_keycodes.h"
+
+// Direct-callback bridge for the LEADER+Space entry below. The prototype is
+// local because custom_keycodes.h declares only the keycode enum; the function
+// itself lives in custom_keycodes.c.
+void to_default_layer(uint16_t keycode, keyrecord_t *record);
+static void to_default_layer_leader_cb(void* user_data) {
+    (void)user_data;
+    to_default_layer(0, NULL); // callee ignores both args
+}
+#endif
+
+// String-output helpers, same semantics as the old leader_keys[] table.
+// SL_-prefixed and #undef'd at the bottom: this file is compiled into the same
+// TU as keymap.c (via quantum/keymap_introspection.c), which defines its own
+// ZK/PW inside the built-in leader block — names must not collide.
+#define SL_ZK(...) __VA_ARGS__ SS_TAP(X_TAB) // zk-kb command, then Tab
+#define SL_PW(...) __VA_ARGS__ SS_TAP(X_ENTER) // password, then Enter
+
+// ---- The focus request: LEADER + Space runs to_default_layer() directly ----
+// SEQ_FUN calls a void fn(void*) — no keycode round-trip. (TO_DEFAULT_LAYER
+// was removed from the keymap layers and the CUSTOM_KEYS table; this sequence
+// is now the only path to the callback.)
+SEQ_FUN(to_default_layer, (KC_SPC), to_default_layer_leader_cb)
+
+// ---- Usernames, passwords, paths (ported 1:1 from leader_keys[]) ----------
+SEQ_STR(u_i,     (KC_U, KC_I),     USERNAME1)
+SEQ_STR(u_o,     (KC_U, KC_O),     USERNAME2)
+SEQ_STR(u_p,     (KC_U, KC_P),     USERNAME3)
+SEQ_STR(p_jk,    (KC_J, KC_K),     SL_PW(PASSWORD1))
+SEQ_STR(p_jl,    (KC_J, KC_L),     SL_PW(PASSWORD2))
+SEQ_STR(p_jscln, (KC_J, KC_SCLN), SL_PW(PASSWORD2))
+SEQ_STR(p_jkl,   (KC_J, KC_K, KC_L), SL_PW(BITWARDENPW))
+SEQ_STR(path_projects, (KC_P), "~/projects/")
+SEQ_STR(path_config,   (KC_C), "~/.config/")
+SEQ_STR(path_local,    (KC_L), "~/.local/")
+
+// ---- zk-kb number entries (ported codegen from keymap.c) ------------------
+// Single digit: 0 = !-10, 1-9 = !-N (:N variant for 1)
+SEQ_STR(zk_0, (KC_0), SL_ZK("!-10"))
+SEQ_STR(zk_1, (KC_1), SL_ZK("!-1:1"))
+SEQ_STR(zk_2, (KC_2), SL_ZK("!-2"))
+SEQ_STR(zk_3, (KC_3), SL_ZK("!-3"))
+SEQ_STR(zk_4, (KC_4), SL_ZK("!-4"))
+SEQ_STR(zk_5, (KC_5), SL_ZK("!-5"))
+SEQ_STR(zk_6, (KC_6), SL_ZK("!-6"))
+SEQ_STR(zk_7, (KC_7), SL_ZK("!-7"))
+SEQ_STR(zk_8, (KC_8), SL_ZK("!-8"))
+SEQ_STR(zk_9, (KC_9), SL_ZK("!-9"))
+
+// Two digits: 0X = !-10:X, NX = !-N:X (100 entries generated)
+#define SL_ZK_ENTRY_0(elem)  SEQ_STR(zk_0_##elem, (KC_0, KC_##elem), SL_ZK("!-10:" #elem))
+#define SL_ZK_ENTRY_N(cmd, elem) SEQ_STR(zk_##cmd##_##elem, (KC_##cmd, KC_##elem), SL_ZK("!-" #cmd ":" #elem))
+#define SL_ZK_CMD_ELEMS(cmd) \
+    SL_ZK_ENTRY_N(cmd, 0) SL_ZK_ENTRY_N(cmd, 1) SL_ZK_ENTRY_N(cmd, 2) SL_ZK_ENTRY_N(cmd, 3) SL_ZK_ENTRY_N(cmd, 4) \
+    SL_ZK_ENTRY_N(cmd, 5) SL_ZK_ENTRY_N(cmd, 6) SL_ZK_ENTRY_N(cmd, 7) SL_ZK_ENTRY_N(cmd, 8) SL_ZK_ENTRY_N(cmd, 9)
+
+SL_ZK_ENTRY_0(0) SL_ZK_ENTRY_0(1) SL_ZK_ENTRY_0(2) SL_ZK_ENTRY_0(3) SL_ZK_ENTRY_0(4)
+SL_ZK_ENTRY_0(5) SL_ZK_ENTRY_0(6) SL_ZK_ENTRY_0(7) SL_ZK_ENTRY_0(8) SL_ZK_ENTRY_0(9)
+
+SL_ZK_CMD_ELEMS(1) SL_ZK_CMD_ELEMS(2) SL_ZK_CMD_ELEMS(3) SL_ZK_CMD_ELEMS(4)
+SL_ZK_CMD_ELEMS(5) SL_ZK_CMD_ELEMS(6) SL_ZK_CMD_ELEMS(7) SL_ZK_CMD_ELEMS(8) SL_ZK_CMD_ELEMS(9)
+
+// Leave no trace: this file is #included multiple times (two introspection
+// passes, and again in the community_modules_introspection TU) — every macro
+// defined here must be #undef'd so nothing leaks into later includes.
+#undef SL_ZK
+#undef SL_PW
+#undef SL_ZK_ENTRY_0
+#undef SL_ZK_ENTRY_N
+#undef SL_ZK_CMD_ELEMS

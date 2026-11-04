@@ -18,3 +18,6 @@
 #   * WEAR_LEVELING_BACKING_SIZE (16384 -> 8 KiB logical): in this keymap's
 #     config.h, because 32 layers × 12 × 7 × 2 = 5376 bytes of dynamic keymap
 #     alone exceeds the RP2040 default 4 KiB logical EEPROM.
+# Required by getreuer/super_leader (either this or COMBO_ENABLE); also gives
+# QK_REP repeat-key for free. Self-contained: only acts on its own keycodes.
+REPEAT_KEY_ENABLE = yes

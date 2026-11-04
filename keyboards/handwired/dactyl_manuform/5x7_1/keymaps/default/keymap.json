@@ -1,5 +1,6 @@
 {
     "modules": [
-        "dabstractor/qmk_notifier"
+        "dabstractor/qmk_notifier",
+        "getreuer/super_leader"
     ]
 }
