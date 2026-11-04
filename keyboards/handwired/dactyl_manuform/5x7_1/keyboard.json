@@ -22,12 +22,6 @@
         ]
     },
 
-    "leader_key": {
-        "enabled": true,
-        "timing": true,
-        "timeout": 350
-    },
-
     "features": {
         "bootmagic": true,
         "caps_word": true,
@@ -37,7 +31,6 @@
         "encoder_map": true,
         "encoder": true,
         "extrakey": true,
-        "leader": true,
         "nkro": true,
         "os_detection": true,
         "raw_hid": true,

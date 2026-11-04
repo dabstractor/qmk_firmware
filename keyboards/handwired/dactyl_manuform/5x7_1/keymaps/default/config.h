@@ -33,8 +33,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PERMISSIVE_HOLD
 #define PERMISSIVE_HOLD_PER_KEY
 
-#define LEADER_NO_TIMEOUT
-#define LEADER_PER_KEY_TIMING
+#define SUPER_LEADER_TIMEOUT 350 // per-key, matches the old leader_key timeout
+#define SUPER_LEADER_NO_INIT_TIMEOUT // think as long as needed before the first key (old LEADER_NO_TIMEOUT behavior)
 
 #define RETRO_TAPPING
 #define RETRO_TAPPING_PER_KEY

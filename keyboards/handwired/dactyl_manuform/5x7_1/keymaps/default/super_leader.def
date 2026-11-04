@@ -1,0 +1,141 @@
+// Super Leader sequence definitions — the primary leader surface.
+//
+// This file is #included (twice — declaration pass, then table pass) by
+// modules/getreuer/super_leader/introspection.c. Author entries with the
+// name-free wrappers (keys are the identity — no arbitrary identifiers):
+//   SL_KEY((keys), keycode)     keycode re-enters process_record, so QK_KB
+//                               customs flow through CUSTOM_KEYS/mod-tap.
+//   SL_STR((keys), "string")    SEND_STRING semantics (SS_* macros ok).
+//   SL_UNI((keys), "unicode")
+//   SL_FUN((keys), fn[, data])  call void fn(void*).
+// (The module's raw SEQ_*(name, (keys), output) forms remain available if an
+// explicit symbol name is ever wanted; SL_* derives the symbol from the keys.)
+//
+// Sequences resolve immediately when not a prefix of a longer one; otherwise
+// SUPER_LEADER_TIMEOUT (config.h) applies between keys. Unlimited thinking
+// time before the first key: SUPER_LEADER_NO_INIT_TIMEOUT.
+
+// ---- Preamble (guarded: includes must happen only once per TU) ------------
+#ifndef SUPER_LEADER_DEF_PREAMBLE
+#define SUPER_LEADER_DEF_PREAMBLE
+#include "secrets.h"
+#include "custom_keycodes.h"
+
+// Direct-callback bridge for the LEADER+Space entry below. The prototype is
+// local because custom_keycodes.h declares only the keycode enum; the function
+// itself lives in custom_keycodes.c.
+void to_default_layer(uint16_t keycode, keyrecord_t *record);
+static void to_default_layer_leader_cb(void* user_data) {
+    (void)user_data;
+    to_default_layer(0, NULL); // callee ignores both args
+}
+#endif
+
+// ---- Name-free entry wrappers ----------------------------------------------
+// SEQ_*(name, (keys), output) needs a unique C identifier per entry, but the
+// name is only glue linking the two introspection passes. SL_* derives it
+// from the key list: SL_STR((KC_U, KC_I), X) declares sl_seq_KC_U_KC_I.
+// Content-derived names agree across both passes (a __COUNTER__ scheme would
+// not), are unique per sequence, and duplicate key sequences — which deserve
+// to fail — fail at compile time.
+#define SL_CAT_(a, b) a##b
+#define SL_CAT(a, b) SL_CAT_(a, b)
+#define SL_NARGS(...) SL_NARGS_(__VA_ARGS__, 5, 4, 3, 2, 1)
+#define SL_NARGS_(_1, _2, _3, _4, _5, n, ...) n
+#define SL_NAME1(_1) _1
+#define SL_NAME2(_1, _2) SL_CAT(_1, _##_2)
+#define SL_NAME3(_1, _2, _3) SL_CAT(SL_NAME2(_1, _2), _##_3)
+#define SL_NAME4(_1, _2, _3, _4) SL_CAT(SL_NAME3(_1, _2, _3), _##_4)
+#define SL_NAME5(_1, _2, _3, _4, _5) SL_CAT(SL_NAME4(_1, _2, _3, _4), _##_5)
+#define SL_NAME_DISPATCH(n) SL_CAT(SL_NAME, n)
+#define SL_SEQNAME(keys_) SL_SEQNAME_ keys_ // unwrap the parenthesized key list
+#define SL_SEQNAME_(...) SL_NAME_DISPATCH(SL_NARGS(__VA_ARGS__))(__VA_ARGS__)
+
+// The _I indirection layer is required: introspection's SEQ_* macros use the
+// name in `sl_seq_##name_` positions, and ## suppresses argument expansion —
+// passing SL_SEQNAME(...) through directly would paste the invocation itself.
+// Expanding to a concrete identifier first makes the paste work.
+#define SL_KEY_I(name_, keys_, kc_)  SEQ_KEY(name_, keys_, kc_)
+#define SL_STR_I(name_, keys_, str_) SEQ_STR(name_, keys_, str_)
+#define SL_UNI_I(name_, keys_, str_) SEQ_UNI(name_, keys_, str_)
+#define SL_FUN_I(name_, keys_, ...)  SEQ_FUN(name_, keys_, __VA_ARGS__)
+
+#define SL_KEY(keys_, kc_)  SL_KEY_I(SL_SEQNAME(keys_), keys_, kc_)
+#define SL_STR(keys_, str_) SL_STR_I(SL_SEQNAME(keys_), keys_, str_)
+#define SL_UNI(keys_, str_) SL_UNI_I(SL_SEQNAME(keys_), keys_, str_)
+#define SL_FUN(keys_, ...)  SL_FUN_I(SL_SEQNAME(keys_), keys_, __VA_ARGS__)
+
+// String-output helpers, same semantics as the old leader_keys[] table.
+#define SL_ZK(...) __VA_ARGS__ SS_TAP(X_TAB) // zk-kb command, then Tab
+#define SL_PW(...) __VA_ARGS__ SS_TAP(X_ENTER) // password, then Enter
+
+// ---- LEADER + Space runs to_default_layer() directly ------------------------
+// The callback is reachable only from this sequence (TO_DEFAULT_LAYER was
+// removed from the keymap layers and the CUSTOM_KEYS table).
+SL_FUN((KC_SPC), to_default_layer_leader_cb)
+
+// ---- Usernames, passwords, paths (ported 1:1 from leader_keys[]) -----------
+SL_STR((KC_U), USERNAME1)
+SL_STR((KC_I), USERNAME2)
+SL_STR((KC_O), USERNAME3)
+SL_STR((KC_J), SL_PW(PASSWORD1))
+SL_STR((KC_K), SL_PW(PASSWORD2))
+SL_STR((KC_SCLN), SL_PW(BITWARDENPW))
+SL_STR((KC_P), "~/projects/")
+SL_STR((KC_C), "~/.config/")
+SL_STR((KC_L), "~/.local/")
+
+// ---- zk-kb number entries (ported codegen from keymap.c) --------------------
+// Single digit: 0 = !-10, 1-9 = !-N (:N variant for 1)
+SL_STR((KC_0), SL_ZK("!-10"))
+SL_STR((KC_1), SL_ZK("!-1:1"))
+SL_STR((KC_2), SL_ZK("!-2"))
+SL_STR((KC_3), SL_ZK("!-3"))
+SL_STR((KC_4), SL_ZK("!-4"))
+SL_STR((KC_5), SL_ZK("!-5"))
+SL_STR((KC_6), SL_ZK("!-6"))
+SL_STR((KC_7), SL_ZK("!-7"))
+SL_STR((KC_8), SL_ZK("!-8"))
+SL_STR((KC_9), SL_ZK("!-9"))
+
+// Two digits: 0X = !-10:X, NX = !-N:X (100 entries generated)
+#define SL_ZK_ENTRY_0(elem)  SL_STR((KC_0, KC_##elem), SL_ZK("!-10:" #elem))
+#define SL_ZK_ENTRY_N(cmd, elem) SL_STR((KC_##cmd, KC_##elem), SL_ZK("!-" #cmd ":" #elem))
+#define SL_ZK_CMD_ELEMS(cmd) \
+    SL_ZK_ENTRY_N(cmd, 0) SL_ZK_ENTRY_N(cmd, 1) SL_ZK_ENTRY_N(cmd, 2) SL_ZK_ENTRY_N(cmd, 3) SL_ZK_ENTRY_N(cmd, 4) \
+    SL_ZK_ENTRY_N(cmd, 5) SL_ZK_ENTRY_N(cmd, 6) SL_ZK_ENTRY_N(cmd, 7) SL_ZK_ENTRY_N(cmd, 8) SL_ZK_ENTRY_N(cmd, 9)
+
+SL_ZK_ENTRY_0(0) SL_ZK_ENTRY_0(1) SL_ZK_ENTRY_0(2) SL_ZK_ENTRY_0(3) SL_ZK_ENTRY_0(4)
+SL_ZK_ENTRY_0(5) SL_ZK_ENTRY_0(6) SL_ZK_ENTRY_0(7) SL_ZK_ENTRY_0(8) SL_ZK_ENTRY_0(9)
+
+SL_ZK_CMD_ELEMS(1) SL_ZK_CMD_ELEMS(2) SL_ZK_CMD_ELEMS(3) SL_ZK_CMD_ELEMS(4)
+SL_ZK_CMD_ELEMS(5) SL_ZK_CMD_ELEMS(6) SL_ZK_CMD_ELEMS(7) SL_ZK_CMD_ELEMS(8) SL_ZK_CMD_ELEMS(9)
+
+// Leave no trace: this file is #included multiple times (two introspection
+// passes, and again in the community_modules_introspection TU) — every macro
+// defined here must be #undef'd so nothing leaks into later includes.
+#undef SL_CAT_
+#undef SL_CAT
+#undef SL_NARGS
+#undef SL_NARGS_
+#undef SL_NAME1
+#undef SL_NAME2
+#undef SL_NAME3
+#undef SL_NAME4
+#undef SL_NAME5
+#undef SL_NAME_DISPATCH
+#undef SL_SEQNAME
+#undef SL_SEQNAME_
+#undef SL_KEY_I
+#undef SL_STR_I
+#undef SL_UNI_I
+#undef SL_FUN_I
+#undef SL_KEY
+#undef SL_STR
+#undef SL_UNI
+#undef SL_FUN
+#undef SL_ZK
+#undef SL_PW
+#undef SL_ZK_ENTRY_0
+#undef SL_ZK_ENTRY_N
+#undef SL_ZK_CMD_ELEMS

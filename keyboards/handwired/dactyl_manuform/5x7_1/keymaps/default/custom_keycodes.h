@@ -34,7 +34,6 @@ enum custom_keycodes {
     VIM_COMMAND,
     TOGGLE_MOUSE,
     COLON,
-    TO_DEFAULT_LAYER,
     CHROME_URL_BAR,
     TAB_EXTRACT,
     CTRL_C,
