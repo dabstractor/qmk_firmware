@@ -30,7 +30,7 @@ enum custom_keycodes {
     TMUX_HISTORY_BACK,
     TMUX_HISTORY_FORWARD,
     VIM_BUFFERS,
-    VIM_RESUME_SEARCH,
+    VIM_TAB_LEADER,
     VIM_COMMAND,
     TOGGLE_MOUSE,
     COLON,

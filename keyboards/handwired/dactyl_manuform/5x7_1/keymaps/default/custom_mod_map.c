@@ -103,7 +103,7 @@ void matrix_scan_user(void) {
             register_code(mod_states[i].mod_code);
         }
     }
-    
+
     // Add powerscroll processing
     powerscroll_matrix_scan();
 }

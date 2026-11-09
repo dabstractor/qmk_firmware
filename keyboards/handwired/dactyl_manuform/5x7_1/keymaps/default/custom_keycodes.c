@@ -279,11 +279,11 @@ void term_kill_run(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-void vim_resume_search(uint16_t keycode, keyrecord_t *record) {
+void vim_tab_leader(uint16_t keycode, keyrecord_t *record) {
     IF_MODS_ELSE(
         MOD_MASK_ALT,
         { send_string(" sr"); },
-        { ctrl_w(keycode, record); }
+        { combo(KC_LCTL, KC_T); }
     );
 }
 

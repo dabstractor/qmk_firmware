@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,  _______,  _______,  _______,  KC_F22,
         _______,  _______,  _______,  _______,
                                                           _______,     CTRL_W,
-                                                          VIM_COMMAND, _______,
+                                                          VIM_TAB_LEADER, _______,
                                                           _______,     _______,
                                                           _______,
         // right hand
@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,  _______,  _______,  _______,  _______,
                                       _______,  _______,  _______,  _______,
         _______,  _______,
-        _______,  VIM_RESUME_SEARCH,
+        _______,  VIM_COMMAND,
         _______,  _______,
         _______
     ),
@@ -433,7 +433,7 @@ CustomModMap CUSTOM_MOD_TAP_KEYS[] = {
     { TMUX_COPY_MODE, KC_LALT },
     { VIM_COMMAND, KC_LALT },
     { VIM_BUFFERS, KC_LCTL },
-    { VIM_RESUME_SEARCH, KC_RALT },
+    { VIM_TAB_LEADER, KC_RALT },
     { VLC_START_STOP, KC_LCTL }
 };
 
@@ -484,7 +484,7 @@ KeyCallback CUSTOM_KEYS[] = {
     { COPY, &copy },
     { PASTE, &paste },
     { VIM_BUFFERS, &vim_buffers },
-    { VIM_RESUME_SEARCH, &vim_resume_search },
+    { VIM_TAB_LEADER, &vim_tab_leader },
     { VIM_COMMAND, &vim_command },
     { CTRL_C, &ctrl_c },
     { CTRL_K, &ctrl_k },
