@@ -439,16 +439,16 @@ LEADER_GLOBAL(
     L_STR((KC_SCLN), L_PW(BITWARDENPW)),
     L_STR((KC_P), "~/projects/"),
     L_STR((KC_C), "~/.config/"),
-    L_STR((KC_L), "~/.local/"),
-
-    // zk-kb number entries — all 110 digit sequences (codegen: leader_layers.c)
-    L_ZK_ALL
+    L_STR((KC_L), "~/.local/")
 )
 
 LEADER_LAYERS(
     L_LAYER(_TERMINAL,
         L_FN((KC_Y), tmux_yank_current_line),
-        L_FN((KC_SLSH), tmux_search_reverse)
+        L_FN((KC_SLSH), tmux_search_reverse),
+
+        // zk-kb number entries — all 110 digit sequences (codegen: leader_layers.c)
+        L_ZK_ALL
     )
 )
 
