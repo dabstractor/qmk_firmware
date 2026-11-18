@@ -82,6 +82,7 @@ void tmux_copy_mode(uint16_t keycode, keyrecord_t *record);
 void tmux_history_back(uint16_t keycode, keyrecord_t *record);
 void tmux_history_forward(uint16_t keycode, keyrecord_t *record);
 void tmux_yank_current_line(uint16_t keycode, keyrecord_t *record);
+void tmux_search_reverse(uint16_t keycode, keyrecord_t *record);
 void ctrl_c(uint16_t keycode, keyrecord_t *record);
 void ctrl_k(uint16_t keycode, keyrecord_t *record);
 void ctrl_w(uint16_t keycode, keyrecord_t *record);

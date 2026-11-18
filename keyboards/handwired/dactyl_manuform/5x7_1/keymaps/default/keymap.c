@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MS_BTN1,  KC_Y,  KC_U,   KC_I,     KC_O,    KC_P,              KC_BSLS,
         KC_UP,    KC_H,  KC_J,   KC_K,     KC_L,    KC_SCLN,           KC_QUOT,
         KC_DOWN,  KC_N,  KC_M,   KC_COMM,  KC_DOT,  KC_SLSH,           TOGGLE_MOUSE,
-                                    KC_MINS,  KC_EQL,  POWERSCROLL_HOLD,  KC_TAB,
+                                 KC_MINS,  KC_EQL,  POWERSCROLL_HOLD,  KC_TAB,
         RCTL_T(KC_SPC),   RSFT_T(KC_ENT),
         RGUI_T(KC_BSPC),  KC_RALT,
         TD(TD_LEAD_FN),   MO(_NUMPAD),
@@ -413,10 +413,44 @@ DEFINE_ENCODER_PAIRS({
 });
 #endif
 
-// (Leader key sequences — usernames, passwords, paths, and the zk-kb number
-// codegen — moved to super_leader.def when getreuer/super_leader became the
-// primary leader surface. The old built-in leader feature and leader_keys[]
-// table were removed; nothing emits QK_LEAD anymore.)
+// ============================================================================
+// LEADER SEQUENCES — the ONLY leader surface. Everything leader-related is
+// defined in this one section (machinery: leader_layers.c; engine:
+// getreuer/super_leader — neither is ever edited).
+//
+// LEADER_GLOBAL entries run on every layer. L_LAYER blocks scope entries to
+// the app layer active when LEADER was pressed (utility layers don't count).
+// Exact key collisions: layer entry shadows the global one. Don't make one
+// table's sequence a strict prefix of the other's with a different output.
+//   L_STR((keys), "string")   string; SS_* macros ok     L_PW(...) appends Enter
+//   L_KEY((keys), keycode)     keycode re-enters process_record
+//   L_FN((keys), handler)     any handler by name (declare in custom_keycodes.h)
+// ============================================================================
+
+LEADER_GLOBAL(
+    L_FN((KC_SPC), to_default_layer),
+
+    // Usernames, passwords, paths
+    L_STR((KC_U), USERNAME1),
+    L_STR((KC_I), USERNAME2),
+    L_STR((KC_O), USERNAME3),
+    L_STR((KC_J), L_PW(PASSWORD1)),
+    L_STR((KC_K), L_PW(PASSWORD2)),
+    L_STR((KC_SCLN), L_PW(BITWARDENPW)),
+    L_STR((KC_P), "~/projects/"),
+    L_STR((KC_C), "~/.config/"),
+    L_STR((KC_L), "~/.local/"),
+
+    // zk-kb number entries — all 110 digit sequences (codegen: leader_layers.c)
+    L_ZK_ALL
+)
+
+LEADER_LAYERS(
+    L_LAYER(_TERMINAL,
+        L_FN((KC_Y), tmux_yank_current_line),
+        L_FN((KC_SLSH), tmux_search_reverse)
+    )
+)
 
 CustomModMap CUSTOM_MOD_TAP_KEYS[] = {
     { TERM_TOGGLE, KC_LGUI },
