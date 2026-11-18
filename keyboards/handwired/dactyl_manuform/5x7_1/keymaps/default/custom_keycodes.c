@@ -157,6 +157,11 @@ void tmux_history_forward(uint16_t keycode, keyrecord_t *record) {
     combo(KC_LCTL, KC_F10);
 }
 
+void tmux_yank_current_line(uint16_t keycode, keyrecord_t *record) {
+    send_tmux_leader();
+    send_string("a0v$bEy");
+}
+
 void tab_extract_combine(uint16_t keycode, keyrecord_t *record) {
     IF_MODS_ELSE(
         MOD_MASK_ALT,

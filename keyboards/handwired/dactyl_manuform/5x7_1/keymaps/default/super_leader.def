@@ -25,10 +25,19 @@
 // local because custom_keycodes.h declares only the keycode enum; the function
 // itself lives in custom_keycodes.c.
 void to_default_layer(uint16_t keycode, keyrecord_t *record);
+
 static void to_default_layer_leader_cb(void* user_data) {
     (void)user_data;
     to_default_layer(0, NULL); // callee ignores both args
 }
+
+// void tmux_yank_current_line(uint16_t keycode, keyrecord_t *record);
+
+static void tmux_yank_current_line_cb(void* user_data) {
+    (void)user_data;
+    tmux_yank_current_line(0, NULL); // callee ignores both args
+}
+
 #endif
 
 // ---- Name-free entry wrappers ----------------------------------------------
@@ -73,6 +82,7 @@ static void to_default_layer_leader_cb(void* user_data) {
 // The callback is reachable only from this sequence (TO_DEFAULT_LAYER was
 // removed from the keymap layers and the CUSTOM_KEYS table).
 SL_FUN((KC_SPC), to_default_layer_leader_cb)
+SL_FUN((KC_Y), tmux_yank_current_line_cb)
 
 // ---- Usernames, passwords, paths (ported 1:1 from leader_keys[]) -----------
 SL_STR((KC_U), USERNAME1)
@@ -82,6 +92,7 @@ SL_STR((KC_J), SL_PW(PASSWORD1))
 SL_STR((KC_K), SL_PW(PASSWORD2))
 SL_STR((KC_SCLN), SL_PW(BITWARDENPW))
 SL_STR((KC_P), "~/projects/")
+SL_STR((KC_S), "~/src/")
 SL_STR((KC_C), "~/.config/")
 SL_STR((KC_L), "~/.local/")
 
