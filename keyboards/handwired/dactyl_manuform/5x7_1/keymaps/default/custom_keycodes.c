@@ -162,6 +162,11 @@ void tmux_yank_current_line(uint16_t keycode, keyrecord_t *record) {
     send_string("a0v$bEy");
 }
 
+void tmux_search_reverse(uint16_t keycode, keyrecord_t *record) {
+    send_tmux_leader();
+    send_string("a?");
+}
+
 void tab_extract_combine(uint16_t keycode, keyrecord_t *record) {
     IF_MODS_ELSE(
         MOD_MASK_ALT,
@@ -302,5 +307,17 @@ void vim_command(uint16_t keycode, keyrecord_t *record) {
 
 void vlc_start_stop(uint16_t keycode, keyrecord_t *record) {
     send_string(" ");
+}
+
+// ---- Leader callback bridges ----------------------------------------------
+// The only leader trampolines that will ever exist: user_data carries the
+// real handler, selected and type-checked at compile time by LEADER_BRIDGE
+// (custom_keycodes.h). SL_FN/LL_FN never need a hand-written wrapper.
+void leader_call_keycode_handler(void *user_data) {
+    ((keycode_handler_t)user_data)(0, NULL);
+}
+
+void leader_call_plain_handler(void *user_data) {
+    ((plain_handler_t)user_data)();
 }
 

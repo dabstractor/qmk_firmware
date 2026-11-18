@@ -1,0 +1,22 @@
+// Per-layer leader sequence blocks — the ONLY file to edit to add, change, or
+// remove layer-scoped leader sequences. One LL_LAYER per layer (the layer is
+// named once, as the block opener), entries indented beneath, no commas.
+//
+// Wrappers mirror super_leader.def's SL_* family exactly (same suffixes, same
+// argument shapes — only the prefix differs):
+//   LL_STR((keys), "string")    SEND_STRING semantics (SS_* macros ok).
+//   LL_KEY((keys), keycode)     keycode re-enters process_record.
+//   LL_UNI((keys), "unicode")
+//   LL_FN((keys), handler)      any handler by name, signature compile-checked
+//                               (declare handlers in custom_keycodes.h).
+//
+// Semantics: a layer with no block = global super_leader.def behavior only.
+// On an exact key collision a layer entry shadows the global one. Resolution
+// is longest-match across both tables, so don't make one table's sequence a
+// strict prefix of the other's with a different output. Duplicate LL_LAYER
+// blocks for the same layer: last wins (designated-init semantics) — just
+// don't. Machinery lives in leader_layers.c; never touch it.
+
+LL_LAYER(_TERMINAL,
+    LL_FN((KC_Y), tmux_yank_current_line)
+)

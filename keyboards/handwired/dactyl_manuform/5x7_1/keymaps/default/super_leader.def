@@ -7,7 +7,13 @@
 //                               customs flow through CUSTOM_KEYS/mod-tap.
 //   SL_STR((keys), "string")    SEND_STRING semantics (SS_* macros ok).
 //   SL_UNI((keys), "unicode")
-//   SL_FUN((keys), fn[, data])  call void fn(void*).
+//   SL_FUN((keys), fn[, data])  call void fn(void*) — escape hatch for
+//                               exotic shapes only.
+//   SL_FN((keys), handler)      call any handler by name (house signature
+//                               void fn(uint16_t, keyrecord_t*) or plain
+//                               void fn(void)); signature is compile-checked
+//                               and the right trampoline is picked for you.
+//   (handlers are declared in custom_keycodes.h — declare new ones there)
 // (The module's raw SEQ_*(name, (keys), output) forms remain available if an
 // explicit symbol name is ever wanted; SL_* derives the symbol from the keys.)
 //
@@ -19,25 +25,7 @@
 #ifndef SUPER_LEADER_DEF_PREAMBLE
 #define SUPER_LEADER_DEF_PREAMBLE
 #include "secrets.h"
-#include "custom_keycodes.h"
-
-// Direct-callback bridge for the LEADER+Space entry below. The prototype is
-// local because custom_keycodes.h declares only the keycode enum; the function
-// itself lives in custom_keycodes.c.
-void to_default_layer(uint16_t keycode, keyrecord_t *record);
-
-static void to_default_layer_leader_cb(void* user_data) {
-    (void)user_data;
-    to_default_layer(0, NULL); // callee ignores both args
-}
-
-// void tmux_yank_current_line(uint16_t keycode, keyrecord_t *record);
-
-static void tmux_yank_current_line_cb(void* user_data) {
-    (void)user_data;
-    tmux_yank_current_line(0, NULL); // callee ignores both args
-}
-
+#include "custom_keycodes.h" // all handler prototypes + LEADER_BRIDGE
 #endif
 
 // ---- Name-free entry wrappers ----------------------------------------------
@@ -68,21 +56,26 @@ static void tmux_yank_current_line_cb(void* user_data) {
 #define SL_STR_I(name_, keys_, str_) SEQ_STR(name_, keys_, str_)
 #define SL_UNI_I(name_, keys_, str_) SEQ_UNI(name_, keys_, str_)
 #define SL_FUN_I(name_, keys_, ...)  SEQ_FUN(name_, keys_, __VA_ARGS__)
+#define SL_FN_I(name_, keys_, fn_)   SEQ_FUN(name_, keys_, LEADER_BRIDGE(fn_), fn_)
 
 #define SL_KEY(keys_, kc_)  SL_KEY_I(SL_SEQNAME(keys_), keys_, kc_)
 #define SL_STR(keys_, str_) SL_STR_I(SL_SEQNAME(keys_), keys_, str_)
 #define SL_UNI(keys_, str_) SL_UNI_I(SL_SEQNAME(keys_), keys_, str_)
 #define SL_FUN(keys_, ...)  SL_FUN_I(SL_SEQNAME(keys_), keys_, __VA_ARGS__)
+// Any handler by name — LEADER_BRIDGE picks the matching trampoline at
+// compile time (see custom_keycodes.h), so no wrapper is ever hand-written.
+// Like the others, routed through an _I indirection so the derived name is
+// a concrete identifier before SEQ_FUN's ## paste.
+#define SL_FN(keys_, fn_)   SL_FN_I(SL_SEQNAME(keys_), keys_, fn_)
 
 // String-output helpers, same semantics as the old leader_keys[] table.
 #define SL_ZK(...) __VA_ARGS__ SS_TAP(X_TAB) // zk-kb command, then Tab
 #define SL_PW(...) __VA_ARGS__ SS_TAP(X_ENTER) // password, then Enter
 
-// ---- LEADER + Space runs to_default_layer() directly ------------------------
-// The callback is reachable only from this sequence (TO_DEFAULT_LAYER was
+// ---- LEADER + Space returns to the default layer ---------------------------
+// The handler is reachable only from this sequence (TO_DEFAULT_LAYER was
 // removed from the keymap layers and the CUSTOM_KEYS table).
-SL_FUN((KC_SPC), to_default_layer_leader_cb)
-SL_FUN((KC_Y), tmux_yank_current_line_cb)
+SL_FN((KC_SPC), to_default_layer)
 
 // ---- Usernames, passwords, paths (ported 1:1 from leader_keys[]) -----------
 SL_STR((KC_U), USERNAME1)
@@ -141,10 +134,12 @@ SL_ZK_CMD_ELEMS(5) SL_ZK_CMD_ELEMS(6) SL_ZK_CMD_ELEMS(7) SL_ZK_CMD_ELEMS(8) SL_Z
 #undef SL_STR_I
 #undef SL_UNI_I
 #undef SL_FUN_I
+#undef SL_FN_I
 #undef SL_KEY
 #undef SL_STR
 #undef SL_UNI
 #undef SL_FUN
+#undef SL_FN
 #undef SL_ZK
 #undef SL_PW
 #undef SL_ZK_ENTRY_0

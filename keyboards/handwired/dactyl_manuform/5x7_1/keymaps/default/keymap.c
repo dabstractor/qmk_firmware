@@ -14,6 +14,7 @@
 #include "./layers.c"
 #include "./macros.c"
 #include "./tap_dance.c"
+#include "./leader_layers.c"
 #include "./serial_command.c"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
