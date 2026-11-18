@@ -25,6 +25,7 @@ it's touched, not by how cleverly it works today:
   require reading no docs, no git history, no other source file — the file
   you edit should be the only file you touch, and the entry you write should
   be the only thing you write.
+- **keymap.c is the single edit surface.** Every user-facing definition — the keymap matrices, custom tables, leader sequences (global AND per-layer), macros — lives in keymap.c. Every other file (leader_layers.c, custom_keycodes.*, super_leader.def stub, modules) is machinery: never edited, never required reading. If a change can't be made by editing keymap.c alone, treat that as an interface defect to fix, not a doc note to write.
 - **Favor the user over the machinery.** When convenience and internal
   elegance conflict, the user-facing surface wins; machinery may be as
   intricate as it needs to be to keep the surface plain.
