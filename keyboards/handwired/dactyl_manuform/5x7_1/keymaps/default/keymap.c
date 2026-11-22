@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MS_BTN2,  KC_6,  KC_7,   KC_8,     KC_9,    KC_0,              KC_DEL,
         MS_BTN1,  KC_Y,  KC_U,   KC_I,     KC_O,    KC_P,              KC_BSLS,
         KC_UP,    KC_H,  KC_J,   KC_K,     KC_L,    KC_SCLN,           KC_QUOT,
-        KC_DOWN,  KC_N,  KC_M,   KC_COMM,  KC_DOT,  KC_SLSH,           TOGGLE_MOUSE,
+        KC_DOWN,  KC_N,  KC_M,   KC_COMM,  KC_DOT,  KC_SLSH,           MO(_MOUSE),
                                  KC_MINS,  KC_EQL,  POWERSCROLL_HOLD,  KC_TAB,
         RCTL_T(KC_SPC),   RSFT_T(KC_ENT),
         RGUI_T(KC_BSPC),  KC_RALT,
@@ -134,52 +134,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,  _______,  _______,  _______,  _______,
         /* gets rid of space */       _______,  _______,  _______,  _______,
         /* KC_TAB,   _______, */
-        _______,  _______,
-        _______,  _______,
-        _______,  _______,
-        _______
-    ),
-
-    [_CLICKUP] = LAYOUT_5x7_1(
-        // left hand
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,
-        _______,  _______,  _______,  _______,
-                                                          _______,  _______,
-                                                          _______,  _______,
-                                                          _______,  _______,
-                                                          _______,
-        // right hand
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,
-                                      _______,  _______,  _______,  _______,
-        _______,  _______,
-        _______,  _______,
-        _______,  _______,
-        _______
-    ),
-
-    [_MATTERHORN] = LAYOUT_5x7_1(
-        // left hand
-        _______,  _______,  _______,  _______,  _______,  _______,  MATTERHORN_PREV,
-        _______,  _______,  _______,  _______,  _______,  _______,  MATTERHORN_NEXT,
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,
-        _______,  _______,  _______,  _______,
-                                                          _______,  _______,
-                                                          _______,  _______,
-                                                          _______,  _______,
-                                                          _______,
-        // right hand
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,
-        KC_NO,    _______,  _______,  _______,  _______,  _______,  _______,
-        KC_NO,    _______,  _______,  _______,  _______,  _______,  _______,
-                                      _______,  _______,  _______,  _______,
         _______,  _______,
         _______,  _______,
         _______,  _______,
@@ -382,10 +336,9 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_BROWSER]     = TRANS_ENCODER,
     [_TERMINAL]    = { ENCODER_CCW_CW(KC_LEFT, KC_RIGHT), ENCODER_CCW_CW(KC_UP, KC_DOWN) },
     [_JITSI]       = TRANS_ENCODER,
-    [_CLICKUP]     = TRANS_ENCODER,
-    [_MATTERHORN]  = TRANS_ENCODER,
     [_INKSCAPE]    = TRANS_ENCODER,
     [_BLENDER]     = TRANS_ENCODER,
+    [_GAMING]      = TRANS_ENCODER,
     [_VLC]         = TRANS_ENCODER,
                        // left                             // right
     [_NUMPAD]      = { ENCODER_CCW_CW(KC_UP, KC_DOWN),     ENCODER_CCW_CW(KC_LEFT, KC_RIGHT) },
@@ -438,14 +391,18 @@ LEADER_GLOBAL(
     L_STR((KC_K), L_PW(PASSWORD2)),
     L_STR((KC_SCLN), L_PW(BITWARDENPW)),
     L_STR((KC_P), "~/projects/"),
-    L_STR((KC_C), "~/.config/"),
-    L_STR((KC_L), "~/.local/")
+    L_STR((KC_D), "~/Downloads/")
 )
 
 LEADER_LAYERS(
     L_LAYER(_TERMINAL,
         L_FN((KC_Y), tmux_yank_current_line),
         L_FN((KC_SLSH), tmux_search_reverse),
+        L_FN((KC_LBRC), tmux_copy_mode_head_start),
+        L_STR((KC_S), "~/src/"),
+        L_STR((KC_C), "~/.config/"),
+        L_STR((KC_L), "~/.local/"),
+        L_STR((KC_Z), "cat ~/.zsh_history | g \""),
 
         // zk-kb number entries — all 110 digit sequences (codegen: leader_layers.c)
         L_ZK_ALL

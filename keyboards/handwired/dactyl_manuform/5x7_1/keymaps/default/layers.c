@@ -5,12 +5,10 @@
 #define _BROWSER     2
 #define _TERMINAL    3
 #define _JITSI       4
-#define _CLICKUP     5
-#define _MATTERHORN  6
-#define _INKSCAPE    7
-#define _BLENDER     8
-#define _GAMING      9
-#define _VLC         10
+#define _INKSCAPE    5
+#define _BLENDER     6
+#define _GAMING      7
+#define _VLC         8
 
 #define _NUMPAD      28
 #define _FN          29

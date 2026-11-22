@@ -6,7 +6,7 @@
 // How it works (for the curious, not for editing):
 //   * The module's own introspected table (super_leader.def) is left EMPTY —
 //     the .def file is a permanent stub. Instead, keymap.c defines two
-//     sentinel-terminated tables via the public L_* macros below, and this
+//     sizeof-counted tables via the public L_* macros below, and this
 //     file drives matching entirely through the module's documented hook
 //     super_leader_add_user(): after each typed key, global entries are
 //     matched first, then the bound layer's entries — so a layer entry
@@ -57,23 +57,29 @@
     L_ZK_CMD_ELEMS(5), L_ZK_CMD_ELEMS(6), L_ZK_CMD_ELEMS(7), L_ZK_CMD_ELEMS(8), \
     L_ZK_CMD_ELEMS(9)
 
-// Table wrappers — sentinel appended with exactly one comma; entries are
-// comma-separated standard-C rows (trailing comma optional).
-#define LEADER_GLOBAL(...) \
-    const super_leader_sequence_t leader_seqs_global[] = { __VA_ARGS__ __VA_OPT__(,) {0} };
+// Table wrappers — entry counts are derived from sizeof, so entries are
+// plain comma-separated rows and a trailing comma is genuinely optional.
+#define LEADER_GLOBAL(...)                                                \
+    const super_leader_sequence_t leader_seqs_global[] = { __VA_ARGS__ }; \
+    const uint8_t leader_seqs_global_count =                              \
+        sizeof(leader_seqs_global) / sizeof(leader_seqs_global[0]);
 #define LEADER_LAYERS(...) \
     const leader_layer_block_t leader_layer_blocks[_MOUSE + 1] = { __VA_ARGS__ };
 
 // Per-layer blocks: designated-init element of the layer-indexed table.
-#define L_LAYER(layer_, ...) \
-    [layer_] = { (const super_leader_sequence_t[]){ __VA_ARGS__ __VA_OPT__(,) {0} } },
+#define L_LAYER(layer_, ...)                                                         \
+    [layer_] = { .seqs  = (const super_leader_sequence_t[]){ __VA_ARGS__ },          \
+                 .count = sizeof((const super_leader_sequence_t[]){ __VA_ARGS__ }) / \
+                          sizeof(super_leader_sequence_t) },
 
 typedef struct {
-    const super_leader_sequence_t* seqs;  // {0}-sentinel-terminated; NULL = no block
+    const super_leader_sequence_t* seqs;  // NULL = no block for this layer
+    uint8_t count;                        // number of entries in seqs
 } leader_layer_block_t;
 
 // Defined in keymap.c (LEADER SEQUENCES section) via the wrappers below.
 extern const super_leader_sequence_t leader_seqs_global[];
+extern const uint8_t leader_seqs_global_count;
 extern const leader_layer_block_t leader_layer_blocks[];
 
 #define LEADER_APP_MASK \
@@ -84,9 +90,9 @@ static const super_leader_sequence_t* bound_seqs;
 static uint8_t bound_seq_count;
 
 void super_leader_start_user(void) {
-    bound_seqs = leader_layer_blocks[get_highest_layer(layer_state & LEADER_APP_MASK)].seqs;
-    for (bound_seq_count = 0; bound_seqs && bound_seqs[bound_seq_count].keys; ++bound_seq_count) {
-    }
+    const leader_layer_block_t* block = &leader_layer_blocks[get_highest_layer(layer_state & LEADER_APP_MASK)];
+    bound_seqs      = block->seqs;
+    bound_seq_count = block->count;
 }
 
 // Module-idiomatic match: does the typed prefix `seq` (length num_seq) fully
@@ -100,9 +106,8 @@ static bool leader_entry_matches(const super_leader_sequence_t* entry, const uin
     return false;
 }
 
-static void leader_match_table(const super_leader_sequence_t* table, const uint16_t* seq, uint8_t num_seq, bool* partial) {
-    if (!table) return;
-    for (uint8_t i = 0; table[i].keys; ++i) {
+static void leader_match_table(const super_leader_sequence_t* table, uint8_t count, const uint16_t* seq, uint8_t num_seq, bool* partial) {
+    for (uint8_t i = 0; i < count; ++i) {
         bool entry_partial = false;
         if (leader_entry_matches(&table[i], seq, num_seq, &entry_partial)) {
             super_leader_set_match(table[i].output);  // last full match wins
@@ -113,6 +118,6 @@ static void leader_match_table(const super_leader_sequence_t* table, const uint1
 }
 
 void super_leader_add_user(const uint16_t* seq, uint8_t num_seq, bool* partial) {
-    leader_match_table(leader_seqs_global, seq, num_seq, partial);  // first: global defaults
-    leader_match_table(bound_seqs, seq, num_seq, partial);          // last: layer shadows global
+    leader_match_table(leader_seqs_global, leader_seqs_global_count, seq, num_seq, partial);  // first: global defaults
+    leader_match_table(bound_seqs, bound_seq_count, seq, num_seq, partial);                   // last: layer shadows global
 }
