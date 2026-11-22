@@ -1,5 +1,6 @@
 #include "leader.h"
 #include "powerscroll.h"
+#include "notifier.h" // qmk_notifier module — bare include is this keymap's style
 #define MAX_MOD_KEYS 8
 
 /* #define CUSTOM_SAFE_RANGE (SAFE_RANGE + 12) */
@@ -39,6 +40,19 @@ void on_other_press(void) {
         }
     }
 }
+
+// F18 Mod-Tap Assist (QMKonnect): the qmk_notifier module's weak hook, called
+// from raw_hid_receive (master main loop — context-safe) when the host reports
+// mouse wheel/button activity. Strong definition here replaces the module's
+// weak no-op at link time, so the board acks 1.
+void notifier_on_mouse_activity(uint8_t kind) {
+    (void)kind;             // v1: any activity flushes identically
+    on_other_press();       // ≡ an intervening keypress: cancel taps,
+}                           // commit holds, register_code(mod)
+// Companion (optional, keymap-local, NOT implemented): keyboard-originated
+// scroll (the powerscroll/encoder handlers) may call on_other_press() directly
+// so encoder scroll also flushes pending mod-taps — see MOD_TAP_ASSIST.md §5.2
+// (qmkonnect spec). Host-reported activity needs nothing more than the hook above.
 
 void on_press(uint16_t keycode, uint16_t mod_code) {
     int found_key = -1;

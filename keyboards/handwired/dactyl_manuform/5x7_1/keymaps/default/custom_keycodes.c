@@ -159,7 +159,7 @@ void tmux_history_forward(uint16_t keycode, keyrecord_t *record) {
 
 void tmux_yank_current_line(uint16_t keycode, keyrecord_t *record) {
     send_tmux_leader();
-    send_string("a0v$bEy");
+    send_string("a0v$y");
 }
 
 void tmux_search_reverse(uint16_t keycode, keyrecord_t *record) {
@@ -224,6 +224,12 @@ void tmux_sessionx(uint16_t keycode, keyrecord_t *record) {
 void tmux_copy_mode(uint16_t keycode, keyrecord_t *record) {
     send_tmux_leader();
     combo(KC_LSFT, KC_LBRC);
+}
+
+void tmux_copy_mode_head_start(uint16_t keycode, keyrecord_t *record) {
+    send_tmux_leader();
+    SEND_STRING("a{{{{{");
+    // register_code(KC_LSFT); // to-do build a "detect non-bracket key" to turn this off automatically
 }
 
 void ctrl_c(uint16_t keycode, keyrecord_t *record) {

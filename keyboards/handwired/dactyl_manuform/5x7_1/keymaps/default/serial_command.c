@@ -21,13 +21,14 @@ DEFINE_SERIAL_COMMANDS({
     { WT("*chrome*", "*gemini*"), &vim_lazy_insert, &disable_vim },
     { WT("^brave-browser$", "*Claude - Brave$"), &vim_lazy_insert, &disable_vim },
     { WT("^brave-*", "^ChatGPT*"), &vim_lazy_insert, &disable_vim },
+    { WT("^brave-www.chatgpt.com__-Profile_4", "*"), &vim_lazy_insert, &disable_vim },
     { WT("^brave-browser$", "*Deepseek - Brave$"), &vim_lazy_insert, &disable_vim },
     { WT("^brave-browser$", "gemini*"), &vim_lazy_insert, &disable_vim },
     { WT("^brave-browser$", "*ai*studio*"), &vim_lazy_insert, &disable_vim },
     { WT("^brave-browser$", "*ai*studio*"), &vim_lazy_insert, &disable_vim },
     { WT("^brave-browser$", "^zoho mail"), &vim_lazy_insert, &disable_vim },
     { "Mulletware Wiki", &vim_lazy_insert, &disable_vim },
-    { WT("*", "*orderlands*"), &disable_vim },
+    { "*orderlands*", &disable_vim },
     { WT("steam_app*", "*"), &disable_vim },
     { WT("cs2", "Counter-Strike 2"), &disable_vim },
 });
@@ -40,8 +41,6 @@ DEFINE_SERIAL_LAYERS({
     { WT("tty$", "^thinkpad*"), _TERMINAL },
     { WT("tty$", "tty"), _TERMINAL },
     { "*iterm*", _TERMINAL },
-    { WT("*alacritty*", "*matterhorn*"), _MATTERHORN },
-    { "*clickup*", _CLICKUP },
     { "*neovide*", _NEOVIM },
     { "chrome*", _BROWSER },
     { WT("^brave-browser$", "*\\.mp4 - Brave$"), _VLC },
@@ -56,7 +55,7 @@ DEFINE_SERIAL_LAYERS({
     { WT("cs2", "Counter-Strike 2"), _GAMING },
     { "vlc", _VLC },
     { "mpv", _VLC },
-    { WT("*", "*VLC media player$"), _VLC },
+    { "*VLC media player$", _VLC },
 });
 
 DEFINE_HOST_CALLBACKS({
