@@ -24,3 +24,9 @@ void powerscroll_init_conflicts(void);
 bool powerscroll_process(uint16_t keycode, keyrecord_t *record);
 bool handle_encoder_update(uint8_t index, bool clockwise);
 void powerscroll_matrix_scan(void);
+
+// Kill-switch: call from the TOP of process_record_user (before vim mode and
+// every other consumer) on every event. Presses of any key that isn't
+// powerscroll machinery (the hold key, encoder turns) halt all running
+// streams. Compiled out unless POWERSCROLL_HALT_ON_KEYPRESS is defined.
+void powerscroll_halt_check(uint16_t keycode, keyrecord_t *record);

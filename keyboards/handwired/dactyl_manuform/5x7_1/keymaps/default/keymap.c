@@ -514,6 +514,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     check_vim_lazy_insert(record->event.pressed);
 
+    // Powerscroll kill-switch: must run BEFORE the vim handler so keypresses
+    // that vim mode consumes still halt running scrolls (encoder turns and the
+    // hold key are exempt inside the check). Scheduling/multiplier logic stays
+    // in powerscroll_process below — deliberately AFTER vim, so vim keeps
+    // first claim on encoder turns bound to basic keycodes (e.g. _CMD's
+    // KC_BSPC/KC_SPC) when powerscroll isn't engaged.
+    powerscroll_halt_check(keycode, record);
+
     if (!process_vim_mode(keycode, record)) return false;
 
     // Single integration point: powerscroll handler

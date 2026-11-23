@@ -184,6 +184,42 @@ static void stop_conflicting_streams(uint16_t new_keycode) {
 #endif
 }
 
+// Stop every running stream. Wheel taps are atomic (tap_code16 registers and
+// unregisters before returning), so halting is just "send no further taps" —
+// there is never held state to unwind.
+static void powerscroll_halt_all(void) {
+    for (int i = 0; i < MAX_POWERSCROLL_STREAMS; i++) {
+        if (powerscroll_streams[i].is_active) {
+            uprintf("POWERSCROLL: halting stream %d (ID %d) on unrelated keypress\n", i, powerscroll_streams[i].stream_id);
+            powerscroll_streams[i].is_active = false;
+        }
+    }
+}
+
+// Kill-switch, called from the TOP of process_record_user — before the vim
+// handler and everything else — so keys that vim mode consumes (or that any
+// later handler swallows) still halt the scroll. Exempts powerscroll's own
+// machinery: the POWERSCROLL_HOLD key and encoder events (turning the knob to
+// steer/extend a running scroll must not kill it).
+//
+// Safe against synthetic keys (vim motion replays, macros, and powerscroll's
+// own tap_code16 wheel taps): QMK's tap/register path injects directly into
+// the keyboard report and never re-enters process_record_user, so only
+// physical presses reach this check.
+void powerscroll_halt_check(uint16_t keycode, keyrecord_t *record) {
+#ifdef POWERSCROLL_HALT_ON_KEYPRESS
+    if (!record->event.pressed) return;
+    if (keycode == POWERSCROLL_HOLD) return;
+#    if defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
+    if (IS_ENCODEREVENT(record->event)) return;
+#    endif
+    powerscroll_halt_all();
+#else
+    (void)keycode;
+    (void)record;
+#endif
+}
+
 // Core non-blocking scheduling function supporting parallel streams
 static void powerscroll_schedule_taps(uint16_t keycode, uint8_t times) {
     if (times == 0) return;

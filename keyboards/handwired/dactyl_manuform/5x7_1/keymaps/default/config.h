@@ -60,6 +60,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define POWERSCROLL_LEVEL 10 // over 9000
 #define POWERSCROLL_DELAY_MS 9 // fine-tuned for terminal input
+// Any keypress that isn't powerscroll machinery (the hold key, encoder turns)
+// immediately kills all running powerscroll streams. Comment out to let
+// scheduled scrolls run to completion regardless of typing.
+#define POWERSCROLL_HALT_ON_KEYPRESS
 
 #define IS_COMMAND() (get_mods() == MOD_MASK_ALT)
 
