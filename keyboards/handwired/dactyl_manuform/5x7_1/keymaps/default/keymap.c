@@ -362,9 +362,17 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 // [_QWERTY][_FN]     = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),     ENCODER_CCW_CW(KC_MS_WHLL, MS_WHLR) }, // blanket default
 // [_INKSCAPE][_CMD]  = { ENCODER_CCW_CW(KC_MS_WHLD, KC_MS_WHLU), ENCODER_CCW_CW(_______, _______) }, // right knob inherits stock
 // ============================================================================
-DEFINE_ENCODER_PAIRS({
-});
+DEFINE_ENCODER_PAIRS({ });
 #endif
+
+
+// Keys that should not use "hold on other key press" behavior (automatically considered a hold if another key is pressed before mod release)
+const uint16_t hold_keys[] = {
+    RSFT_T(KC_ENT),  // Right Shift / Enter
+};
+
+// Keys that should use retro tapping behavior (if key is held longer than TAPPING_TERM, register the key as a mod hold)
+const uint16_t retro_tapping_keys[] = {};
 
 // ============================================================================
 // LEADER SEQUENCES — the ONLY leader surface. Everything leader-related is
