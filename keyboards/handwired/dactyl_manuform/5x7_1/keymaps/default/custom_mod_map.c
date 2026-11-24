@@ -1,6 +1,8 @@
 #include "leader.h"
 #include "powerscroll.h"
 #include "notifier.h" // qmk_notifier module — bare include is this keymap's style
+
+extern void check_vim_lazy_insert(void); // keymap.c: vim_lazy_insert.c
 #define MAX_MOD_KEYS 8
 
 /* #define CUSTOM_SAFE_RANGE (SAFE_RANGE + 12) */
@@ -120,6 +122,10 @@ void matrix_scan_user(void) {
 
     // Add powerscroll processing
     powerscroll_matrix_scan();
+
+    // Lazy-insert fire check: matrix-derived (self-healing), so arming vim
+    // insert engages even if the user never touches another key after focus
+    check_vim_lazy_insert();
 }
 
 

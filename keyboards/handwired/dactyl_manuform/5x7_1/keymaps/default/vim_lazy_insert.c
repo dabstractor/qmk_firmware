@@ -7,7 +7,6 @@ void vim_insert(void) {
 //   If if you were fipping through workspaces quickly and activate a window,
 //   with vim mide you'd be forced to unpress and re-press all your mod keys
 bool wants_vim_insert = false;
-uint8_t held_count = 0;
 
 void vim_lazy_insert(void) {
     #ifdef CONSOLE_ENABLE // Logging
@@ -24,14 +23,20 @@ void vim_do_lazy_insert(void) {
     wants_vim_insert = false;
 }
 
-void check_vim_lazy_insert(bool pressed) {
-    if (pressed) {
-        held_count++;
-    } else {
-        held_count--;
+// Hands-off detection reads the live matrix instead of tallying press/release
+// events. The old held_count counter desynced permanently the first time ANY
+// machinery produced an unpaired event (tap-dance deferral, mod-tap interrupt,
+// leader replay, split-transport hiccup) — after which vim mode could never
+// engage again. Matrix state is self-healing: it can't accumulate error.
+static bool matrix_all_up(void) {
+    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+        if (matrix_get_row(row) != 0) return false;
     }
+    return true;
+}
 
-    if (wants_vim_insert && held_count == 0) {
+void check_vim_lazy_insert(void) {
+    if (wants_vim_insert && matrix_all_up()) {
         vim_do_lazy_insert();
     }
 }

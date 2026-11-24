@@ -21,7 +21,6 @@
 // Forward declarations for existing helpers defined elsewhere
 bool process_custom_mod_tap_user(uint16_t keycode, keyrecord_t *record);
 bool process_custom_key_user(uint16_t keycode, keyrecord_t *record);
-void check_vim_lazy_insert(bool pressed);
 
 // Multi-stream powerscroll state structure
 typedef struct {

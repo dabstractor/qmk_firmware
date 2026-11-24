@@ -366,13 +366,18 @@ DEFINE_ENCODER_PAIRS({ });
 #endif
 
 
-// Keys that should not use "hold on other key press" behavior (automatically considered a hold if another key is pressed before mod release)
+// Keys that use "hold on other key press" behavior (hold wins immediately when
+// another key is pressed before release — allowlist: unlisted keys default off)
 const uint16_t hold_keys[] = {
     RSFT_T(KC_ENT),  // Right Shift / Enter
 };
+// Size companions, exported for the machinery in per_key_settings.c
+const uint8_t hold_keys_size = sizeof(hold_keys) / sizeof(hold_keys[0]);
 
-// Keys that should use retro tapping behavior (if key is held longer than TAPPING_TERM, register the key as a mod hold)
+// Keys that use retro tapping behavior (held past TAPPING_TERM retroactively
+// sends the tap)
 const uint16_t retro_tapping_keys[] = {};
+const uint8_t retro_tapping_keys_size = sizeof(retro_tapping_keys) / sizeof(retro_tapping_keys[0]);
 
 // ============================================================================
 // LEADER SEQUENCES — the ONLY leader surface. Everything leader-related is
@@ -513,14 +518,14 @@ bool process_custom_key_user(uint16_t keycode, keyrecord_t *record) {
     return false;
 }
 
-extern void check_vim_lazy_insert(bool pressed);
+extern void check_vim_lazy_insert(void);
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef CONSOLE_ENABLE // Logging
     uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %u, time: %5u, int: %u, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
 #endif
 
-    check_vim_lazy_insert(record->event.pressed);
+    check_vim_lazy_insert();
 
     // Powerscroll kill-switch: must run BEFORE the vim handler so keypresses
     // that vim mode consumes still halt running scrolls (encoder turns and the

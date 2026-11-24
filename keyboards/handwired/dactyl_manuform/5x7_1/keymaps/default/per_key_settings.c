@@ -1,20 +1,15 @@
 #include "./layers.c"
 
-// Keys that should not use "hold on other key press" behavior (automatically considered a hold if another key is pressed before mod release)
-const uint16_t hold_keys[] = {
-    RSFT_T(KC_ENT),  // Right Shift / Enter
-};
-
-// Keys that should use retro tapping behavior (if key is held longer than TAPPING_TERM, register the key as a mod hold)
-const uint16_t retro_tapping_keys[] = {};
-
-// Array sizes for iteration
-#define HOLD_KEYS_SIZE (sizeof(hold_keys) / sizeof(uint16_t))
-#define RETRO_TAPPING_KEYS_SIZE (sizeof(retro_tapping_keys) / sizeof(uint16_t))
+// Per-key hold tables live in keymap.c (the single edit surface); extern
+// declarations here let the QMK callbacks below iterate them.
+extern const uint16_t hold_keys[];
+extern const uint8_t hold_keys_size;
+extern const uint16_t retro_tapping_keys[];
+extern const uint8_t retro_tapping_keys_size;
 
 // Check if a key should enable mod hold on key down instead of waiting for it to release first
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
-    for (uint8_t i = 0; i < HOLD_KEYS_SIZE; i++) {
+    for (uint8_t i = 0; i < hold_keys_size; i++) {
         if (keycode == hold_keys[i]) {
             return true;
         }
@@ -24,7 +19,7 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 
 // Check if a key should use retro tapping
 bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
-    for (uint8_t i = 0; i < RETRO_TAPPING_KEYS_SIZE; i++) {
+    for (uint8_t i = 0; i < retro_tapping_keys_size; i++) {
         if (keycode == retro_tapping_keys[i]) {
             return true;
         }
